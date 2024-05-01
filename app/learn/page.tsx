@@ -16,7 +16,7 @@ export default async function ProtectedPage() {
   }
 
   return (
-    <div className="grid grid-cols-4 w-full text-gray-300">
+    <div className="grid grid-cols-4 w-full ">
       <nav className="col-span-1 p-10">
         <NavHeader />
       </nav>

@@ -10,10 +10,12 @@ export default async function NavHeader() {
   } = await supabase.auth.getUser();
 
   return (
-    <div className="flex gap-3 items-center">
+    <div className="flex gap-3 items-center text-gray-300">
       <p>Signed in as {user?.email}</p>
       <form action={signOut}>
-        <Button className="bg-gray-950">Sign Out</Button>
+        <Button variant="outline" className="text-gray-950">
+          Sign Out
+        </Button>
       </form>
     </div>
   );
