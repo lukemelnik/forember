@@ -15,10 +15,13 @@ export default async function ProtectedPage() {
   }
 
   return (
-    <div className="">
-      <h1>LEARN</h1>
-      <NewFragmentForm />
-      <QuestionList />
+    <div className="grid grid-cols-4 w-full">
+      <nav className="col-span-1">SOME NAV STUFF</nav>
+      <section className="col-span-3 bg-gray-400 min-h-screen">
+        <h1>LEARN</h1>
+        <NewFragmentForm />
+        <QuestionList />
+      </section>
     </div>
   );
 }

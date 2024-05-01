@@ -16,7 +16,7 @@ export default function NewFragmentForm() {
   return (
     <form
       ref={ref}
-      className="min-w-2xl bg-gray-600 p-5 rounded flex flex-col items-left gap-2"
+      className="min-w-2xl bg-gray-600 p-5 rounded flex flex-col items-left gap-2 max-w-2xl"
       action={async (formData) => {
         action(formData);
         ref.current?.reset();
