@@ -14,6 +14,7 @@ export default function FlashCard({ fragment }: { fragment: Fragment }) {
       .from("fragment")
       .delete()
       .eq("id", fragment.id);
+    console.log("Fragment deleted");
 
     if (error) {
       console.log(error);
@@ -26,11 +27,11 @@ export default function FlashCard({ fragment }: { fragment: Fragment }) {
       onClick={() => setIsFlipped(!isFlipped)}
     >
       <Button
-        className="absolute top-5 right-5 bg-red-700"
+        className="absolute top-5 right-5 bg-black"
         variant="destructive"
         onClick={deleteFragment}
       >
-        Delete
+        🗑️
       </Button>
       {!isFlipped ? (
         <p>{fragment.question}</p>
