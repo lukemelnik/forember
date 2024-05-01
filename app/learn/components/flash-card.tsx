@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { Fragment } from "./question-list";
+import { Fragment } from "./quiz";
 import { Button } from "@/components/ui/button";
 import { createClient } from "@/utils/supabase/client";
 

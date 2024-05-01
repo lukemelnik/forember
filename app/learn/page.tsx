@@ -2,7 +2,7 @@ import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
 import NewFragmentForm from "./components/new-fragment-form";
 import NavHeader from "./components/nav-header";
-import Quiz from "./components/question-list";
+import Quiz from "./components/quiz";
 
 export default async function ProtectedPage() {
   const supabase = createClient();

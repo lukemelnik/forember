@@ -11,6 +11,7 @@ export type Fragment = {
 
 export default function Quiz() {
   const [questionNumber, setQuestionNumber] = useState(0);
+  const [quizOver, setQuizOver] = useState(false);
   const [fragments, setFragments] = useState<Fragment[]>([]);
 
   useEffect(() => {
@@ -31,8 +32,20 @@ export default function Quiz() {
   }, []);
 
   function nextQuestion() {
+    if (questionNumber === fragments.length - 1) {
+      setQuizOver(true);
+      return;
+    }
     setQuestionNumber(questionNumber + 1);
   }
+
+  if (quizOver)
+    return (
+      <div>
+        <h1>Quiz Over!</h1>
+        <p>Good job! You've finished the quiz.</p>
+      </div>
+    );
 
   return (
     <div>
