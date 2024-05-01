@@ -27,6 +27,13 @@ export default function FlashCard({
     }
   }
 
+  async function resetInterval(id: string) {
+    // Reset the interval for the fragment
+  }
+  async function doubleInterval(id: string) {
+    // double the existing interval
+  }
+
   return (
     <div
       className="w-96 h-48 bg-yellow-500 rounded-xl relative flex justify-center items-center"
@@ -45,10 +52,22 @@ export default function FlashCard({
         <>
           <p>{fragment.answer}</p>{" "}
           <div className="absolute bottom-5 flex gap-5">
-            <Button onClick={() => handleClick()} className="bg-green-600">
+            <Button
+              onClick={() => {
+                handleClick();
+                resetInterval(fragment.id);
+              }}
+              className="bg-green-600"
+            >
               I got it 😁
             </Button>
-            <Button onClick={() => handleClick()} className="bg-red-600">
+            <Button
+              onClick={() => {
+                handleClick();
+                doubleInterval(fragment.id);
+              }}
+              className="bg-red-600"
+            >
               I forgot 😭
             </Button>
           </div>{" "}
