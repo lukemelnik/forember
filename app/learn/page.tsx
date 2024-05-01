@@ -15,7 +15,7 @@ export default async function ProtectedPage() {
   }
 
   return (
-    <div>
+    <div className="">
       <h1>LEARN</h1>
       <NewFragmentForm />
       <QuestionList />

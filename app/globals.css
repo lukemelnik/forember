@@ -3,6 +3,9 @@
 @tailwind utilities;
 
 @layer base {
+  h1 {
+    @apply text-4xl font-bold;
+  }
   :root {
     --background: 0 0% 100%;
     --foreground: 224 71.4% 4.1%;
