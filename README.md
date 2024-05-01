@@ -35,3 +35,21 @@ Forember is a memory enhancing app that uses spaced repetition and active recall
 ```
 
 2. Anything involving data fetching has to be done asynchronously or the data won't be available (ie. if you're seeing data is undefined check that the function is async and you're awaiting the db call)
+
+3. If a CRUD operation isn't working, check RLS 🙂
+
+4. Cool lesson about useState: I was fetching from db then passing to a component, but useState doesn't run till after the dom is updated. That means the data was undefined when the component mounted. Had to add a loading state so that it re-renders when the data is avaiable:
+
+```js
+{
+  fragments.length === 0 && <p>Loading...</p>;
+}
+{
+  fragments.length > 0 && (
+    <FlashCard
+      fragment={fragments[questionNumber]}
+      handleClick={nextQuestion}
+    />
+  );
+}
+```

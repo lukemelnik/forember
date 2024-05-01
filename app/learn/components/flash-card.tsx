@@ -4,7 +4,13 @@ import { Fragment } from "./question-list";
 import { Button } from "@/components/ui/button";
 import { createClient } from "@/utils/supabase/client";
 
-export default function FlashCard({ fragment }: { fragment: Fragment }) {
+export default function FlashCard({
+  fragment,
+  handleClick,
+}: {
+  fragment: Fragment;
+  handleClick: () => void;
+}) {
   const [isFlipped, setIsFlipped] = useState(false);
 
   async function deleteFragment(event: React.MouseEvent<HTMLButtonElement>) {
@@ -39,8 +45,12 @@ export default function FlashCard({ fragment }: { fragment: Fragment }) {
         <>
           <p>{fragment.answer}</p>{" "}
           <div className="absolute bottom-5 flex gap-5">
-            <Button className="bg-green-600">I got it 😁</Button>
-            <Button className="bg-red-600">I forgot 😭</Button>
+            <Button onClick={() => handleClick()} className="bg-green-600">
+              I got it 😁
+            </Button>
+            <Button onClick={() => handleClick()} className="bg-red-600">
+              I forgot 😭
+            </Button>
           </div>{" "}
         </>
       )}

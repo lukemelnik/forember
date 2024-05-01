@@ -1,8 +1,8 @@
 import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
 import NewFragmentForm from "./components/new-fragment-form";
-import QuestionList from "./components/question-list";
 import NavHeader from "./components/nav-header";
+import Quiz from "./components/question-list";
 
 export default async function ProtectedPage() {
   const supabase = createClient();
@@ -23,7 +23,7 @@ export default async function ProtectedPage() {
       <section className="col-span-3 bg-gray-400 min-h-screen p-10 flex flex-col gap-5">
         <h1>LEARN</h1>
         <NewFragmentForm />
-        <QuestionList />
+        <Quiz />
       </section>
     </div>
   );

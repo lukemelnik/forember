@@ -1,5 +1,6 @@
-import { createClient } from "@/utils/supabase/server";
-import React from "react";
+"use client";
+import { createClient } from "@/utils/supabase/client";
+import { useEffect, useState } from "react";
 import FlashCard from "./flash-card";
 
 export type Fragment = {
@@ -8,31 +9,41 @@ export type Fragment = {
   answer: string;
 };
 
-export default async function QuestionList() {
-  const supabase = createClient();
-  const { data: fragments, error } = await supabase
-    .from("fragment")
-    .select("id, question, answer");
+export default function Quiz() {
+  const [questionNumber, setQuestionNumber] = useState(0);
+  const [fragments, setFragments] = useState<Fragment[]>([]);
 
-  if (!fragments) {
-    return <div>Loading...</div>;
-  }
+  useEffect(() => {
+    async function getFragments() {
+      const supabase = createClient();
+      const { data: fragments, error } = await supabase
+        .from("fragment")
+        .select("id, question, answer");
 
-  if (error) {
-    console.log(error);
+      if (error) {
+        console.log(error);
+      }
+      if (!fragments) return;
+
+      setFragments(fragments);
+    }
+    getFragments();
+  }, []);
+
+  function nextQuestion() {
+    setQuestionNumber(questionNumber + 1);
   }
 
   return (
     <div>
-      <h1>Questions</h1>
-      <FlashCard fragment={fragments[0]} />
-      {fragments.length === 0 && <p>No questions yet</p>}
-      {fragments.map((fragment) => (
-        <div key={fragment.id}>
-          <p>{fragment.question}</p>
-          <p className="text-green-700">{fragment.answer}</p>
-        </div>
-      ))}
+      <h1>Quiz Yourself!</h1>
+      {fragments.length === 0 && <p>Loading...</p>}
+      {fragments.length > 0 && (
+        <FlashCard
+          fragment={fragments[questionNumber]}
+          handleClick={nextQuestion}
+        />
+      )}
     </div>
   );
 }
