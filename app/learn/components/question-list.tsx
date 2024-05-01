@@ -1,5 +1,6 @@
 import { createClient } from "@/utils/supabase/server";
 import React from "react";
+import FlashCard from "./flash-card";
 
 export type Fragment = {
   id: string;
@@ -24,6 +25,7 @@ export default async function QuestionList() {
   return (
     <div>
       <h1>Questions</h1>
+      <FlashCard fragment={fragments[0]} />
       {fragments.length === 0 && <p>No questions yet</p>}
       {fragments.map((fragment) => (
         <div key={fragment.id}>
