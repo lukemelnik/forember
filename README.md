@@ -97,7 +97,19 @@ export default function NewFragmentForm() {
   }, [formState.errors]);
 ```
 
-7. Had to figure out a way to filter the flashcards so that the user only sees the right cards for a given day, and so that once they finish the daily quiz the aren't shown the same cards again.
+7. Great illustration of how objects are not equivalent (i.e. their reference locations are never the same even if internals are). I needed to filter the dates to only show the user the ones they need to practice today, critical to convert to timestamp with .getTime() :
+
+```js
+const filteredFragments = fragments.filter((fragment) => {
+  const fragmentNextShowDay = startOfDay(fragment.next_show_date);
+  const tomorrow = startOfDay(addDays(new Date(), 1));
+  console.log(fragment.question, fragmentNextShowDay);
+
+  console.log("tomorrow: ", tomorrow);
+
+  return fragmentNextShowDay.getTime() === tomorrow.getTime();
+});
+```
 
 TODO:
 
