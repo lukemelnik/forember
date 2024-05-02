@@ -55,10 +55,15 @@ export async function createFragment(
   // try/catch for writing to the db in order to catch errors and add them to the same form
 
   try {
+    // set the next_show_date to tomorrow
+    const date = new Date();
+    date.setDate(date.getDate() + 1);
+
     const { error } = await supabase.from("fragment").insert({
       question: result.data.question,
       answer: result.data.answer,
       user_id: user.id,
+      next_show_date: date,
     });
     if (error) {
       throw new Error("Could not create fragment");
