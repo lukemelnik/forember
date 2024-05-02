@@ -72,19 +72,29 @@ Trigger:
 create trigger create_profile_on_signup after insert on auth.users fore each row execute function create_profile_on_signup();
 ```
 
-6. Toast/Clearing Form: for this specific validation method you have to check if the formState.errors object is empty, then proceed with clearing the form & toasting:
+6. FINALLY A FIX FOR TOASTING WITH SERVER ACTIONS: The solution from my portfolio project was close but the useEffect needs to track formState instead. Now it ignores the useEffect on component load, then operates correctly for subsequent renders.
 
 ```js
-      action={async (formData) => {
-        action(formData);
-        if (Object.keys(formState.errors).length === 0) {
-          ref.current?.reset();
-          toast("Fragment created successfully 🎉", {
-            duration: 2000,
-            description: "You'll start reviewing it tomorrow",
-          });
-        }
-      }}
+export default function NewFragmentForm() {
+  const [formState, action] = useFormState(createFragment, { errors: {} });
+  const [firstRender, setFirstRender] = useState(true);
+
+  const ref = useRef<HTMLFormElement>(null);
+
+  useEffect(() => {
+    if (firstRender) {
+      setFirstRender(false);
+      return;
+    }
+    if (Object.keys(formState.errors).length === 0) {
+      toast("Fragment added successfully 🎉", { duration: 2000 });
+      ref.current?.reset();
+    } else {
+      toast("Error adding the fragment 😢", {
+        duration: 2000,
+      });
+    }
+  }, [formState.errors]);
 ```
 
 TODO:

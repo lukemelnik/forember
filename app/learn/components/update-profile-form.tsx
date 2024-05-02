@@ -5,14 +5,31 @@ import { createFragment } from "../actions/createFragment";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 import { updateProfile } from "../actions/updateProfile";
+import { set } from "zod";
 
 export default function UpdateProfileForm() {
   const [formState, action] = useFormState(updateProfile, { errors: {} });
+  const [firstRender, setFirstRender] = useState(true);
 
   const ref = useRef<HTMLFormElement>(null);
+
+  useEffect(() => {
+    if (firstRender) {
+      setFirstRender(false);
+      return;
+    }
+    if (Object.keys(formState.errors).length === 0) {
+      toast("Profile update successful 🎉", { duration: 2000 });
+      ref.current?.reset();
+    } else {
+      toast("Profile update unsuccessful 😢", {
+        duration: 2000,
+      });
+    }
+  }, [formState.errors]);
 
   return (
     <form
@@ -20,11 +37,6 @@ export default function UpdateProfileForm() {
       className="min-w-2xl bg-gray-600 p-5 rounded flex flex-col items-left gap-2 max-w-2xl"
       action={async (formData) => {
         action(formData);
-        //possibly add a toast for unsuccessful?
-        ref.current?.reset();
-        toast("Profile update successful 🎉", {
-          duration: 2000,
-        });
       }}
     >
       <Label htmlFor="first_name">First Name</Label>

@@ -43,8 +43,8 @@ export async function updateProfile(
   }
 
   const result = updateProfileSchema.safeParse({
-    question: Formdata.get("first_name"),
-    answer: Formdata.get("last_name"),
+    first_name: Formdata.get("first_name"),
+    last_name: Formdata.get("last_name"),
   });
 
   // validation errors
@@ -62,6 +62,7 @@ export async function updateProfile(
         last_name: result.data.last_name,
       })
       .eq("user_id", user.id);
+    console.log("updated");
     if (error) {
       throw new Error("Could not update profile");
     }

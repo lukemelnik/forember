@@ -5,13 +5,29 @@ import { createFragment } from "../actions/createFragment";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 
 export default function NewFragmentForm() {
   const [formState, action] = useFormState(createFragment, { errors: {} });
+  const [firstRender, setFirstRender] = useState(true);
 
   const ref = useRef<HTMLFormElement>(null);
+
+  useEffect(() => {
+    if (firstRender) {
+      setFirstRender(false);
+      return;
+    }
+    if (Object.keys(formState.errors).length === 0) {
+      toast("Fragment added successfully 🎉", { duration: 2000 });
+      ref.current?.reset();
+    } else {
+      toast("Error adding the fragment 😢", {
+        duration: 2000,
+      });
+    }
+  }, [formState.errors]);
 
   return (
     <form
@@ -19,13 +35,6 @@ export default function NewFragmentForm() {
       className="min-w-2xl bg-gray-600 p-5 rounded flex flex-col items-left gap-2 max-w-2xl"
       action={async (formData) => {
         action(formData);
-        if (Object.keys(formState.errors).length === 0) {
-          ref.current?.reset();
-          toast("Fragment created successfully 🎉", {
-            duration: 2000,
-            description: "You'll start reviewing it tomorrow",
-          });
-        }
       }}
     >
       <Label htmlFor="question">Question</Label>
