@@ -42,7 +42,7 @@ export default function Quiz() {
         );
       });
 
-      setFragments(filteredFragments);
+      setFragments(fragments);
     }
     getFragments();
   }, []);

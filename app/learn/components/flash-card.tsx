@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Fragment } from "./quiz";
 import { Button } from "@/components/ui/button";
 import { createClient } from "@/utils/supabase/client";
+import { addDays } from "date-fns";
 
 export default function FlashCard({
   fragment,
@@ -30,7 +31,7 @@ export default function FlashCard({
   }
 
   async function resetInterval(id: string) {
-    const date = getTomorrow();
+    const date = addDays(new Date(), 1);
     const supabase = createClient();
     const { error } = await supabase
       .from("fragment")
@@ -41,7 +42,8 @@ export default function FlashCard({
     }
   }
   async function increaseInterval(fragment: Fragment) {
-    const next_show_date = getNextShowDate(fragment.interval + 1);
+    const increasedInterval = fragment.interval + 1;
+    const next_show_date = addDays(new Date(), increasedInterval);
     const supabase = createClient();
     const { error } = await supabase
       .from("fragment")
