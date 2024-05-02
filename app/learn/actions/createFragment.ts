@@ -1,6 +1,7 @@
 "use server";
 
 import { createClient } from "@/utils/supabase/server";
+import { getTomorrow } from "@/utils/time";
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
 
@@ -56,8 +57,7 @@ export async function createFragment(
 
   try {
     // set the next_show_date to tomorrow
-    const date = new Date();
-    date.setDate(date.getDate() + 1);
+    const date = getTomorrow();
 
     const { error } = await supabase.from("fragment").insert({
       question: result.data.question,

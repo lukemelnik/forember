@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Fragment } from "./quiz";
 import { Button } from "@/components/ui/button";
 import { createClient } from "@/utils/supabase/client";
+import { getNextShowDate, getTomorrow } from "@/utils/time";
 
 export default function FlashCard({
   fragment,
@@ -30,20 +31,26 @@ export default function FlashCard({
   }
 
   async function resetInterval(id: string) {
+    const date = getTomorrow();
     const supabase = createClient();
     const { error } = await supabase
       .from("fragment")
-      .update({ interval: 1 })
+      .update({ interval: 1, next_show_date: date, last_shown_at: new Date() })
       .eq("id", id);
     if (error) {
       console.log(error);
     }
   }
   async function increaseInterval(fragment: Fragment) {
+    const next_show_date = getNextShowDate(fragment.interval + 1);
     const supabase = createClient();
     const { error } = await supabase
       .from("fragment")
-      .update({ interval: fragment.interval + 1 })
+      .update({
+        interval: fragment.interval + 1,
+        next_show_date,
+        last_shown_at: new Date(),
+      })
       .eq("id", fragment.id);
     console.log("doubled the interval!");
     if (error) {
