@@ -4,7 +4,7 @@ import { createClient } from "@/utils/supabase/server";
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
 
-const createFragmentSchema = z.object({
+const updateProfileSchema = z.object({
   first_name: z
     .string()
     .min(5, { message: "First name must be at least 3 characters long" })
@@ -17,7 +17,7 @@ const createFragmentSchema = z.object({
     .max(20, { message: "Last name must be at most 20 characters long" }),
 });
 
-interface CreateFragmentFormState {
+interface updateProfileFormState {
   errors: {
     first_name?: string[];
     last_name?: string[];
@@ -26,9 +26,9 @@ interface CreateFragmentFormState {
 }
 
 export async function updateProfile(
-  formState: CreateFragmentFormState,
+  formState: updateProfileFormState,
   Formdata: FormData
-): Promise<CreateFragmentFormState> {
+): Promise<updateProfileFormState> {
   const supabase = createClient();
 
   const {
@@ -42,7 +42,7 @@ export async function updateProfile(
     };
   }
 
-  const result = createFragmentSchema.safeParse({
+  const result = updateProfileSchema.safeParse({
     question: Formdata.get("first_name"),
     answer: Formdata.get("last_name"),
   });
@@ -55,11 +55,13 @@ export async function updateProfile(
   // try/catch for writing to the db in order to catch errors and add them to the same form
 
   try {
-    const { error } = await supabase.from("profile").insert({
-      question: result.data.first_name,
-      answer: result.data.last_name,
-      user_id: user.id,
-    });
+    const { error } = await supabase
+      .from("profile")
+      .update({
+        first_name: result.data.first_name,
+        last_name: result.data.last_name,
+      })
+      .eq("user_id", user.id);
     if (error) {
       throw new Error("Could not update profile");
     }
@@ -70,7 +72,7 @@ export async function updateProfile(
       return { errors: { _form: ["Uh oh, something went wrong"] } };
     }
   }
-  revalidatePath("/learn");
+  revalidatePath("/learn/profile");
   // return an empty error object to keep everyone happy
   return { errors: {} };
 }

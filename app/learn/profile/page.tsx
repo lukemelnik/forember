@@ -11,6 +11,7 @@ import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
 import React from "react";
 import NewFragmentForm from "../components/new-fragment-form";
+import UpdateProfileForm from "../components/update-profile-form";
 
 export type Profile = {
   first_name: string | null;
@@ -64,7 +65,7 @@ export default async function ProfilePage() {
           <DialogHeader>
             <DialogTitle>Update your details here:</DialogTitle>
             <DialogDescription>
-              <NewFragmentForm />
+              <UpdateProfileForm />
             </DialogDescription>
           </DialogHeader>
         </DialogContent>

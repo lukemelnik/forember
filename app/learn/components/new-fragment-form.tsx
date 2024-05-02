@@ -19,11 +19,13 @@ export default function NewFragmentForm() {
       className="min-w-2xl bg-gray-600 p-5 rounded flex flex-col items-left gap-2 max-w-2xl"
       action={async (formData) => {
         action(formData);
-        ref.current?.reset();
-        toast("Fragment created successfully 🎉", {
-          duration: 2000,
-          description: "You'll start reviewing it tomorrow",
-        });
+        if (Object.keys(formState.errors).length === 0) {
+          ref.current?.reset();
+          toast("Fragment created successfully 🎉", {
+            duration: 2000,
+            description: "You'll start reviewing it tomorrow",
+          });
+        }
       }}
     >
       <Label htmlFor="question">Question</Label>

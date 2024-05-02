@@ -72,6 +72,21 @@ Trigger:
 create trigger create_profile_on_signup after insert on auth.users fore each row execute function create_profile_on_signup();
 ```
 
+6. Toast/Clearing Form: for this specific validation method you have to check if the formState.errors object is empty, then proceed with clearing the form & toasting:
+
+```js
+      action={async (formData) => {
+        action(formData);
+        if (Object.keys(formState.errors).length === 0) {
+          ref.current?.reset();
+          toast("Fragment created successfully 🎉", {
+            duration: 2000,
+            description: "You'll start reviewing it tomorrow",
+          });
+        }
+      }}
+```
+
 TODO:
 
 - add function for changing the practice interval based on user feedback

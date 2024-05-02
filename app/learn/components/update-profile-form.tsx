@@ -20,24 +20,25 @@ export default function UpdateProfileForm() {
       className="min-w-2xl bg-gray-600 p-5 rounded flex flex-col items-left gap-2 max-w-2xl"
       action={async (formData) => {
         action(formData);
+        //possibly add a toast for unsuccessful?
         ref.current?.reset();
         toast("Profile update successful 🎉", {
           duration: 2000,
         });
       }}
     >
-      <Label htmlFor="first_name">first_name</Label>
+      <Label htmlFor="first_name">First Name</Label>
       <Input id="first_name" name="first_name" />
       {formState.errors.first_name && (
         <p className="text-red-600">{formState.errors.first_name.join(" ,")}</p>
       )}
-      <Label htmlFor="last_name">last_name</Label>
+      <Label htmlFor="last_name">Last Name</Label>
       <Input id="last_name" name="last_name" />
       {formState.errors.last_name && (
         <p className="text-red-600">{formState.errors.last_name.join(" ,")}</p>
       )}
       <Button className="bg-gray-950 text-gray-300" type="submit">
-        Create Fragment
+        Update Profile
       </Button>
       {formState.errors._form && (
         <p className="text-red-700">{formState.errors._form.join(", ")}</p>
