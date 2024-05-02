@@ -11,7 +11,7 @@ export default function FlashCard({
 }: {
   fragment: Fragment;
   handleClick: () => void;
-  handleDelete: () => void;
+  handleDelete: (id: string) => void;
 }) {
   const [isFlipped, setIsFlipped] = useState(false);
 
@@ -44,7 +44,12 @@ export default function FlashCard({
       <Button
         className="absolute top-5 right-5 bg-black"
         variant="destructive"
-        onClick={deleteFragment}
+        onClick={(event) => {
+          // deletes the fragment in the database
+          deleteFragment(event);
+          // deletes the fragment in the client state
+          handleDelete(fragment.id);
+        }}
       >
         🗑️
       </Button>

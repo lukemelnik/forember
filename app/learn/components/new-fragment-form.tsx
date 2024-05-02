@@ -7,6 +7,7 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useRef } from "react";
+import { toast } from "sonner";
 
 export default function NewFragmentForm() {
   const [formState, action] = useFormState(createFragment, { errors: {} });
@@ -20,6 +21,10 @@ export default function NewFragmentForm() {
       action={async (formData) => {
         action(formData);
         ref.current?.reset();
+        toast("Fragment created successfully 🎉", {
+          duration: 2000,
+          description: "You'll start reviewing it tomorrow",
+        });
       }}
     >
       <Label htmlFor="question">Question</Label>

@@ -1,5 +1,10 @@
 import React from "react";
 
 export default function ProfilePage() {
-  return <div>PROFILE PAGE</div>;
+  return (
+    <div>
+      <h1>Profile</h1>
+      <p></p>
+    </div>
+  );
 }

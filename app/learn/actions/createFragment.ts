@@ -7,7 +7,7 @@ import { z } from "zod";
 const createFragmentSchema = z.object({
   question: z
     .string()
-    .min(15, { message: "Question must be at least 15 characters long" })
+    .min(5, { message: "Question must be at least 5 characters long" })
     .max(250, {
       message: "Question must be at most 250 characters long",
     }),
@@ -70,7 +70,6 @@ export async function createFragment(
       return { errors: { _form: ["Uh oh, something went wrong"] } };
     }
   }
-
   revalidatePath("/learn");
   // return an empty error object to keep everyone happy
   return { errors: {} };

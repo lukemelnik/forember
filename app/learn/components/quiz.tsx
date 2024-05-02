@@ -38,16 +38,18 @@ export default function Quiz() {
     }
     setQuestionNumber(questionNumber + 1);
   }
-
+  // separate function for deleting fragment from client view
+  // without it the UI doesn't update, only updates db
   function deleteFromQuiz(id: string) {
     const newFragments = fragments.filter((fragment) => fragment.id !== id);
+    setFragments(newFragments);
   }
 
   if (quizOver)
     return (
       <div>
-        <h1>Quiz Over!</h1>
-        <p>Good job! You've finished the quiz.</p>
+        <h1>Daily Practice Complete!</h1>
+        <p>Great job! You're on your way to having an invicible memory.</p>
       </div>
     );
 
