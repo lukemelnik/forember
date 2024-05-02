@@ -7,9 +7,10 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useRef } from "react";
 import { toast } from "sonner";
+import { updateProfile } from "../actions/updateProfile";
 
-export default function NewFragmentForm() {
-  const [formState, action] = useFormState(createFragment, { errors: {} });
+export default function UpdateProfileForm() {
+  const [formState, action] = useFormState(updateProfile, { errors: {} });
 
   const ref = useRef<HTMLFormElement>(null);
 
@@ -20,21 +21,20 @@ export default function NewFragmentForm() {
       action={async (formData) => {
         action(formData);
         ref.current?.reset();
-        toast("Fragment created successfully 🎉", {
+        toast("Profile update successful 🎉", {
           duration: 2000,
-          description: "You'll start reviewing it tomorrow",
         });
       }}
     >
-      <Label htmlFor="question">Question</Label>
-      <Input id="question" name="question" />
-      {formState.errors.question && (
-        <p className="text-red-600">{formState.errors.question.join(" ,")}</p>
+      <Label htmlFor="first_name">first_name</Label>
+      <Input id="first_name" name="first_name" />
+      {formState.errors.first_name && (
+        <p className="text-red-600">{formState.errors.first_name.join(" ,")}</p>
       )}
-      <Label htmlFor="answer">Answer</Label>
-      <Input id="answer" name="answer" />
-      {formState.errors.answer && (
-        <p className="text-red-600">{formState.errors.answer.join(" ,")}</p>
+      <Label htmlFor="last_name">last_name</Label>
+      <Input id="last_name" name="last_name" />
+      {formState.errors.last_name && (
+        <p className="text-red-600">{formState.errors.last_name.join(" ,")}</p>
       )}
       <Button className="bg-gray-950 text-gray-300" type="submit">
         Create Fragment
