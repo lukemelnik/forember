@@ -36,8 +36,9 @@ export default function Quiz() {
         const fragmentLastShownDay = new Date(fragment.last_shown_at);
         fragmentLastShownDay.setHours(0, 0, 0, 0);
         return (
-          fragmentNextShowDay === currentDate &&
-          fragmentLastShownDay !== currentDate
+          fragmentLastShownDay === null ||
+          (fragmentNextShowDay === currentDate &&
+            fragmentLastShownDay !== currentDate)
         );
       });
 

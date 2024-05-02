@@ -1,7 +1,7 @@
 "use server";
 
 import { createClient } from "@/utils/supabase/server";
-import { getTomorrow } from "@/utils/time";
+import { addDays } from "date-fns";
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
 
@@ -57,13 +57,14 @@ export async function createFragment(
 
   try {
     // set the next_show_date to tomorrow
-    const date = getTomorrow();
+    const currentDate = new Date();
+    const tomorrow = addDays(currentDate, 1);
 
     const { error } = await supabase.from("fragment").insert({
       question: result.data.question,
       answer: result.data.answer,
       user_id: user.id,
-      next_show_date: date,
+      next_show_date: tomorrow,
     });
     if (error) {
       throw new Error("Could not create fragment");

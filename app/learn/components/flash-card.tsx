@@ -3,7 +3,6 @@ import { useState } from "react";
 import { Fragment } from "./quiz";
 import { Button } from "@/components/ui/button";
 import { createClient } from "@/utils/supabase/client";
-import { getNextShowDate, getTomorrow } from "@/utils/time";
 
 export default function FlashCard({
   fragment,
