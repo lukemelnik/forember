@@ -30,29 +30,32 @@ export default function NewFragmentForm() {
   }, [formState.errors]);
 
   return (
-    <form
-      ref={ref}
-      className="min-w-2xl bg-gray-600 p-5 rounded flex flex-col items-left gap-2 max-w-2xl"
-      action={async (formData) => {
-        action(formData);
-      }}
-    >
-      <Label htmlFor="question">Question</Label>
-      <Input id="question" name="question" />
-      {formState.errors.question && (
-        <p className="text-red-600">{formState.errors.question.join(" ,")}</p>
-      )}
-      <Label htmlFor="answer">Answer</Label>
-      <Input id="answer" name="answer" />
-      {formState.errors.answer && (
-        <p className="text-red-600">{formState.errors.answer.join(" ,")}</p>
-      )}
-      <Button className="bg-gray-950 text-gray-300" type="submit">
-        Create Fragment
-      </Button>
-      {formState.errors._form && (
-        <p className="text-red-700">{formState.errors._form.join(", ")}</p>
-      )}
-    </form>
+    <div className="p-5">
+      <h1 className="mb-2">Make a flash card:</h1>
+      <form
+        ref={ref}
+        className="min-w-2xl rounded flex flex-col items-left gap-2 max-w-2xl"
+        action={async (formData) => {
+          action(formData);
+        }}
+      >
+        <Label htmlFor="question">Question</Label>
+        <Input id="question" name="question" />
+        {formState.errors.question && (
+          <p className="text-red-600">{formState.errors.question.join(" ,")}</p>
+        )}
+        <Label htmlFor="answer">Answer</Label>
+        <Input id="answer" name="answer" />
+        {formState.errors.answer && (
+          <p className="text-red-600">{formState.errors.answer.join(" ,")}</p>
+        )}
+        <Button className="bg-gray-950 text-gray-300" type="submit">
+          Create Fragment
+        </Button>
+        {formState.errors._form && (
+          <p className="text-red-700">{formState.errors._form.join(", ")}</p>
+        )}
+      </form>
+    </div>
   );
 }

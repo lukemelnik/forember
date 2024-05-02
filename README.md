@@ -60,8 +60,8 @@ Function:
 
 ```sql
 begin
-  insert into public.profile (id)
-  values (new.id);
+  insert into public.profile (user_id) -- this one has to match the profile 'user_id' column
+  values (new.id); -- this one has to match the auth 'id' column
   return new;
 end;
 ```

@@ -63,11 +63,12 @@ export default async function ProfilePage() {
         </DialogTrigger>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>Update your details here:</DialogTitle>
-            <DialogDescription>
-              <UpdateProfileForm />
-            </DialogDescription>
+            <DialogTitle>Edit Profile</DialogTitle>
           </DialogHeader>
+          <DialogDescription>
+            Make changes to your profile here. Click save when you're done.
+          </DialogDescription>
+          <UpdateProfileForm />
         </DialogContent>
       </Dialog>
     </div>
