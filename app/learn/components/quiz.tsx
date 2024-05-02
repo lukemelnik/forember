@@ -7,6 +7,7 @@ export type Fragment = {
   id: string;
   question: string;
   answer: string;
+  interval: number;
 };
 
 export default function Quiz() {
@@ -19,14 +20,28 @@ export default function Quiz() {
       const supabase = createClient();
       const { data: fragments, error } = await supabase
         .from("fragment")
-        .select("id, question, answer");
-
+        .select("*");
       if (error) {
         console.log(error);
       }
       if (!fragments) return;
+      // filter for fragments that should be shown on this date. First get the current date w/o time so that user can access fragments at any time of day
+      let currentDate = new Date();
+      currentDate.setHours(0, 0, 0, 0);
 
-      setFragments(fragments);
+      // filter the fragments where the next_show_date is today and the last_shown_at is not today (ie. if the user already practiced that fragment)
+      const filteredFragments = fragments.filter((fragment) => {
+        const fragmentNextShowDay = new Date(fragment.next_show_date);
+        fragmentNextShowDay.setHours(0, 0, 0, 0);
+        const fragmentLastShownDay = new Date(fragment.last_shown_at);
+        fragmentLastShownDay.setHours(0, 0, 0, 0);
+        return (
+          fragmentNextShowDay === currentDate &&
+          fragmentLastShownDay !== currentDate
+        );
+      });
+
+      setFragments(filteredFragments);
     }
     getFragments();
   }, []);

@@ -10,10 +10,12 @@ import { toast } from "sonner";
 
 export default function NewFragmentForm() {
   const [formState, action] = useFormState(createFragment, { errors: {} });
+  // need state for first render so that the useEffect doesn't run on page load (otherwise toast fires automatically)
   const [firstRender, setFirstRender] = useState(true);
 
   const ref = useRef<HTMLFormElement>(null);
 
+  // this useEffect ensures that the toast message is displayed when the form is submitted and the form is cleared. Has to be in a useEffect because otherwise a) the actions are carried out even if not successful and b) the formState.error is stale
   useEffect(() => {
     if (firstRender) {
       setFirstRender(false);

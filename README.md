@@ -97,13 +97,9 @@ export default function NewFragmentForm() {
   }, [formState.errors]);
 ```
 
+7. Had to figure out a way to filter the flashcards so that the user only sees the right cards for a given day, and so that once they finish the daily quiz the aren't shown the same cards again.
+
 TODO:
-
-- add function for changing the practice interval based on user feedback
-
-- add toasts for getting question right/wrong (reminding them what interval it's been changed to)
-
-- potentially move the delete function up to the quiz level and pass down by props so that it's removed visually right away (right now it doesn't change till you refresh and got through the quiz again)
 
 - add category to fragments and have links in nav to create quizes for them specifically
 

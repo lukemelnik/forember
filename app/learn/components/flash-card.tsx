@@ -30,10 +30,25 @@ export default function FlashCard({
   }
 
   async function resetInterval(id: string) {
-    // Reset the interval for the fragment
+    const supabase = createClient();
+    const { error } = await supabase
+      .from("fragment")
+      .update({ interval: 1 })
+      .eq("id", id);
+    if (error) {
+      console.log(error);
+    }
   }
-  async function doubleInterval(id: string) {
-    // double the existing interval
+  async function increaseInterval(fragment: Fragment) {
+    const supabase = createClient();
+    const { error } = await supabase
+      .from("fragment")
+      .update({ interval: fragment.interval + 1 })
+      .eq("id", fragment.id);
+    console.log("doubled the interval!");
+    if (error) {
+      console.log(error);
+    }
   }
 
   return (
@@ -61,8 +76,8 @@ export default function FlashCard({
           <div className="absolute bottom-5 flex gap-5">
             <Button
               onClick={() => {
+                increaseInterval(fragment);
                 handleClick();
-                resetInterval(fragment.id);
               }}
               className="bg-green-600"
             >
@@ -70,8 +85,8 @@ export default function FlashCard({
             </Button>
             <Button
               onClick={() => {
+                resetInterval(fragment.id);
                 handleClick();
-                doubleInterval(fragment.id);
               }}
               className="bg-red-600"
             >
