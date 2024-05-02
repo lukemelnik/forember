@@ -27,14 +27,15 @@ export default function Quiz() {
       }
       if (!fragments) return;
 
+      // only show the user the fragments with next_show_date of today, or if it's the first time (last-shown-at is null)
       const filteredFragments = fragments.filter((fragment) => {
         const fragmentNextShowDay = startOfDay(fragment.next_show_date);
-        const tomorrow = startOfDay(addDays(new Date(), 1));
-        console.log(fragment.question, fragmentNextShowDay);
+        const today = startOfDay(new Date());
 
-        console.log("tomorrow: ", tomorrow);
-
-        return fragmentNextShowDay.getTime() === tomorrow.getTime();
+        return (
+          fragmentNextShowDay.getTime() === today.getTime() ||
+          fragment.last_shown_at === null
+        );
       });
 
       setFragments(filteredFragments);
@@ -66,7 +67,7 @@ export default function Quiz() {
 
   return (
     <div>
-      {fragments.length === 0 && <p>Loading...</p>}
+      {fragments.length === 0 && <p>You're all done for the day!</p>}
       {fragments.length > 0 && (
         <FlashCard
           fragment={fragments[questionNumber]}
