@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 import NewFragmentForm from "./components/new-fragment-form";
 import NavHeader from "./components/nav-header";
 import Quiz from "./components/quiz";
+import NavLinks from "./components/nav-links";
 
 export default async function ProtectedPage() {
   const supabase = createClient();
@@ -16,15 +17,9 @@ export default async function ProtectedPage() {
   }
 
   return (
-    <div className="grid grid-cols-4 w-full ">
-      <nav className="col-span-1 p-10">
-        <NavHeader />
-      </nav>
-      <section className="col-span-3 bg-gray-400 min-h-screen p-10 flex flex-col gap-5">
-        <h1>LEARN</h1>
-        <NewFragmentForm />
-        <Quiz />
-      </section>
-    </div>
+    <section className="col-span-3 bg-gray-400 min-h-screen p-10 flex flex-col gap-5">
+      <h1>Here's your learning for the day:</h1>
+      <Quiz />
+    </section>
   );
 }

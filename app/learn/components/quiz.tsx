@@ -39,6 +39,10 @@ export default function Quiz() {
     setQuestionNumber(questionNumber + 1);
   }
 
+  function deleteFromQuiz(id: string) {
+    const newFragments = fragments.filter((fragment) => fragment.id !== id);
+  }
+
   if (quizOver)
     return (
       <div>
@@ -49,12 +53,12 @@ export default function Quiz() {
 
   return (
     <div>
-      <h1>Quiz Yourself!</h1>
       {fragments.length === 0 && <p>Loading...</p>}
       {fragments.length > 0 && (
         <FlashCard
           fragment={fragments[questionNumber]}
           handleClick={nextQuestion}
+          handleDelete={deleteFromQuiz}
         />
       )}
     </div>

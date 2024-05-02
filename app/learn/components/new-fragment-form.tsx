@@ -25,11 +25,13 @@ export default function NewFragmentForm() {
       <Label htmlFor="question">Question</Label>
       <Input id="question" name="question" />
       {formState.errors.question && (
-        <p>{formState.errors.question.join(" ,")}</p>
+        <p className="text-red-600">{formState.errors.question.join(" ,")}</p>
       )}
       <Label htmlFor="answer">Answer</Label>
       <Input id="answer" name="answer" />
-      {formState.errors.answer && <p>{formState.errors.answer.join(" ,")}</p>}
+      {formState.errors.answer && (
+        <p className="text-red-600">{formState.errors.answer.join(" ,")}</p>
+      )}
       <Button className="bg-gray-950 text-gray-300" type="submit">
         Create Fragment
       </Button>

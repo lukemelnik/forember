@@ -54,6 +54,24 @@ Forember is a memory enhancing app that uses spaced repetition and active recall
 }
 ```
 
+5. Creating a user profile on signup: I wanted to store more user information (name, usage data etc). To automatically create a new profile for each user I had to use the SQL editor to create a function & trigger:
+
+Function:
+
+```sql
+begin
+  insert into public.profile (id)
+  values (new.id);
+  return new;
+end;
+```
+
+Trigger:
+
+```sql
+create trigger create_profile_on_signup after insert on auth.users fore each row execute function create_profile_on_signup();
+```
+
 TODO:
 
 - add function for changing the practice interval based on user feedback
@@ -73,3 +91,7 @@ TODO:
 - add openAI functionality
 
 - add stripe & subscription stuff
+
+```
+
+```

@@ -7,9 +7,11 @@ import { createClient } from "@/utils/supabase/client";
 export default function FlashCard({
   fragment,
   handleClick,
+  handleDelete,
 }: {
   fragment: Fragment;
   handleClick: () => void;
+  handleDelete: () => void;
 }) {
   const [isFlipped, setIsFlipped] = useState(false);
 
@@ -36,7 +38,7 @@ export default function FlashCard({
 
   return (
     <div
-      className="w-96 h-48 bg-yellow-500 rounded-xl relative flex justify-center items-center"
+      className="w-96 h-48 bg-yellow-500 rounded-xl relative flex justify-center items-center shadow-lg"
       onClick={() => setIsFlipped(!isFlipped)}
     >
       <Button
