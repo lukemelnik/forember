@@ -39,35 +39,39 @@ export default async function LearnerLevelCard({
   const totalPratice = getPracticeTotal();
   const averagePractice = totalPratice / totalDays;
 
-  // a function that assigns a character level based on average practice
+  // calculate how many more minutes per day will take the user to the next level
 
-  function assignCharacterLevel(averagePractice: number) {
-    if (averagePractice <= 0) {
-      return "Infant";
-    } else if (averagePractice <= 15) {
-      return "Beginner";
-    } else if (averagePractice <= 30) {
-      return "Rookie";
-    } else if (averagePractice <= 60) {
-      return "Novice";
-    } else if (averagePractice <= 90) {
-      return "Apprentice";
-    } else if (averagePractice <= 120) {
-      return "Journeyman";
-    } else if (averagePractice <= 150) {
-      return "Adept";
-    } else if (averagePractice <= 180) {
-      return "Master";
-    } else if (averagePractice <= 210) {
-      return "Grandmaster";
-    } else if (averagePractice <= 240) {
-      return "Memory God";
-    } else {
-      return "Beyond Classification";
+  const levels = [
+    { name: "Infant", threshold: 0, emoji: "👶" },
+    { name: "Beginner", threshold: 5, emoji: "🔰" },
+    { name: "Rookie", threshold: 10, emoji: "🎓" },
+    { name: "Novice", threshold: 15, emoji: "🏫" },
+    { name: "Apprentice", threshold: 20, emoji: "👨‍🎓" },
+    { name: "Journeyman", threshold: 30, emoji: "👨‍🔧" },
+    { name: "Adept", threshold: 50, emoji: "👨‍🔬" },
+    { name: "Master", threshold: 80, emoji: "👨‍💼" },
+    { name: "Grandmaster", threshold: 120, emoji: "👨‍🎤" },
+    { name: "Memory God", threshold: 240, emoji: "🧠" },
+    { name: "Beyond Classification", threshold: Infinity, emoji: "🌌" },
+  ];
+
+  function currentCharacterLevel(averagePractice: number) {
+    for (let i = 0; i < levels.length; i++) {
+      if (averagePractice < levels[i].threshold) {
+        return levels[i - 1];
+      }
     }
   }
-
-  const learningCharacter = assignCharacterLevel(averagePractice);
+  function nextCharacterLevel(averagePractice: number) {
+    for (let i = 0; i < levels.length; i++) {
+      if (averagePractice <= levels[i].threshold) {
+        return levels[i];
+      }
+    }
+  }
+  const currentLevel = currentCharacterLevel(averagePractice);
+  const nextLevel = nextCharacterLevel(averagePractice);
+  const remainingMinutes = nextLevel.threshold - averagePractice;
 
   return (
     <Card className="max-w-md">
@@ -75,10 +79,18 @@ export default async function LearnerLevelCard({
         <CardTitle>Your Learning Level:</CardTitle>
       </CardHeader>
       <CardContent>
-        <p className="font-black text-4xl">{learningCharacter}</p>
+        <div className="">
+          <p className="font-black text-4xl">
+            {currentLevel?.emoji} {currentLevel?.name}
+          </p>
+          <p className="italic">(Avg: {averagePractice} min per day)</p>
+        </div>
       </CardContent>
       <CardFooter>
-        <p>Minutes</p>
+        <p>
+          Practice {remainingMinutes} more minutes per day to reach{" "}
+          <span className="font-bold">{nextLevel?.name}</span>!
+        </p>
       </CardFooter>
     </Card>
   );
