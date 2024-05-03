@@ -129,6 +129,17 @@ const filteredFragments = fragments.filter((fragment) => {
     >
 ```
 
+10. Animating pseudo elements in tailwind: pretty straightforward, the tricky thing was that the animation didn't work till I put 'after:' before the duration.
+
+```js
+<Link
+  className="relative after:absolute hover:after:bg-zinc-100 content-none after:left-0 after:w-[0%] hover:after:w-[100%] hover:after:top-7 hover:after:h-[3px] hover:text-zinc-100 after:duration-300 transition-all"
+  href="/learn"
+>
+  Learn
+</Link>
+```
+
 TODO:
 
 - fix the loading screen for the Learn section (right now it shows 'you're all done' while its waiting for db to load)

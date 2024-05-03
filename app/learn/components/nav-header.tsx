@@ -13,7 +13,7 @@ export default async function NavHeader() {
 
   return (
     <div>
-      <div className="flex gap-3 mb-3">
+      <div className="flex gap-3 mb-3 items-center">
         <LogoIcon />
         <h1>Forember</h1>
       </div>

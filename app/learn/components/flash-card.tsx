@@ -116,18 +116,24 @@ export default function FlashCard({
                 increaseInterval(fragment);
                 handleClick();
               }}
-              className="bg-green-600"
+              className="bg-green-500 hover:bg-green-400 group shadow-md hover:scale-105 duration-300 transition-all"
             >
-              I got it 😁
+              I got it{" "}
+              <span className="ml-2 text-lg group-hover:rotate-12 duration-300">
+                😁
+              </span>
             </Button>
             <Button
               onClick={() => {
                 resetInterval(fragment.id);
                 handleClick();
               }}
-              className="bg-red-600"
+              className="bg-red-500 hover:bg-red-400 group shadow-md hover:scale-105 duration-300 transition-all"
             >
-              I forgot 😭
+              I forgot{" "}
+              <span className="ml-2 text-lg group-hover:rotate-12 duration-300">
+                😭
+              </span>
             </Button>
           </div>{" "}
         </>
