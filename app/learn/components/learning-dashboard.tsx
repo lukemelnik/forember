@@ -2,6 +2,8 @@ import React from "react";
 import PracticeTimeCard from "./practice-weekly-total";
 import { createClient } from "@/utils/supabase/server";
 import PracticeTotalCard from "./practice-total-card";
+import LearnerLevelCard from "./learner-level-card";
+import TimeOnPlatformCard from "./time-on-platform-card";
 
 export type Session = {
   session_duration: number;
@@ -24,6 +26,8 @@ export default async function LearningDashboard() {
       <div className="flex gap-5">
         <PracticeTimeCard sessions={sessions} />
         <PracticeTotalCard sessions={sessions} />
+        <LearnerLevelCard sessions={sessions} />
+        <TimeOnPlatformCard />
       </div>
     </>
   );

@@ -14,11 +14,10 @@ export default function PracticeTotalCard({
 }: {
   sessions: Session[];
 }) {
-  const currentDate = new Date();
   function getPracticeTotal() {
     return Math.round(
       sessions.reduce((acc, session) => acc + session.session_duration, 0) /
-        1000
+        (1000 * 60)
     );
   }
   const totalPractice = getPracticeTotal();

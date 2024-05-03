@@ -25,21 +25,22 @@ export default function PracticeWeeklyTotal({
       weeklySessionTotal.reduce(
         (acc, session) => acc + session.session_duration,
         0
-      ) / 1000
+      ) /
+        (1000 * 60)
     );
   }
 
-  const totalPractice = getWeeklyPracticeTotal();
+  const totalWeeklyPractice = getWeeklyPracticeTotal();
   return (
     <Card className="max-w-md">
       <CardHeader>
         <CardTitle>Practice Time This Week</CardTitle>
       </CardHeader>
       <CardContent>
-        <p className="font-black text-4xl">{totalPractice}</p>
+        <p className="font-black text-4xl">{totalWeeklyPractice}</p>
       </CardContent>
       <CardFooter>
-        <p>Card Footer</p>
+        <p>Minutes</p>
       </CardFooter>
     </Card>
   );
