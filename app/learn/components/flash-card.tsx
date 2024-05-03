@@ -5,6 +5,17 @@ import { Button } from "@/components/ui/button";
 import { createClient } from "@/utils/supabase/client";
 import { addDays } from "date-fns";
 import TrashIcon from "@/components/ui/trash-svg";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 
 export default function FlashCard({
   fragment,
@@ -64,18 +75,36 @@ export default function FlashCard({
       className="w-96 h-48 bg-zinc-200 rounded-xl relative flex justify-center items-center shadow-lg border-2 border-zinc-300"
       onClick={() => setIsFlipped(!isFlipped)}
     >
-      <Button
-        className="absolute top-5 right-3"
-        variant="destructive"
-        onClick={(event) => {
-          // deletes the fragment in the database
-          deleteFragment(event);
-          // deletes the fragment in the client state
-          handleDelete(fragment.id);
-        }}
-      >
-        <TrashIcon />
-      </Button>
+      <div className="absolute top-5 right-3">
+        <AlertDialog>
+          <AlertDialogTrigger>
+            <TrashIcon />
+          </AlertDialogTrigger>
+          <AlertDialogContent>
+            <AlertDialogHeader>
+              <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+              <AlertDialogDescription>
+                This action cannot be undone. This will permanently delete your
+                account and remove your data from our servers.
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+              <AlertDialogCancel>Cancel</AlertDialogCancel>
+              <AlertDialogAction
+                className="bg-red-400"
+                onClick={(event) => {
+                  // deletes the fragment in the database
+                  deleteFragment(event);
+                  // deletes the fragment in the client state
+                  handleDelete(fragment.id);
+                }}
+              >
+                Delete Fragment
+              </AlertDialogAction>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
+      </div>
       {!isFlipped ? (
         <p>{fragment.question}</p>
       ) : (
