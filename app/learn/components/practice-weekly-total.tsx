@@ -8,6 +8,7 @@ import {
 } from "@/components/ui/card";
 import React from "react";
 import { Session } from "./learning-dashboard";
+import { isThisWeek } from "date-fns";
 
 export default function PracticeWeeklyTotal({
   sessions,
@@ -18,11 +19,7 @@ export default function PracticeWeeklyTotal({
   function getWeeklyPracticeTotal() {
     const weeklySessionTotal = sessions.filter((session) => {
       const sessionDate = new Date(session.created_at);
-      return (
-        sessionDate.getFullYear() === currentDate.getFullYear() &&
-        sessionDate.getMonth() === currentDate.getMonth() &&
-        sessionDate.getDate() >= currentDate.getDate() - currentDate.getDay()
-      );
+      return isThisWeek(sessionDate, { weekStartsOn: 1 });
     });
     return Math.round(
       weeklySessionTotal.reduce(

@@ -34,12 +34,14 @@ export default async function PracticePage() {
 
   return (
     <>
-      <section className="col-span-3 p-10 flex flex-col gap-5">
-        <PracticeDialog />
-      </section>
-      <section>
-        <LearningDashboard />
-      </section>
+      <main className="p-10 space-y-10">
+        <section className="col-span-3 flex flex-col gap-5">
+          <PracticeDialog />
+        </section>
+        <section>
+          <LearningDashboard />
+        </section>
+      </main>
     </>
   );
 }
