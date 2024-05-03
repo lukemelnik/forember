@@ -36,7 +36,7 @@ export default function NewFragmentForm() {
       <h1 className="mb-2">Make a flash card:</h1>
       <form
         ref={ref}
-        className="min-w-2xl rounded flex flex-col items-left gap-2 max-w-2xl"
+        className="min-w-2xl rounded flex flex-col items-left gap-2 max-w-2xl text-zinc-950"
         action={async (formData) => {
           action(formData);
         }}
@@ -51,7 +51,7 @@ export default function NewFragmentForm() {
         {formState.errors.answer && (
           <p className="text-red-600">{formState.errors.answer.join(" ,")}</p>
         )}
-        <Button className="bg-gray-950 text-gray-300" type="submit">
+        <Button className="bg-zinc-300 mt-5" type="submit">
           Create Fragment
         </Button>
         {formState.errors._form && (

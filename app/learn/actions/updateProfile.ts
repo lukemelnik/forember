@@ -7,7 +7,7 @@ import { z } from "zod";
 const updateProfileSchema = z.object({
   first_name: z
     .string()
-    .min(2, { message: "First name must be at least 3 characters long" })
+    .min(2, { message: "First name must be at least 2 characters long" })
     .max(20, {
       message: "First name must be at most 20 characters long",
     }),
