@@ -53,7 +53,6 @@ export default function FlashCard({
         last_shown_at: new Date(),
       })
       .eq("id", fragment.id);
-    console.log("doubled the interval!");
     if (error) {
       console.log(error);
     }

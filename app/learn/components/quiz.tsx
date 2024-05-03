@@ -5,6 +5,7 @@ import FlashCard from "./flash-card";
 import { addDays, startOfDay } from "date-fns";
 import Confetti from "./confetti";
 import ReactDOM from "react-dom";
+import { Progress } from "@/components/ui/progress";
 
 export type Fragment = {
   id: string;
@@ -17,6 +18,10 @@ export default function Quiz() {
   const [questionNumber, setQuestionNumber] = useState(0);
   const [quizOver, setQuizOver] = useState(false);
   const [fragments, setFragments] = useState<Fragment[]>([]);
+
+  // calulate progress for progress bar
+  const progress = Math.round((questionNumber / fragments.length) * 100);
+  console.log(progress);
 
   useEffect(() => {
     async function getFragments() {
@@ -40,7 +45,7 @@ export default function Quiz() {
         );
       });
 
-      setFragments(filteredFragments);
+      setFragments(fragments);
     }
     getFragments();
   }, []);
@@ -70,7 +75,7 @@ export default function Quiz() {
         )}
         <div>
           <h1>All done!</h1>
-          <p>Great job! You're on your way to having an invicible memory.</p>
+          <p>Great job, you're on your way to having an invicible memory.</p>
         </div>
       </>
     );
@@ -79,11 +84,14 @@ export default function Quiz() {
     <div>
       {fragments.length === 0 && <p>You're all done for the day!</p>}
       {fragments.length > 0 && (
-        <FlashCard
-          fragment={fragments[questionNumber]}
-          handleClick={nextQuestion}
-          handleDelete={deleteFromQuiz}
-        />
+        <>
+          <Progress value={progress} className="mb-5 bg-zinc-300" />
+          <FlashCard
+            fragment={fragments[questionNumber]}
+            handleClick={nextQuestion}
+            handleDelete={deleteFromQuiz}
+          />
+        </>
       )}
     </div>
   );
