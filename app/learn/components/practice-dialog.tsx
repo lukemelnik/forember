@@ -15,25 +15,11 @@ import { createClient } from "@/utils/supabase/client";
 import { set } from "date-fns";
 
 export default function PracticeDialog() {
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [startTime, setStartTime] = useState<Date | null>(null);
-  const [endTime, setEndTime] = useState<Date | null>(null);
 
-  // had to move these to a useEffect becuase when they were in the dialog event handler isDialogOpen was stale
-  useEffect(() => {
-    console.log(isDialogOpen);
-    if (isDialogOpen) {
-      setStartTime(new Date());
-    }
-    if (!isDialogOpen) {
-      setEndTime(new Date());
-      logSession();
-    }
-  }, [isDialogOpen]);
-
-  async function logSession() {
+  async function logSession(endTime: Date) {
     if (!startTime || !endTime) return;
-    const session_duration = startTime.getTime() - endTime.getTime();
+    const session_duration = endTime.getTime() - startTime.getTime();
     if (session_duration < 1500) {
       console.log("session too short");
       return;
@@ -56,15 +42,19 @@ export default function PracticeDialog() {
     } catch (error) {
       console.error(error);
     }
-    console.log("session saved!");
     setStartTime(null);
-    setEndTime(null);
   }
 
   return (
     <Dialog
-      onOpenChange={() => {
-        setIsDialogOpen(!isDialogOpen);
+      onOpenChange={(isOpen) => {
+        if (isOpen) {
+          setStartTime(new Date());
+        }
+        if (!isOpen) {
+          const endTime = new Date();
+          logSession(endTime);
+        }
       }}
     >
       <DialogTrigger asChild>
