@@ -19,7 +19,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={GeistSans.className}>
-      <body className="bg-zinc-800">
+      <body className="bg-black">
         <main className="min-h-screen flex flex-col items-center text-zinc-300">
           {children}
         </main>

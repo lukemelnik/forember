@@ -44,6 +44,7 @@ export default function Quiz() {
         );
       });
 
+      // Don't forget to set this to 'filteredFragments' instead of 'fragments' for actual date functionality
       setFragments(fragments);
     }
     getFragments();

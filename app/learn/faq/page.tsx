@@ -37,15 +37,6 @@ export default function FAQPage() {
             material, fostering deeper understanding and retention.
           </AccordionContent>
         </AccordionItem>
-        <AccordionItem value="item-3">
-          <AccordionTrigger>What is active recall?</AccordionTrigger>
-          <AccordionContent>
-            Active recall: A proven learning strategy centered around actively
-            retrieving information from memory. Rather than passive review, it
-            engages learners in actively answering questions or recalling
-            material, fostering deeper understanding and retention.
-          </AccordionContent>
-        </AccordionItem>
       </Accordion>
     </div>
   );

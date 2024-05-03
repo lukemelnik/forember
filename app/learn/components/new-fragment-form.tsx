@@ -33,7 +33,7 @@ export default function NewFragmentForm() {
 
   return (
     <div className="p-5">
-      <h1 className="mb-2">Make a flash card:</h1>
+      <h1 className="mb-2">Add a fragment:</h1>
       <form
         ref={ref}
         className="min-w-2xl rounded flex flex-col items-left gap-2 max-w-2xl text-zinc-950"
@@ -41,13 +41,21 @@ export default function NewFragmentForm() {
           action(formData);
         }}
       >
-        <Label htmlFor="question">Question</Label>
-        <Input id="question" name="question" />
+        <Label className="text-zinc-300" htmlFor="question">
+          Question
+        </Label>
+        <Input
+          className="bg-black text-zinc-300"
+          id="question"
+          name="question"
+        />
         {formState.errors.question && (
           <p className="text-red-600">{formState.errors.question.join(" ,")}</p>
         )}
-        <Label htmlFor="answer">Answer</Label>
-        <Input id="answer" name="answer" />
+        <Label className="text-zinc-300" htmlFor="answer">
+          Answer
+        </Label>
+        <Input className="bg-black text-zinc-300" id="answer" name="answer" />
         {formState.errors.answer && (
           <p className="text-red-600">{formState.errors.answer.join(" ,")}</p>
         )}

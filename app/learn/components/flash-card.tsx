@@ -4,7 +4,7 @@ import { Fragment } from "./quiz";
 import { Button } from "@/components/ui/button";
 import { createClient } from "@/utils/supabase/client";
 import { addDays } from "date-fns";
-import TrashIcon from "@/components/ui/trash-svg";
+import TrashIcon from "@/components/trash-svg";
 import {
   AlertDialog,
   AlertDialogAction,

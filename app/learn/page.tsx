@@ -19,6 +19,7 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import Link from "next/link";
 import PracticeDialog from "./components/practice-dialog";
+import LearningDashboard from "./components/learning-dashboard";
 
 export default async function PracticePage() {
   const supabase = createClient();
@@ -32,8 +33,13 @@ export default async function PracticePage() {
   }
 
   return (
-    <section className="col-span-3 min-h-screen p-10 flex flex-col gap-5">
-      <PracticeDialog />
-    </section>
+    <>
+      <section className="col-span-3 p-10 flex flex-col gap-5">
+        <PracticeDialog />
+      </section>
+      <section>
+        <LearningDashboard />
+      </section>
+    </>
   );
 }

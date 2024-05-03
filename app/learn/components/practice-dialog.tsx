@@ -58,9 +58,12 @@ export default function PracticeDialog() {
       }}
     >
       <DialogTrigger asChild>
-        <Button variant="outline" className="text-zinc-900">
-          Start Learning
-        </Button>
+        <div className="relative z-0 group">
+          <Button className="w-96 z-0 bg-zinc-100 text-black">
+            Start Learning
+          </Button>
+          <div className="absolute inset-0 bg-pink-500/80 w-96 -z-10  blur-lg scale-105 group-hover:blur-xl duration-300"></div>
+        </div>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>

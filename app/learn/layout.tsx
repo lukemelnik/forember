@@ -10,11 +10,11 @@ export default function LearnLayout({
   return (
     <>
       <div className="grid grid-cols-4 w-full ">
-        <nav className="col-span-1 p-10 text-gray-300">
+        <nav className="col-span-1 p-10 text-gray-300 border-r-[1px] border-zinc-700 ">
           <NavHeader />
           <NavLinks />
         </nav>
-        <section className="col-span-3 bg-zinc-900 min-h-screen p-10 flex flex-col gap-5">
+        <section className="col-span-3 bg-black min-h-screen p-10 flex flex-col gap-5">
           {children}
         </section>
       </div>
