@@ -4,6 +4,7 @@ import { Fragment } from "./quiz";
 import { Button } from "@/components/ui/button";
 import { createClient } from "@/utils/supabase/client";
 import { addDays } from "date-fns";
+import TrashIcon from "@/components/ui/trash-svg";
 
 export default function FlashCard({
   fragment,
@@ -60,11 +61,11 @@ export default function FlashCard({
 
   return (
     <div
-      className="w-96 h-48 bg-yellow-500 rounded-xl relative flex justify-center items-center shadow-lg"
+      className="w-96 h-48 bg-zinc-200 rounded-xl relative flex justify-center items-center shadow-lg border-2 border-zinc-300"
       onClick={() => setIsFlipped(!isFlipped)}
     >
       <Button
-        className="absolute top-5 right-5 bg-black"
+        className="absolute top-5 right-3"
         variant="destructive"
         onClick={(event) => {
           // deletes the fragment in the database
@@ -73,7 +74,7 @@ export default function FlashCard({
           handleDelete(fragment.id);
         }}
       >
-        🗑️
+        <TrashIcon />
       </Button>
       {!isFlipped ? (
         <p>{fragment.question}</p>

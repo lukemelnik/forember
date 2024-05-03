@@ -21,7 +21,6 @@ export default function Quiz() {
 
   // calulate progress for progress bar
   const progress = Math.round((questionNumber / fragments.length) * 100);
-  console.log(progress);
 
   useEffect(() => {
     async function getFragments() {

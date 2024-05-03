@@ -10,10 +10,10 @@ export default function NavLinks() {
           <Link href="/learn">Learn</Link>
         </li>
         <li>
-          <Link href="/learn/add">Add A Flashcard</Link>
+          <Link href="/learn/add">Add A Fragment</Link>
         </li>
         <li>
-          <Link href="/learn/dashboard">Dashboard</Link>
+          <Link href="/learn/dashboard">Knowledge Library</Link>
         </li>
         <li>
           <Link href="/learn/profile">Profile</Link>
