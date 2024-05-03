@@ -111,6 +111,8 @@ const filteredFragments = fragments.filter((fragment) => {
 });
 ```
 
+8. SQL Primary Key vs Foreign Key - a primary key is the unique identifer for the row entry (in this case the session_id). The foreign key is what connects it to another table, in my case only allowing you to enter a session if a matching auth.id exists. I accidentially had the foreign key as the primary key, meaning no additional entries could be made because they would violate the rule that it has to be unique. IN SHORT - a primary key is always unique, a foreign key isnt'.
+
 TODO:
 
 - fix the loading screen for the Learn section (right now it shows 'you're all done' while its waiting for db to load)

@@ -12,6 +12,7 @@ import { redirect } from "next/navigation";
 import React from "react";
 import NewFragmentForm from "../components/new-fragment-form";
 import UpdateProfileForm from "../components/update-profile-form";
+import { Separator } from "@/components/ui/separator";
 
 export type Profile = {
   first_name: string | null;
@@ -55,10 +56,11 @@ export default async function ProfilePage() {
   return (
     <div>
       <h1 className="mb-5">Profile</h1>
+      <Separator className="bg-slate-300 max-w-2xl mb-5" />
       <p>First Name: {profile?.first_name}</p>
       <p>Last Name: {profile?.last_name}</p>
       <Dialog>
-        <DialogTrigger className="bg-gray-300 rounded p-3 mt-10">
+        <DialogTrigger className="bg-gray-300 rounded p-3 mt-10 text-zinc-900">
           Edit Profile
         </DialogTrigger>
         <DialogContent>

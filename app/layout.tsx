@@ -19,8 +19,8 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={GeistSans.className}>
-      <body className="bg-gray-800">
-        <main className="min-h-screen flex flex-col items-center">
+      <body className="bg-zinc-800">
+        <main className="min-h-screen flex flex-col items-center text-zinc-300">
           {children}
         </main>
         <Toaster />
