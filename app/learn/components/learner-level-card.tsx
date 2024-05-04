@@ -21,8 +21,8 @@ export default async function LearnerLevelCard({
     data: { user },
   } = await supabase.auth.getUser();
 
-  if (!user) {
-    throw new Error("No user found");
+  if (!user || !sessions) {
+    return <div>Loading...</div>;
   }
 
   function getPracticeTotal() {
@@ -35,9 +35,9 @@ export default async function LearnerLevelCard({
   // to set the learning level, first calculating total practice time, then calculating the number of days since the user joined the platform and calculating the daily practice average
   const currentDate = new Date();
   const joinedDate = new Date(user.created_at);
-  const totalDays = differenceInDays(currentDate, joinedDate);
+  const totalDays = differenceInDays(currentDate, joinedDate) + 1;
   const totalPratice = getPracticeTotal();
-  const averagePractice = totalPratice / totalDays;
+  const averagePractice = Math.round(totalPratice / totalDays);
 
   // calculate how many more minutes per day will take the user to the next level
 
@@ -71,7 +71,7 @@ export default async function LearnerLevelCard({
   }
   const currentLevel = currentCharacterLevel(averagePractice);
   const nextLevel = nextCharacterLevel(averagePractice);
-  const remainingMinutes = nextLevel.threshold - averagePractice;
+  const remainingMinutes = nextLevel!.threshold - averagePractice;
 
   return (
     <Card className="max-w-md">

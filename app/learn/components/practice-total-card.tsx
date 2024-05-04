@@ -15,11 +15,13 @@ export default function PracticeTotalCard({
   sessions: Session[];
 }) {
   function getPracticeTotal() {
-    return Math.round(
-      sessions.reduce((acc, session) => acc + session.session_duration, 0) /
-        (1000 * 60)
+    const totalInMs = Math.round(
+      sessions.reduce((acc, session) => acc + session.session_duration, 0)
     );
+    // convert to minutes
+    return Math.round(totalInMs / (1000 * 60));
   }
+
   const totalPractice = getPracticeTotal();
   return (
     <Card className="max-w-md">

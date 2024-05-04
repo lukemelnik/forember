@@ -55,6 +55,7 @@ export default function FlashCard({
   }
   async function increaseInterval(fragment: Fragment) {
     const increasedInterval = fragment.interval + 1;
+    // need logic for if the interval is > 20 the fragment is set to complete, but there's also still an issue where if we miss a day, when should the next_show_date be?
     const next_show_date = addDays(new Date(), increasedInterval);
     const supabase = createClient();
     const { error } = await supabase
