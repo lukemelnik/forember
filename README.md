@@ -140,6 +140,12 @@ const filteredFragments = fragments.filter((fragment) => {
 </Link>
 ```
 
+11. TIME THINGS (Date-fns library for the win):
+
+- if you want to compare full days it's easiest to set the time to zero with startOfDay(Date)
+- you can't compare date objects (because you're comparing their reference location) so you need to convert them to strings first.
+- TIME ZONES: even if you set the time to zero, you still have to account for the difference in time zones.
+
 TODO:
 
 - fix the loading screen for the Learn section (right now it shows 'you're all done' while its waiting for db to load)

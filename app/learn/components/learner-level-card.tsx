@@ -10,6 +10,7 @@ import React from "react";
 import { Session } from "./learning-dashboard";
 import { differenceInDays, isThisWeek } from "date-fns";
 import { createClient } from "@/utils/supabase/server";
+import { totalDaysOnPlatform } from "@/lib/date-calculations";
 
 export default async function LearnerLevelCard({
   sessions,
@@ -33,9 +34,7 @@ export default async function LearnerLevelCard({
   }
 
   // to set the learning level, first calculating total practice time, then calculating the number of days since the user joined the platform and calculating the daily practice average
-  const currentDate = new Date();
-  const joinedDate = new Date(user.created_at);
-  const totalDays = differenceInDays(currentDate, joinedDate) + 1;
+  const { totalDays } = totalDaysOnPlatform(user.created_at);
   const totalPratice = getPracticeTotal();
   const averagePractice = Math.round(totalPratice / totalDays);
 

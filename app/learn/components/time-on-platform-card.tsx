@@ -10,6 +10,7 @@ import React from "react";
 import { Session } from "./learning-dashboard";
 import { differenceInDays, format, isThisWeek, startOfDay } from "date-fns";
 import { createClient } from "@/utils/supabase/server";
+import { totalDaysOnPlatform } from "@/lib/date-calculations";
 
 export default async function TimeOnPlatformCard() {
   const supabase = createClient();
@@ -21,11 +22,9 @@ export default async function TimeOnPlatformCard() {
     throw new Error("No user found");
   }
 
-  // have to set hours time to zero so it doesn't affect the calculation
-  const currentDate = startOfDay(new Date());
-  const joinedDate = startOfDay(new Date(user.created_at));
-  const formattedJoinedDate = format(joinedDate, "MM/dd/yyyy");
-  const totalDays = differenceInDays(currentDate, joinedDate) + 1;
+  const { totalDays, formattedJoinedDate } = totalDaysOnPlatform(
+    user.created_at
+  );
 
   return (
     <Card className="max-w-md">

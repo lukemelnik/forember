@@ -2,7 +2,7 @@
 import { createClient } from "@/utils/supabase/client";
 import { useEffect, useState } from "react";
 import FlashCard from "./flash-card";
-import { addDays, startOfDay } from "date-fns";
+import { addDays, isPast, startOfDay } from "date-fns";
 import Confetti from "./confetti";
 import ReactDOM from "react-dom";
 import { Progress } from "@/components/ui/progress";
@@ -33,19 +33,25 @@ export default function Quiz() {
       }
       if (!fragments) return;
 
-      // only show the user the fragments with next_show_date of today, or if it's the first time (last-shown-at is null)
+      // conditions for showing the fragment:
+      // 1. if the fragment has never been shown
+      // 2. if the fragment has been shown and the next show date is today
+      // 3. if the fragment has been shown and the next show date is in the past (i.e. user missed a day)
       const filteredFragments = fragments.filter((fragment) => {
-        const fragmentNextShowDay = startOfDay(fragment.next_show_date);
+        const fragmentNextShowDay = startOfDay(
+          new Date(fragment.next_show_date)
+        );
         const today = startOfDay(new Date());
-
+        console.log(fragmentNextShowDay.getTime(), today.getTime());
         return (
           fragmentNextShowDay.getTime() === today.getTime() ||
-          fragment.last_shown_at === null
+          fragment.last_shown_at === null ||
+          isPast(fragmentNextShowDay)
         );
       });
 
-      // Don't forget to set this to 'filteredFragments' instead of 'fragments' for actual date functionality
-      setFragments(fragments);
+      // Don't forget to set this to 'filteredFragments' after doing development testing
+      setFragments(filteredFragments);
     }
     getFragments();
   }, []);
