@@ -1,11 +1,18 @@
 "use client";
 import { Button } from "@/components/ui/button";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import React, { useState } from "react";
 
 export default function AIPage() {
-  const [questions, setQuestions] = useState([]);
+  const [fragments, setFragments] = useState([]);
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -20,7 +27,7 @@ export default function AIPage() {
     });
     const data = await response.json();
     console.log(data);
-    setQuestions(data);
+    setFragments(data);
   }
   return (
     <div className="max-w-2xl">
@@ -42,28 +49,42 @@ export default function AIPage() {
         </Button>
       </form>
 
-      {questions.length > 0 && (
+      {fragments.length > 0 && (
         <div>
-          <div>
+          <div className="flex items-center gap-5">
+            <h2 className="text-2xl font-bold">
+              {fragments.length} fragments created
+            </h2>
             <Button variant="outline" className="bg-zinc-300 text-black">
               ADD ALL
             </Button>
           </div>
-          {questions.map((fragment) => (
-            <div
-              className="border-2 border-zinc-300 rounded-lg p-3 my-2"
-              key={fragment.question}
-            >
-              <h2 className="font-bold">{fragment.question}</h2>
-              <p className="italic">{fragment.answer}</p>
-              <Button variant="outline" className="bg-zinc-300 text-black">
-                Add
-              </Button>
-              <Button variant="outline" className="bg-zinc-300 text-black">
-                Delete
-              </Button>
-            </div>
-          ))}
+          <Carousel className="mt-4 border-2 border-zinc-300 rounded-xl p-5">
+            <CarouselContent>
+              {fragments.map((fragment) => (
+                <CarouselItem key={fragment.question}>
+                  <h2 className="font-bold">{fragment.question}</h2>
+                  <p className="italic">{fragment.answer}</p>
+                  <div className="mt-2">
+                    <Button
+                      variant="outline"
+                      className="bg-zinc-300 text-black mr-4"
+                    >
+                      Add
+                    </Button>
+                    <Button
+                      variant="outline"
+                      className="bg-zinc-300 text-black"
+                    >
+                      Delete
+                    </Button>
+                  </div>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <CarouselPrevious className="text-black" />
+            <CarouselNext className="text-black" />
+          </Carousel>
         </div>
       )}
     </div>

@@ -14,7 +14,7 @@ export default function LearnLayout({
           <NavHeader />
           <NavLinks />
         </nav>
-        <section className="col-span-3 bg-black min-h-screen p-10 flex flex-col gap-5">
+        <section className="col-span-3 bg-black min-h-screen p-16 flex flex-col gap-5">
           {children}
         </section>
       </div>
