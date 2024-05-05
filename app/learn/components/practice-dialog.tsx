@@ -9,10 +9,9 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Quiz from "./quiz";
 import { createClient } from "@/utils/supabase/client";
-import { set } from "date-fns";
 
 export default function PracticeDialog() {
   const [startTime, setStartTime] = useState<Date | null>(null);
