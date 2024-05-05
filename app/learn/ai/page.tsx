@@ -27,7 +27,7 @@ export default function AIPage() {
       <h1>Create Fragments using OpenAI</h1>
       <form
         onSubmit={handleSubmit}
-        className="min-w-2xl rounded flex flex-col items-left gap-2 max-w-2xl text-zinc-950 mt-10"
+        className="min-w-2xl rounded flex flex-col items-left gap-2 max-w-2xl text-zinc-950 mt-10 mb-10"
       >
         <Label className="text-zinc-300" htmlFor="notes">
           Enter Your Notes
@@ -37,16 +37,31 @@ export default function AIPage() {
           Create Fragments
         </Button>
       </form>
-      {questions.length > 0 &&
-        questions.map((fragment) => (
-          <div
-            className="border-2 border-zinc-300 rounded-lg p-3 my-2"
-            key={fragment}
-          >
-            <h2 className="font-bold">{fragment.question}</h2>
-            <p className="italic">{fragment.answer}</p>
+
+      {questions.length > 0 && (
+        <div>
+          <div>
+            <Button variant="outline" className="bg-zinc-300 text-black">
+              ADD ALL
+            </Button>
           </div>
-        ))}
+          {questions.map((fragment) => (
+            <div
+              className="border-2 border-zinc-300 rounded-lg p-3 my-2"
+              key={fragment}
+            >
+              <h2 className="font-bold">{fragment.question}</h2>
+              <p className="italic">{fragment.answer}</p>
+              <Button variant="outline" className="bg-zinc-300 text-black">
+                Add
+              </Button>
+              <Button variant="outline" className="bg-zinc-300 text-black">
+                Delete
+              </Button>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }
