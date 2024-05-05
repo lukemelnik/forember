@@ -21,8 +21,8 @@ export default function AIPage() {
       },
     });
     const data = await response.json();
-    setQuestions(data.questions);
-    console.log(data.questions);
+    // setQuestions(data.questions);
+    console.log(data);
   }
   return (
     <div>
@@ -39,12 +39,12 @@ export default function AIPage() {
           Create Fragments
         </Button>
       </form>
-      {questions.length > 0 &&
+      {/* {questions.length > 0 &&
         questions.map((question) => (
           <div key={question} className="mt-5">
             <h2>{question.subject}</h2>
           </div>
-        ))}
+        ))} */}
     </div>
   );
 }

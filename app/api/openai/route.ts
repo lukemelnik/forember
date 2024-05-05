@@ -7,7 +7,7 @@ const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
 
-export async function POST(req: Request) {
+export async function POST(req: NextRequest) {
   const supabase = createClient();
   const { data } = await supabase.auth.getUser();
 
@@ -15,20 +15,26 @@ export async function POST(req: Request) {
     redirect("/login");
   }
 
-  const notes = await req.body;
+  const reqData = await req.json();
+  const notes = reqData.notes;
 
-  // if submitted directly from form:
-  // const formData = await req.formData();
-  // const notes = formData.get("notes");
   if (!notes) {
     return Response.json("No prompt provided", { status: 400 });
   }
+
+  return Response.json(notes, { status: 200 });
   const openAIResponse = await openai.chat.completions.create({
     model: "gpt-3.5-turbo",
     messages: [
       {
         role: "user",
-        content: `You are a knowledgeable teacher with years of experience helping students learn complex topics by breaking them down into understanable pieces. Take the following notes (deliniated between '---') and turn them into a reasonable amount of matching questions and answers that the student can use for flashcards. Please only return your response as a valid json object without line breaks and add a relevant, one-word 'subject' key to each question and answer. Make the subject a higher level category - for example if the question is about a javascript method, the category would be 'programming'. Here are the notes: \n
+        content: `You are a knowledgeable teacher with years of experience helping students learn complex topics by breaking them down into understanable pieces. Take the following notes (deliniated between '---') and do the following: \n
+        1. identify the key concepts that the student should remember \n
+        2. Break each concept into pieces that we'll call 'fragments'. Each fragment should be easy to remember and fit in a single sentence \n
+        3. Create a question & answer pair for each fragment that the studen will use for flashcards in order to practice active recall \n
+        4. give each question and answer pair a high-level subject \n
+        5. return all the data as a json object containing an array with an object for each fragment with keys of "question", "answer" and "subject". \n
+        Here are the notes: \n
     ---
     ${notes}
     ---
