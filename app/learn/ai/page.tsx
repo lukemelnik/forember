@@ -13,9 +13,11 @@ import React, { useState } from "react";
 
 export default function AIPage() {
   const [fragments, setFragments] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    setLoading(true);
     const formData = new FormData(event.currentTarget);
     const notes = formData.get("notes") as string;
     const response = await fetch("/api/openai", {
@@ -28,29 +30,34 @@ export default function AIPage() {
     const data = await response.json();
     console.log(data);
     setFragments(data);
+    setLoading(false);
   }
   return (
     <div className="max-w-2xl">
-      <h1>Create Fragments using OpenAI</h1>
+      <h1 className="mb-3">Create Fragments using OpenAI</h1>
       <form
         onSubmit={handleSubmit}
-        className="min-w-2xl rounded flex flex-col items-left gap-2 max-w-2xl text-zinc-950 mt-10 mb-10"
+        className={
+          "min-w-2xl rounded flex flex-col items-left gap-2 max-w-2xl text-zinc-950 my-10" +
+          (loading && " animate-pulse")
+        }
       >
-        <Label className="text-zinc-300" htmlFor="notes">
+        <Label className="text-2xl font-bold text-zinc-300" htmlFor="notes">
           Enter Your Notes
         </Label>
         <Textarea
+          disabled={loading}
           className="bg-black text-zinc-300 min-h-[200px]"
           id="notes"
           name="notes"
         />
-        <Button className="bg-zinc-300 mt-5" type="submit">
-          Create Fragments
+        <Button disabled={loading} className="bg-zinc-300 mt-5" type="submit">
+          {loading ? "Generating..." : "Generate Fragments"}
         </Button>
       </form>
 
       {fragments.length > 0 && (
-        <div>
+        <div className="mt-10">
           <div className="flex items-center gap-5">
             <h2 className="text-2xl font-bold">
               {fragments.length} fragments created
