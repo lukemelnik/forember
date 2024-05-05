@@ -24,6 +24,7 @@
     "lucide-react": "^0.376.0",
     "next": "latest",
     "next-themes": "^0.3.0",
+    "openai": "^4.40.2",
     "postcss": "8.4.33",
     "react": "18.2.0",
     "react-confetti": "^6.1.0",

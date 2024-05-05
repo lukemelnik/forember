@@ -10,6 +10,7 @@ export default function NavLinks() {
   const natItems = [
     { name: "Learn", href: "/learn" },
     { name: "Add Fragment", href: "/learn/add" },
+    { name: "Use AI", href: "/learn/ai" },
     { name: "Library", href: "/learn/library" },
     { name: "Profile", href: "/learn/profile" },
     { name: "FAQ", href: "/learn/faq" },
