@@ -22,7 +22,6 @@ export async function POST(req: NextRequest) {
     return Response.json("No prompt provided", { status: 400 });
   }
 
-  return Response.json(notes, { status: 200 });
   const openAIResponse = await openai.chat.completions.create({
     model: "gpt-3.5-turbo",
     messages: [
@@ -33,7 +32,8 @@ export async function POST(req: NextRequest) {
         2. Break each concept into pieces that we'll call 'fragments'. Each fragment should be easy to remember and fit in a single sentence \n
         3. Create a question & answer pair for each fragment that the studen will use for flashcards in order to practice active recall \n
         4. give each question and answer pair a high-level subject \n
-        5. return all the data as a json object containing an array with an object for each fragment with keys of "question", "answer" and "subject". \n
+        5. return all the data as a json object that looks like the following, with an object for each fragment: 
+        [{"question": "sample question", "answer": "sample answer", "subject": "sample subject"}] \n
         Here are the notes: \n
     ---
     ${notes}

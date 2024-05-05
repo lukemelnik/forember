@@ -142,6 +142,8 @@ const filteredFragments = fragments.filter((fragment) => {
 
 11. TIME THINGS (Date-fns library for the win):
 
+12. Classic stuff but you have to parse the req with data = req.json() before you can access the req.body! I had a problem where I was getting either nothing, or partial responses from openAI and it's because it was getting none, or pieces of the readable stream from the request.
+
 - if you want to compare full days it's easiest to set the time to zero with startOfDay(Date)
 - you can't compare date objects (because you're comparing their reference location) so you need to convert them to strings first.
 - TIME ZONES: even if you set the time to zero, you still have to account for the difference in time zones.

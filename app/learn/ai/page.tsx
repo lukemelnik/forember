@@ -1,9 +1,7 @@
 "use client";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { set } from "date-fns";
 import React, { useState } from "react";
 
 export default function AIPage() {
@@ -21,8 +19,8 @@ export default function AIPage() {
       },
     });
     const data = await response.json();
-    // setQuestions(data.questions);
     console.log(data);
+    setQuestions(data);
   }
   return (
     <div>
@@ -39,12 +37,16 @@ export default function AIPage() {
           Create Fragments
         </Button>
       </form>
-      {/* {questions.length > 0 &&
-        questions.map((question) => (
-          <div key={question} className="mt-5">
-            <h2>{question.subject}</h2>
+      {questions.length > 0 &&
+        questions.map((fragment) => (
+          <div
+            className="border-2 border-zinc-300 rounded-lg p-3 my-2"
+            key={fragment}
+          >
+            <h2 className="font-bold">{fragment.question}</h2>
+            <p className="italic">{fragment.answer}</p>
           </div>
-        ))} */}
+        ))}
     </div>
   );
 }
