@@ -23,7 +23,7 @@ export default function AIPage() {
     setQuestions(data);
   }
   return (
-    <div>
+    <div className="max-w-2xl">
       <h1>Create Fragments using OpenAI</h1>
       <form
         onSubmit={handleSubmit}
@@ -32,7 +32,11 @@ export default function AIPage() {
         <Label className="text-zinc-300" htmlFor="notes">
           Enter Your Notes
         </Label>
-        <Textarea className="bg-black text-zinc-300" id="notes" name="notes" />
+        <Textarea
+          className="bg-black text-zinc-300 min-h-[200px]"
+          id="notes"
+          name="notes"
+        />
         <Button className="bg-zinc-300 mt-5" type="submit">
           Create Fragments
         </Button>
@@ -48,7 +52,7 @@ export default function AIPage() {
           {questions.map((fragment) => (
             <div
               className="border-2 border-zinc-300 rounded-lg p-3 my-2"
-              key={fragment}
+              key={fragment.question}
             >
               <h2 className="font-bold">{fragment.question}</h2>
               <p className="italic">{fragment.answer}</p>
