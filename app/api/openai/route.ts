@@ -46,12 +46,16 @@ export async function POST(req: NextRequest) {
       messages: [
         {
           role: "user",
-          content: `You are a knowledgeable teacher with years of experience helping students learn complex topics by breaking them down into understanable pieces. Take the following notes (deliniated between '---') and do the following: \n
-        1. identify the key concepts that the student should remember \n
-        2. Break each concept into pieces that we'll call 'fragments'. Each fragment should be easy to remember Iand fit in a single sentence \n
-        3. Create a question & answer pair for each fragment that the studen will use for flashcards in order to practice active recall. Ensure that the question and answer pair will help the student full grasp the material and make it as memorable as possible. \n
-        4. give each question and answer pair a high-level subject \n
-        5. return the information as a JSON string in the following shape: \n
+          content: `You are a knowledgeable teacher with years of experience helping students learn complex topics by breaking them down into understanable pieces. A student gives your the following notes that they took while learning a new topic (deliniated between '---') and needs you to do the following: \n
+        Step 1 - Identify the key concepts that the student should remember from the notes \n
+
+        Step 2 - If the concept is complex, break it down into smaller concepts that are easy to grasp and remember \n
+
+        Step 3 - Create a question & answer pair for each concept that the student will use for flashcards. Ensure that the question and answer pair will help the student fully grasp the material and make it as memorable as possible. Whereever possible, use their own language & tone frome the notes.\n
+
+        Step 4 - Give each question and answer pair a high-level subject \n
+
+        Step 5 - Return the information as a JSON string in the following shape: \n
         [
           {
             "question": "sample question that highlights a major concept",
