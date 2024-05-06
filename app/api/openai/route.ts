@@ -62,10 +62,13 @@ export async function POST(req: NextRequest) {
       max_tokens: 1000,
     });
 
+    let generatedFragmentArray = [];
     // parse from JSON string to array of objects
-    const generatedFragmentArray = JSON.parse(
-      openAIResponse.choices[0].message.content
-    );
+    if (openAIResponse.choices[0].message.content !== null) {
+      generatedFragmentArray = JSON.parse(
+        openAIResponse.choices[0].message.content
+      );
+    }
     // generate temporary id for displaying on client
     for (let fragment of generatedFragmentArray) {
       fragment.id = Math.random().toString(36).substring(7);
