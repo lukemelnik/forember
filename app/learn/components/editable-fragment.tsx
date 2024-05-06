@@ -33,7 +33,7 @@ export default function EditableFragment({
             }
             type="text"
             name="question"
-            value={fragment.question}
+            value={editedFragment.question}
             onChange={(e) => {
               setEditedFragment({
                 ...editedFragment,
@@ -48,7 +48,7 @@ export default function EditableFragment({
             }
             type="text"
             name="answer"
-            value={fragment.answer}
+            value={editedFragment.answer}
             onChange={(e) => {
               setEditedFragment({ ...editedFragment, answer: e.target.value });
             }}
