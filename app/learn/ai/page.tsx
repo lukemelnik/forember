@@ -11,9 +11,9 @@ import {
 } from "@/components/ui/carousel";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { set } from "date-fns";
 import React, { useState } from "react";
 import EditableFragment from "../components/editable-fragment";
+import { set } from "date-fns";
 
 // generated fragments are given a simple temporary id for displaying to the user that will be replaced when its saved in the db
 export type TemporaryFragment = {
@@ -25,23 +25,50 @@ export type TemporaryFragment = {
 export default function AIPage() {
   const [fragments, setFragments] = useState<TemporaryFragment[]>([]);
   const [loading, setLoading] = useState(false);
+  const [fetchError, setFetchError] = useState<string | null>(null);
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setLoading(true);
+    setFetchError(null);
+    setFragments([]);
     const formData = new FormData(event.currentTarget);
     const notes = formData.get("notes") as string;
-    const response = await fetch("/api/openai", {
-      method: "POST",
-      body: JSON.stringify({ notes }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    const data = await response.json();
-    console.log(data);
-    setFragments(data);
-    setLoading(false);
+
+    if (!notes) {
+      setFetchError("Failed to generate. Please enter some notes first.");
+      setLoading(false);
+      return;
+    }
+
+    try {
+      const response = await fetch("/api/openai", {
+        method: "POST",
+        body: JSON.stringify({ notes }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      console.log(response.ok);
+      if (!response.ok) {
+        const errorData = await response.json();
+        const error = errorData.error;
+        throw new Error(
+          error || "Failed to generate fragments. Please try again."
+        );
+      }
+      const data = await response.json();
+      setFragments(data);
+      setLoading(false);
+    } catch (error) {
+      if (error instanceof Error) {
+        setFetchError(error.message);
+      } else {
+        setFetchError("An unknown error occured.");
+      }
+      setLoading(false);
+      return;
+    }
   }
 
   function removeFragment(id: string) {
@@ -59,12 +86,14 @@ export default function AIPage() {
   return (
     <div className="max-w-2xl">
       <h1 className="mb-3">Generate Fragments with AI</h1>
+
       <form
         onSubmit={handleSubmit}
         className={
           "min-w-2xl rounded flex flex-col items-left gap-2 max-w-2xl text-zinc-950 my-10"
         }
       >
+        {/* made this label for screen readers only */}
         <Label
           className="text-2xl font-bold text-zinc-300 sr-only"
           htmlFor="notes"
@@ -95,8 +124,11 @@ export default function AIPage() {
         </div>
         ``
       </form>
+      {fetchError && (
+        <h2 className="bg-red-500 p-3 rounded-xl">{fetchError}</h2>
+      )}
 
-      {fragments.length > 0 && (
+      {fragments && fragments.length > 0 && (
         <div className="mt-10">
           <div className="flex items-center gap-5">
             <h2 className="text-2xl font-bold">

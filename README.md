@@ -155,6 +155,29 @@ const filteredFragments = fragments.filter((fragment) => {
   }
 ```
 
+14. Errors from API fetch: can't send an error object in an HTTP response but you can send an object with a message:
+
+```js
+if (!response.ok) {
+  const errorData = await response.json();
+  const error = errorData.error;
+  throw new Error(error || "Failed to generate fragments. Please try again.");
+}
+```
+
+Then on the api route you can set the error message like this:
+
+```js
+if (!notes) {
+  return Response.json(
+    { error: "Please enter notes before generating." },
+    {
+      status: 400,
+    }
+  );
+}
+```
+
 - if you want to compare full days it's easiest to set the time to zero with startOfDay(Date)
 - you can't compare date objects (because you're comparing their reference location) so you need to convert them to strings first.
 - TIME ZONES: even if you set the time to zero, you still have to account for the difference in time zones.
@@ -176,6 +199,10 @@ TODO:
 - add openAI functionality
 
 - add stripe & subscription stuff
+
+```
+
+```
 
 ```
 

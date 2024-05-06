@@ -2,10 +2,20 @@ import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
 import { NextRequest } from "next/server";
 import OpenAI from "openai";
+import { z } from "zod";
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
+
+const fragmentSchema = z.object({
+  id: z.string(),
+  question: z.string().min(5).max(250),
+  answer: z.string().min(3).max(250),
+  subject: z.string().min(3).max(50),
+});
+
+const fragmentArraySchema = z.array(fragmentSchema);
 
 export async function POST(req: NextRequest) {
   const supabase = createClient();
@@ -19,17 +29,23 @@ export async function POST(req: NextRequest) {
   const notes = reqData.notes;
 
   if (!notes) {
-    return Response.json("No prompt provided", { status: 400 });
+    return Response.json(
+      { error: "Please enter notes before generating." },
+      {
+        status: 400,
+      }
+    );
   }
 
   // add a section to the prompt called 'issues' where the ai model can point out any factual errors in the notes. Will display them separately from the flashcard options.
 
-  const openAIResponse = await openai.chat.completions.create({
-    model: "gpt-3.5-turbo",
-    messages: [
-      {
-        role: "user",
-        content: `You are a knowledgeable teacher with years of experience helping students learn complex topics by breaking them down into understanable pieces. Take the following notes (deliniated between '---') and do the following: \n
+  try {
+    const openAIResponse = await openai.chat.completions.create({
+      model: "gpt-3.5-turbo",
+      messages: [
+        {
+          role: "user",
+          content: `You are a knowledgeable teacher with years of experience helping students learn complex topics by breaking them down into understanable pieces. Take the following notes (deliniated between '---') and do the following: \n
         1. identify the key concepts that the student should remember \n
         2. Break each concept into pieces that we'll call 'fragments'. Each fragment should be easy to remember and fit in a single sentence \n
         3. Create a question & answer pair for each fragment that the studen will use for flashcards in order to practice active recall \n
@@ -41,23 +57,29 @@ export async function POST(req: NextRequest) {
     ${notes}
     ---
     `,
-      },
-    ],
-    max_tokens: 1000,
-  });
+        },
+      ],
+      max_tokens: 1000,
+    });
 
-  // need to add a try/catch, pass on the error, as well as check that the response is valid JSON
-
-  const generatedFragmentArray = JSON.parse(
-    openAIResponse.choices[0].message.content
-  );
-
-  for (let fragment of generatedFragmentArray) {
-    fragment.id = Math.random().toString(36).substring(7);
+    // parse from JSON string to array of objects
+    const generatedFragmentArray = JSON.parse(
+      openAIResponse.choices[0].message.content
+    );
+    // generate temporary id for displaying on client
+    for (let fragment of generatedFragmentArray) {
+      fragment.id = Math.random().toString(36).substring(7);
+    }
+    // parse the array of generated fragments to make sure they are valid before sending back to client. There's a chance the llm doesn't format the generated data properly
+    fragmentArraySchema.parse(generatedFragmentArray);
+    return Response.json(generatedFragmentArray, {
+      status: 200,
+    });
+  } catch (error) {
+    console.log(error);
+    return Response.json(
+      { error: "Something went wrong while generating, please try again." },
+      { status: 500 }
+    );
   }
-  console.log(generatedFragmentArray);
-
-  return Response.json(generatedFragmentArray, {
-    status: 200,
-  });
 }
