@@ -48,11 +48,16 @@ export async function POST(req: NextRequest) {
 
   // need to add a try/catch, pass on the error, as well as check that the response is valid JSON
 
-  const flashCardJSONObject = JSON.parse(
+  const generatedFragmentArray = JSON.parse(
     openAIResponse.choices[0].message.content
   );
 
-  return Response.json(flashCardJSONObject, {
+  for (let fragment of generatedFragmentArray) {
+    fragment.id = Math.random().toString(36).substring(7);
+  }
+  console.log(generatedFragmentArray);
+
+  return Response.json(generatedFragmentArray, {
     status: 200,
   });
 }

@@ -1,5 +1,5 @@
 "use client";
-import RocketIcon from "@/components/rocket-svg";
+import RocketIcon from "@/components/rocket-icon";
 import Link from "next/link";
 import React from "react";
 
