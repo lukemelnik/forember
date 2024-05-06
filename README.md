@@ -142,6 +142,10 @@ const filteredFragments = fragments.filter((fragment) => {
 
 11. TIME THINGS (Date-fns library for the win):
 
+- if you want to compare full days it's easiest to set the time to zero with startOfDay(Date)
+- you can't compare date objects (because you're comparing their reference location) so you need to convert them to strings first.
+- TIME ZONES: even if you set the time to zero, you still have to account for the difference in time zones.
+
 12. Classic stuff but you have to parse the req with data = req.json() before you can access the req.body! I had a problem where I was getting either nothing, or partial responses from openAI and it's because it was getting none, or pieces of the readable stream from the request.
 
 13. Map for the win: I implemented editing for AI generated fragments. I was filtering out the edited fragment then adding it back to the rest of the array, but that meant that the visible fragment in the carousel changed because I'd changed the order in the array. Better to map and replace in the same location:
@@ -178,36 +182,4 @@ if (!notes) {
 }
 ```
 
-- if you want to compare full days it's easiest to set the time to zero with startOfDay(Date)
-- you can't compare date objects (because you're comparing their reference location) so you need to convert them to strings first.
-- TIME ZONES: even if you set the time to zero, you still have to account for the difference in time zones.
-
-TODO:
-
-- fix the loading screen for the Learn section (right now it shows 'you're all done' while its waiting for db to load)
-
-- add category to fragments and have links in nav to create quizes for them specifically (use searchable shadcn component)
-
-- add a manage cards seciton where you can see/filter all cards and delete the ones you don't want
-
-- add animation to quiz (potentially make modal)
-
-- add ai photo creation & storage for each new fragment
-
-- style the whole app better &
-
-- add openAI functionality
-
-- add stripe & subscription stuff
-
-```
-
-```
-
-```
-
-```
-
-```
-
-```
+15. JSON: Learned some cool things while fighting the openai api to send back the right format of information. I was telling it to return JSON, but ideally I wanted a JSON string, which I could then JSON.parse and turn into the expected array. Then added lots of checks to make sure it actually was an array and the shape was correct. LASTLY: in the prompt I had accidentally left out the quotes on the key in example object, which was creating a parsing error!
