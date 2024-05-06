@@ -1,42 +1,97 @@
 "use client";
 
 import React, { useState } from "react";
-import { Fragment } from "../ai/page";
-import { set } from "date-fns";
+import { TemporaryFragment } from "../ai/page";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import { createClient } from "@/utils/supabase/client";
+import { z } from "zod";
+import { addDays } from "date-fns";
 
 type EditableFragmentProps = {
-  fragment: Fragment;
+  fragment: TemporaryFragment;
   handleRemoveFragment: (id: string) => void;
-  handleAddFragment: (id: string) => void;
-  handleSaveFragment: (fragment: Fragment) => void;
+  handleSaveFragment: (fragment: TemporaryFragment) => void;
 };
+
+type SubmissionErrors = {
+  question?: string[];
+  answer?: string[];
+  _form?: string[];
+};
+
+export const createFragmentSchema = z.object({
+  question: z
+    .string()
+    .min(5, { message: "Question must be at least 5 characters long" })
+    .max(250, {
+      message: "Question must be at most 250 characters long",
+    }),
+  answer: z
+    .string()
+    .min(3, { message: "Answer must be at least 3 characters long" })
+    .max(250, { message: "Answer must be at most 250 characters long" }),
+});
 
 export default function EditableFragment({
   fragment,
   handleRemoveFragment,
-  handleAddFragment,
   handleSaveFragment,
 }: EditableFragmentProps) {
   const [isEditing, setIsEditing] = useState(false);
-  const [editedFragment, setEditedFragment] = useState<Fragment>(fragment);
+  const [editedFragment, setEditedFragment] =
+    useState<TemporaryFragment>(fragment);
+  const [errors, setErrors] = useState<SubmissionErrors[]>([]);
+
+  async function addFragment(fragment: TemporaryFragment) {
+    const supabase = createClient();
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+    if (!user) {
+      setErrors([{ _form: ["You must be signed in to create a fragment"] }]);
+    }
+    // strip the temporary id
+    const { id, ...fragmentWithoutId } = fragment;
+    const result = createFragmentSchema.safeParse({
+      question: fragment.question,
+      answer: fragment.answer,
+    });
+    // if errors set them to state and show in ui
+    if (!result.success) {
+      setErrors(result.error.flatten().fieldErrors);
+    }
+
+    const currentDate = new Date();
+    const tomorrow = addDays(currentDate, 1);
+    const { error } = await supabase.from("fragment").insert({
+      question: result.data.question,
+      answer: result.data.answer,
+      user_id: user.id,
+      next_show_date: tomorrow,
+    });
+    if (error) {
+      throw new Error("Could not create fragment");
+    }
+    // remove from list
+    console.log("you did it");
+  }
 
   return (
     <div>
+      {/* need to actually show errors here */}
       {isEditing ? (
         <div className="flex flex-col text-black">
-          <div className="flex items-center justify-center p-2">
+          <div className="flex items-left justify-center p-2">
             <Label htmlFor="question" className="text-zinc-300">
               <span className="text-lg mr-2">Q:</span>
             </Label>
-            <Input
+            <Textarea
               className={
-                `bg-black text-zinc-300 rounded p-1 border-none text-md` +
+                `bg-black text-zinc-300 rounded p-1 border-none text-md text-wrap` +
                 (isEditing && "")
               }
-              type="text"
               name="question"
               value={editedFragment.question}
               onChange={(e) => {
@@ -47,16 +102,15 @@ export default function EditableFragment({
               }}
             />
           </div>
-          <div className="flex items-center justify-center p-2">
+          <div className="flex items-left justify-center p-2">
             <Label htmlFor="question" className="text-zinc-300">
               <span className="text-lg mr-2">A:</span>
             </Label>
-            <Input
+            <Textarea
               className={
-                `bg-black text-zinc-300 rounded border-none mb-1 text-md p-1` +
+                `bg-black text-zinc-300 rounded border-none mb-1 text-md p-1 text-wrap` +
                 (isEditing && "")
               }
-              type="text"
               name="answer"
               value={editedFragment.answer}
               onChange={(e) => {
@@ -78,7 +132,11 @@ export default function EditableFragment({
         <Button
           variant="outline"
           className="bg-zinc-300 text-black"
-          onClick={handleAddFragment}
+          onClick={() => {
+            addFragment(fragment);
+            // put check here that there are no errors
+            handleRemoveFragment(fragment.id);
+          }}
         >
           Add To Library
         </Button>

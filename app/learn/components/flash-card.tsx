@@ -73,7 +73,7 @@ export default function FlashCard({
 
   return (
     <div
-      className="w-96 h-48 bg-zinc-200 rounded-xl relative flex justify-center items-center shadow-lg border-2 border-zinc-300"
+      className="w-full h-72 bg-zinc-200 rounded-xl relative flex justify-center items-center shadow-lg border-2 border-zinc-300 p-10 text-lg mx-auto"
       onClick={() => setIsFlipped(!isFlipped)}
     >
       <div className="absolute top-5 right-3">
@@ -110,7 +110,7 @@ export default function FlashCard({
         <p>{fragment.question}</p>
       ) : (
         <>
-          <p>{fragment.answer}</p>{" "}
+          <p className="italic">{fragment.answer}</p>{" "}
           <div className="absolute bottom-5 flex gap-5">
             <Button
               onClick={() => {

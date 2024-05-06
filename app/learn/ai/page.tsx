@@ -15,7 +15,8 @@ import { set } from "date-fns";
 import React, { useState } from "react";
 import EditableFragment from "../components/editable-fragment";
 
-export type Fragment = {
+// generated fragments are given a simple temporary id for displaying to the user that will be replaced when its saved in the db
+export type TemporaryFragment = {
   id: string;
   question: string;
   answer: string;
@@ -43,18 +44,12 @@ export default function AIPage() {
     setLoading(false);
   }
 
-  function addFragment(id: string) {
-    // add to db
-    // remove from list
-    console.log("you did it");
-  }
-
   function removeFragment(id: string) {
     const updatedFragments = fragments.filter((f) => f.id !== id);
     setFragments(updatedFragments);
   }
 
-  function saveFragment(fragment: Fragment) {
+  function saveFragment(fragment: TemporaryFragment) {
     const newFragments = fragments.map((f) =>
       f.id === fragment.id ? fragment : f
     );
@@ -107,9 +102,10 @@ export default function AIPage() {
             <h2 className="text-2xl font-bold">
               {fragments.length} fragments created
             </h2>
-            <Button variant="outline" className="bg-zinc-300 text-black">
+            {/* I've realized it's going to be way more complex to validate all of them at once while doing useful error handling & displaying for the user. Will have to suss this out after. */}
+            {/* <Button variant="outline" className="bg-zinc-300 text-black">
               ADD ALL
-            </Button>
+            </Button> */}
           </div>
           <Carousel className="mt-4 border-2 border-zinc-300 rounded-xl p-5">
             <CarouselContent>
@@ -117,7 +113,6 @@ export default function AIPage() {
                 <CarouselItem key={fragment.question}>
                   <EditableFragment
                     fragment={fragment}
-                    handleAddFragment={addFragment}
                     handleRemoveFragment={removeFragment}
                     handleSaveFragment={saveFragment}
                   />

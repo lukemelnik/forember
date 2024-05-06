@@ -64,7 +64,7 @@ export default function PracticeDialog() {
           <div className="absolute inset-0 bg-pink-500/70 -z-10  blur-lg scale-105 group-hover:bg-pink-500 group-hover:blur-xl duration-300 group-hover:scale-110"></div>
         </div>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className="sm:max-w-[425px] md:max-w-2xl">
         <DialogHeader>
           <DialogTitle>Daily Practice</DialogTitle>
         </DialogHeader>

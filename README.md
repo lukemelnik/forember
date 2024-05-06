@@ -144,6 +144,17 @@ const filteredFragments = fragments.filter((fragment) => {
 
 12. Classic stuff but you have to parse the req with data = req.json() before you can access the req.body! I had a problem where I was getting either nothing, or partial responses from openAI and it's because it was getting none, or pieces of the readable stream from the request.
 
+13. Map for the win: I implemented editing for AI generated fragments. I was filtering out the edited fragment then adding it back to the rest of the array, but that meant that the visible fragment in the carousel changed because I'd changed the order in the array. Better to map and replace in the same location:
+
+```js
+  function saveFragment(fragment: Fragment) {
+    const newFragments = fragments.map((f) =>
+      f.id === fragment.id ? fragment : f
+    );
+    setFragments(newFragments);
+  }
+```
+
 - if you want to compare full days it's easiest to set the time to zero with startOfDay(Date)
 - you can't compare date objects (because you're comparing their reference location) so you need to convert them to strings first.
 - TIME ZONES: even if you set the time to zero, you still have to account for the difference in time zones.
@@ -165,6 +176,10 @@ TODO:
 - add openAI functionality
 
 - add stripe & subscription stuff
+
+```
+
+```
 
 ```
 
