@@ -51,7 +51,7 @@ export async function POST(req: NextRequest) {
 
         Step 2 - If the concept is complex, break it down into smaller concepts that are easy to grasp and remember \n
 
-        Step 3 - Create a question & answer pair for each concept that the student will use for flashcards. Ensure that the question and answer pair will help the student fully grasp the material and make it as memorable as possible. Whereever possible, use their own language & tone frome the notes.\n
+        Step 3 - Create a question & answer pair for each concept that the student will use for flashcards. Ensure that the question and answer pair will help the student fully grasp the material and make it as memorable as possible. Whereever possible, use their own language & tone frome the notes. Wherever possible please include a reference to the source in the beginning of the question (for example if the title of the notes is "From the Book 'Breath'" you could start the question like: 'in the book breath, the author refers to this technique that can slow your heart rate'"\n
 
         Step 4 - Give each question and answer pair a high-level subject \n
 
