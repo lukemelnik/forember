@@ -80,15 +80,19 @@ export async function POST(req: NextRequest) {
     });
     // have to parse the data from a JSON string to an array before you can check the contents with array methods.
 
-    if (!openAIResponse.choices[0].message.content) {
+    let response = openAIResponse.choices[0].message.content;
+
+    if (!response) {
       throw new Error(
         "No data returned from AI model, please ensure your notes have enough content to generate fragments."
       );
     }
-    console.log(openAIResponse.choices[0].message.content);
-    let parsedContent = JSON.parse(openAIResponse.choices[0].message.content);
 
-    console.log(parsedContent);
+    let parsedContent;
+
+    if (typeof response === "string") {
+      parsedContent = JSON.parse(response);
+    }
 
     if (!Array.isArray(parsedContent)) {
       throw new Error("Returned data is not an array");
