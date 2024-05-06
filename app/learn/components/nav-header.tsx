@@ -3,6 +3,7 @@ import { createClient } from "@/utils/supabase/server";
 import signOut from "../actions/signOut";
 import LogoIcon from "@/components/logo-svg";
 import { Separator } from "@/components/ui/separator";
+import Image from "next/image";
 
 export default async function NavHeader() {
   const supabase = createClient();
@@ -13,8 +14,13 @@ export default async function NavHeader() {
 
   return (
     <div>
-      <div className="flex gap-3 mb-3 items-center text-zinc-100">
-        <LogoIcon />
+      <div className="flex  mb-3 items-center text-zinc-100">
+        <Image
+          src={"/assets/images/favicon.png"}
+          alt={"logo"}
+          width={55}
+          height={55}
+        />
         <h1>
           Re<sup>Collect</sup>
         </h1>

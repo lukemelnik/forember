@@ -3,7 +3,7 @@ import { headers } from "next/headers";
 import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
 import { SubmitButton } from "./submit-button";
-
+import Image from "next/image";
 export default function Login({
   searchParams,
 }: {
@@ -55,26 +55,23 @@ export default function Login({
     <div className="flex-1 flex flex-col w-full px-8 sm:max-w-md justify-center gap-2">
       <Link
         href="/"
-        className="absolute left-8 top-8 py-2 px-4 rounded-md no-underline text-foreground bg-btn-background hover:bg-btn-background-hover flex items-center group text-sm"
+        className="absolute left-8 top-8 py-2 px-4 rounded-md no-underline text-foreground bg-btn-background text-white hover:bg-btn-background-hover flex items-center group text-sm"
       >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          className="mr-2 h-4 w-4 transition-transform group-hover:-translate-x-1"
-        >
-          <polyline points="15 18 9 12 15 6" />
-        </svg>{" "}
         Back
       </Link>
 
       <form className="animate-in flex-1 flex flex-col w-full justify-center gap-2 text-foreground text-zinc-300">
+        <div className="flex items-center justify-center">
+          <Image
+            src={"/assets/images/favicon.png"}
+            alt={"logo"}
+            width={95}
+            height={95}
+          />
+          <h1 className="text-white text-5xl">
+            Re<sup>Collect</sup>
+          </h1>
+        </div>
         <label className="text-md" htmlFor="email">
           Email
         </label>
@@ -103,7 +100,7 @@ export default function Login({
         </SubmitButton>
         <SubmitButton
           formAction={signUp}
-          className="border border-foreground/20 rounded-md px-4 py-2 text-foreground mb-2"
+          className="border border-foreground/20 rounded-md px-4 py-2 text-black bg-zinc-300 mb-2"
           pendingText="Signing Up..."
         >
           Sign Up
