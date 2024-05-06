@@ -55,7 +55,10 @@ export default function AIPage() {
   }
 
   function saveFragment(fragment: Fragment) {
-    // save to the list
+    const newFragments = fragments.map((f) =>
+      f.id === fragment.id ? fragment : f
+    );
+    setFragments(newFragments);
   }
 
   return (
