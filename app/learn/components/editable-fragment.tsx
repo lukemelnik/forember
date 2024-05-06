@@ -21,6 +21,10 @@ type SubmissionErrors = {
   _form?: string[];
 };
 
+type ErrorContainer = {
+  errors: SubmissionErrors;
+};
+
 export const createFragmentSchema = z.object({
   question: z
     .string()
@@ -42,7 +46,7 @@ export default function EditableFragment({
   const [isEditing, setIsEditing] = useState(false);
   const [editedFragment, setEditedFragment] =
     useState<TemporaryFragment>(fragment);
-  const [errors, setErrors] = useState<SubmissionErrors[]>([]);
+  const [errors, setErrors] = useState<ErrorContainer>({ errors: {} });
 
   async function addFragment(fragment: TemporaryFragment) {
     const supabase = createClient();
@@ -50,7 +54,10 @@ export default function EditableFragment({
       data: { user },
     } = await supabase.auth.getUser();
     if (!user) {
-      setErrors([{ _form: ["You must be signed in to create a fragment"] }]);
+      setErrors({
+        errors: { _form: ["You must be signed in to create a fragment"] },
+      });
+      return;
     }
     // strip the temporary id
     const { id, ...fragmentWithoutId } = fragment;
@@ -58,9 +65,13 @@ export default function EditableFragment({
       question: fragment.question,
       answer: fragment.answer,
     });
+
     // if errors set them to state and show in ui
     if (!result.success) {
-      setErrors(result.error.flatten().fieldErrors);
+      setErrors({
+        errors: { ...errors, ...result.error.flatten().fieldErrors },
+      });
+      return;
     }
 
     const currentDate = new Date();
@@ -80,7 +91,6 @@ export default function EditableFragment({
 
   return (
     <div>
-      {/* need to actually show errors here */}
       {isEditing ? (
         <div className="flex flex-col text-black">
           <div className="flex items-left justify-center p-2">

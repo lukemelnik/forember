@@ -23,7 +23,7 @@ export type TemporaryFragment = {
 };
 
 export default function AIPage() {
-  const [fragments, setFragments] = useState([]);
+  const [fragments, setFragments] = useState<TemporaryFragment[]>([]);
   const [loading, setLoading] = useState(false);
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
