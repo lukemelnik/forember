@@ -55,7 +55,7 @@ export async function POST(req: NextRequest) {
 
         Step 4 - Give each question and answer pair a high-level subject \n
 
-        Step 5 - Return the information as a JSON string in the following shape: \n
+        Step 5 - Return the information as a JSON string in the following shape. If you feel you don't have sufficient information, return a JSON string with an empty array (ex. []): \n
         [
           {
             "question": "sample question that highlights a major concept",
@@ -69,7 +69,7 @@ export async function POST(req: NextRequest) {
           },
         ]
         \n
-        If no concepts are identified, or they violate your policies, return an empty array. Here are the notes: \n
+      Here are the notes: \n
     ---
     ${notes}
     ---
@@ -107,13 +107,17 @@ export async function POST(req: NextRequest) {
     // parse the array of generated fragments with Zod to make sure they are valid before sending back to client. There's a chance the llm doesn't format the generated data properly
     const parsedArray = fragmentArraySchema.safeParse(parsedContent);
     if (!parsedArray.success) {
-      throw new Error("Invalid data returned from AI model");
+      throw new Error(
+        "Invalid data returned from AI model, please generate again."
+      );
     }
 
     return Response.json(parsedArray.data, {
       status: 200,
     });
   } catch (error) {
-    return Response.json({ error: error.message }, { status: 500 });
+    if (error instanceof Error) {
+      return Response.json({ error: error.message }, { status: 500 });
+    }
   }
 }

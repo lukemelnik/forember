@@ -86,6 +86,15 @@ export default function AIPage() {
   return (
     <div className="max-w-2xl">
       <h1 className="mb-3">Generate Fragments with AI</h1>
+      <ul className="">
+        <li>Step 1: Enter your notes</li>
+        <li>Step 2: Generate fragments</li>
+        <li>
+          Step 3: You can edit the fragments you like, or add them directly to
+          the library.
+        </li>
+        <li>Step 4: Practice!</li>
+      </ul>
 
       <form
         onSubmit={handleSubmit}
@@ -105,7 +114,7 @@ export default function AIPage() {
           className="bg-black text-zinc-300 min-h-[200px] mt-5 text-md p-5"
           id="notes"
           name="notes"
-          placeholder="Enter your notes here..."
+          placeholder="Enter your notes here and our AI will turn them into knowledge fragments."
         />
         <div className="relative z-0 group mt-5">
           <Button
