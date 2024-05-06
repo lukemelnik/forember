@@ -5,6 +5,7 @@ import { Fragment } from "../ai/page";
 import { set } from "date-fns";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 
 type EditableFragmentProps = {
   fragment: Fragment;
@@ -26,38 +27,51 @@ export default function EditableFragment({
     <div>
       {isEditing ? (
         <div className="flex flex-col text-black">
-          <Input
-            className={
-              `bg-black text-zinc-300 rounded  mb-3 p-1` +
-              (isEditing && " border:animate-pulse")
-            }
-            type="text"
-            name="question"
-            value={editedFragment.question}
-            onChange={(e) => {
-              setEditedFragment({
-                ...editedFragment,
-                question: e.target.value,
-              });
-            }}
-          />
-          <Input
-            className={
-              `bg-black text-zinc-300 rounded  mb-1 p-1` +
-              (isEditing && " border:animate-pulse")
-            }
-            type="text"
-            name="answer"
-            value={editedFragment.answer}
-            onChange={(e) => {
-              setEditedFragment({ ...editedFragment, answer: e.target.value });
-            }}
-          />
+          <div className="flex items-center justify-center p-2">
+            <Label htmlFor="question" className="text-zinc-300">
+              <span className="text-lg mr-2">Q:</span>
+            </Label>
+            <Input
+              className={
+                `bg-black text-zinc-300 rounded p-1 border-none text-md` +
+                (isEditing && "")
+              }
+              type="text"
+              name="question"
+              value={editedFragment.question}
+              onChange={(e) => {
+                setEditedFragment({
+                  ...editedFragment,
+                  question: e.target.value,
+                });
+              }}
+            />
+          </div>
+          <div className="flex items-center justify-center p-2">
+            <Label htmlFor="question" className="text-zinc-300">
+              <span className="text-lg mr-2">A:</span>
+            </Label>
+            <Input
+              className={
+                `bg-black text-zinc-300 rounded border-none mb-1 text-md p-1` +
+                (isEditing && "")
+              }
+              type="text"
+              name="answer"
+              value={editedFragment.answer}
+              onChange={(e) => {
+                setEditedFragment({
+                  ...editedFragment,
+                  answer: e.target.value,
+                });
+              }}
+            />
+          </div>
         </div>
       ) : (
         <div>
-          <p className="font-bold">{fragment.question}</p>
-          <p className="italic">{fragment.answer}</p>
+          <p className="font-bold">Q: {fragment.question}</p>
+          <p className="italic">A: {fragment.answer}</p>
         </div>
       )}
       <div className="mt-2 flex gap-3 justify-between">
@@ -80,7 +94,7 @@ export default function EditableFragment({
             variant="outline"
             className={
               isEditing
-                ? `border-2 bg-black border-zinc-300 text-zinc-300`
+                ? `border-2 bg-black border-zinc-300 text-zinc-300 animate-pulse`
                 : `bg-zinc-300 text-black`
             }
             onClick={() => {
