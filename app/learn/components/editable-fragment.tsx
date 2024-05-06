@@ -86,7 +86,7 @@ export default function EditableFragment({
       throw new Error("Could not create fragment");
     }
     // remove from list
-    console.log("you did it");
+    handleRemoveFragment(fragment.id);
   }
 
   return (
@@ -145,7 +145,6 @@ export default function EditableFragment({
           onClick={() => {
             addFragment(fragment);
             // put check here that there are no errors
-            handleRemoveFragment(fragment.id);
           }}
         >
           Add To Library
@@ -180,6 +179,23 @@ export default function EditableFragment({
             {isEditing ? "Save" : "Edit"}
           </Button>
         </div>
+      </div>
+      <div className="mt-3">
+        {errors.errors._form && (
+          <div className="bg-red-500 text-white p-2 rounded mb-3">
+            {errors.errors._form}
+          </div>
+        )}
+        {errors.errors.question && (
+          <div className="bg-red-500 text-white p-2 rounded mb-3">
+            {errors.errors.question}
+          </div>
+        )}
+        {errors.errors.answer && (
+          <div className="bg-red-500 text-white p-2 rounded">
+            {errors.errors.answer}
+          </div>
+        )}
       </div>
     </div>
   );
