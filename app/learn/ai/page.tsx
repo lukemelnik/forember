@@ -87,7 +87,14 @@ export default function AIPage() {
     <div className="max-w-2xl">
       <h1 className="mb-3">Generate Fragments with AI</h1>
       <ul className="">
-        <li>Step 1: Enter your notes</li>
+        <li>
+          Step 1: Enter your notes{" "}
+          <span className="italic">
+            *Hot Tip* Include a title that references the source e.g. a book
+            title & author, podcast host/guest etc. to make each fragment more
+            memorable.
+          </span>
+        </li>
         <li>Step 2: Generate fragments</li>
         <li>
           Step 3: You can edit the fragments you like, or add them directly to

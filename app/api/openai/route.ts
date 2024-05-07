@@ -42,10 +42,10 @@ export async function POST(req: NextRequest) {
 
   try {
     const openAIResponse = await openai.chat.completions.create({
-      model: "gpt-3.5-turbo",
+      model: "gpt-3.5-turbo-0125",
       messages: [
         {
-          role: "user",
+          role: "system",
           content: `You are a knowledgeable teacher with years of experience helping students learn complex topics by breaking them down into understanable pieces. A student gives your the following notes that they took while learning a new topic (deliniated between '---') and needs you to do the following: \n
         Step 1 - Identify the key concepts that the student should remember from the notes \n
 
