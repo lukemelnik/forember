@@ -23,7 +23,7 @@ export default async function LearningDashboard() {
   return (
     <>
       <h1 className="mb-3">Dashboard</h1>
-      <div className="flex gap-5">
+      <div className="flex gap-5 flex-wrap">
         <PracticeTimeCard sessions={sessions} />
         <PracticeTotalCard sessions={sessions} />
         <LearnerLevelCard sessions={sessions} />

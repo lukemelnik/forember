@@ -5,7 +5,7 @@ import LogoIcon from "@/components/logo-svg";
 import { Separator } from "@/components/ui/separator";
 import Image from "next/image";
 
-export default async function NavHeader() {
+export default async function NavHeaderMobile() {
   const supabase = createClient();
 
   const {
@@ -13,8 +13,8 @@ export default async function NavHeader() {
   } = await supabase.auth.getUser();
 
   return (
-    <div>
-      <div className="flex  mb-3 items-center text-zinc-100">
+    <div className="flex justify-between">
+      <div className="flex mb-3 items-center text-zinc-100">
         <Image
           src={"/assets/images/favicon.png"}
           alt={"logo"}
@@ -25,9 +25,8 @@ export default async function NavHeader() {
           Re<sup>Collect</sup>
         </h1>
       </div>
-      <Separator className="bg-zinc-300 mb-3 h-[2px]" />
-      <div className="flex gap-3 items-center justify-between text-gray-300 flex-wrap">
-        <p className="w-1/2 min-w-min">Signed in as {user?.email}</p>
+      <div className="flex items-center gap-4 justify-between text-gray-300 flex-wrap">
+        <p className="">Signed in as {user?.email}</p>
         <form action={signOut}>
           <Button variant="outline" className="text-gray-950">
             Sign Out
