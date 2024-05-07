@@ -34,7 +34,7 @@ export default async function PracticePage() {
 
   return (
     <>
-      <main className="sm:p-1 lg:p-10 space-y-10">
+      <main className="sm:p-1 lg:p-10 space-y-10 max-w-screen">
         <section className="col-span-3 flex flex-col gap-5">
           <PracticeDialog />
         </section>
