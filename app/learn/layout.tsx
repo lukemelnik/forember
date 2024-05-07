@@ -10,10 +10,10 @@ export default function LearnLayout({
 }) {
   return (
     <>
-      <nav className="p-5 fixed top-0 inset-0 h-36 border-b-[1px] border-zinc-700 bg-black z-[9999]">
+      <nav className="p-5 fixed top-0 left-0 right-0 border-b-[1px] border-zinc-700 bg-black z-[9999] sm:block lg:hidden ">
         <NavHeaderMobile />
       </nav>
-      <div className="grid sm:grid-cols-1 md:grid-cols-4 w-full md:mt-32">
+      <div className="grid sm:grid-cols-1 md:grid-cols-4 w-full mt-20 lg:mt-0">
         <nav className="md:col-span-1 p-10 text-gray-300 border-r-[1px] border-zinc-700 hidden lg:block">
           <NavHeader />
           <NavLinks />

@@ -3,8 +3,8 @@ import React from "react";
 export default function HamburgerIcon() {
   return (
     <svg
-      width="30"
-      height="30"
+      width="45"
+      height="45"
       viewBox="0 0 15 15"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
