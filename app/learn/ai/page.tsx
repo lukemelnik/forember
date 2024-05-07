@@ -155,7 +155,7 @@ export default function AIPage() {
               ADD ALL
             </Button> */}
           </div>
-          <Carousel className="mt-4 border-2 border-zinc-300 rounded-xl p-5">
+          <Carousel className="mt-4 border-2 border-zinc-300 rounded-xl p-5 w-[350px] md:w-full">
             <CarouselContent>
               {fragments.map((fragment) => (
                 <CarouselItem key={fragment.question}>
