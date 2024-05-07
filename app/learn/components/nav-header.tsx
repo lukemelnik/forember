@@ -25,7 +25,7 @@ export default async function NavHeader() {
           Re<sup>Collect</sup>
         </h1>
       </div>
-      <Separator className="bg-zinc-300 mb-3 h-[2px]" />
+      <Separator className="bg-zinc-300 mb-6 h-[2px]" />
       <div className="flex gap-3 items-center justify-between text-gray-300 flex-wrap">
         <p className="w-1/2 min-w-min">Signed in as {user?.email}</p>
         <form action={signOut}>

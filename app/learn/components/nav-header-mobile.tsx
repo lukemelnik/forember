@@ -9,8 +9,13 @@ import Image from "next/image";
 import HamburgerIcon from "@/components/hamburger-icon";
 import { useState } from "react";
 import NavLinks from "./nav-links";
+import UserInfoAndSignOut from "./user-info-and-signout";
 
-export default function NavHeaderMobile() {
+export default function NavHeaderMobile({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   const [showMenu, setShowMenu] = useState(false);
 
   return (
@@ -28,13 +33,6 @@ export default function NavHeaderMobile() {
           </h1>
         </div>
         <div className="flex items-center gap-4 justify-between text-gray-300 flex-wrap">
-          {/* <p className="">Signed in as {user?.email}</p>
-        <form action={signOut}>
-          <Button variant="outline" className="text-gray-950">
-            Sign Out
-          </Button>
-        </form> */}
-
           <Button onClick={() => setShowMenu(!showMenu)}>
             <HamburgerIcon />
           </Button>
@@ -43,6 +41,8 @@ export default function NavHeaderMobile() {
       {showMenu && (
         <div className="mb-5 mt-3">
           <Separator className="bg-white" />
+          {/* included the signout button as children so that it can operate as a server component */}
+          {children}
           <div className="ml-5" onClick={() => setShowMenu(!showMenu)}>
             <NavLinks />
           </div>
