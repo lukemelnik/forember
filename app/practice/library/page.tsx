@@ -14,11 +14,11 @@ export default async function DashboardPage() {
   }
   return (
     <div className="text-white">
-      <h1>Your Knowledge Library:</h1>
+      <h1 className="mb-4">Your Knowledge Library:</h1>
       {data.map((fragment) => (
-        <div key={fragment.id}>
-          <p className="font-bold">{fragment.question}</p>
-          <p>{fragment.answer}</p>
+        <div key={fragment.id} className="mb-4">
+          <p className="font-bold">Q: {fragment.question}</p>
+          <p>A: {fragment.answer}</p>
         </div>
       ))}
     </div>
