@@ -13,8 +13,25 @@ import React, { useState } from "react";
 import Quiz from "./quiz";
 import { createClient } from "@/utils/supabase/client";
 
+export type TestScore = {
+  right: number;
+  wrong: number;
+};
+
 export default function PracticeDialog() {
   const [startTime, setStartTime] = useState<Date | null>(null);
+  // doing a bit of prop drilling right now to get this state & updating functions down into the flashcard, will update if it seems worth it.
+  // for reference, the structure is like this: Practice Page -> PracticeDialog -> Quiz -> FlashCard
+  // Sessions are being logged here in the practice dialog, I'm going to add the scores & number of questions to the session log.
+  const [testScore, setTestScore] = useState<TestScore>({ right: 0, wrong: 0 });
+
+  function addRightAnswer() {
+    setTestScore({ ...testScore, right: testScore.right + 1 });
+  }
+
+  function addWrongAnswer() {
+    setTestScore({ ...testScore, wrong: testScore.wrong + 1 });
+  }
 
   async function logSession(endTime: Date) {
     if (!startTime || !endTime) return;
@@ -68,7 +85,11 @@ export default function PracticeDialog() {
         <DialogHeader>
           <DialogTitle>Daily Practice</DialogTitle>
         </DialogHeader>
-        <Quiz />
+        <Quiz
+          testScore={testScore}
+          handleRightAnswer={addRightAnswer}
+          handleWrongAnswer={addWrongAnswer}
+        />
         <DialogFooter className="sm:justify-start">
           <DialogClose asChild>
             <Button type="button" variant="outline">

@@ -6,6 +6,7 @@ import { addDays, isPast, startOfDay } from "date-fns";
 import Confetti from "./confetti";
 import ReactDOM from "react-dom";
 import { Progress } from "@/components/ui/progress";
+import { TestScore } from "./practice-dialog";
 
 export type Fragment = {
   id: string;
@@ -14,24 +15,18 @@ export type Fragment = {
   interval: number;
 };
 
-type TestScore = {
-  right: number;
-  wrong: number;
-};
-
-export default function Quiz() {
+export default function Quiz({
+  testScore,
+  handleRightAnswer,
+  handleWrongAnswer,
+}: {
+  testScore: TestScore;
+  handleRightAnswer: () => void;
+  handleWrongAnswer: () => void;
+}) {
   const [questionNumber, setQuestionNumber] = useState(0);
   const [quizOver, setQuizOver] = useState(false);
   const [fragments, setFragments] = useState<Fragment[]>([]);
-  const [testScore, setTestScore] = useState<TestScore>({ right: 0, wrong: 0 });
-
-  function addRightAnswer() {
-    setTestScore({ ...testScore, right: testScore.right + 1 });
-  }
-
-  function addWrongAnswer() {
-    setTestScore({ ...testScore, wrong: testScore.wrong + 1 });
-  }
 
   // calulate progress for progress bar
   const progress = Math.round((questionNumber / fragments.length) * 100);
@@ -123,8 +118,8 @@ export default function Quiz() {
             fragment={fragments[questionNumber]}
             handleClick={nextQuestion}
             handleDelete={deleteFromQuiz}
-            handleRightAnswer={addRightAnswer}
-            handleWrongAnswer={addWrongAnswer}
+            handleRightAnswer={handleRightAnswer}
+            handleWrongAnswer={handleWrongAnswer}
           />
         </>
       )}
