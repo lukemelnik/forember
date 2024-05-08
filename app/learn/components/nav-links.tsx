@@ -17,8 +17,8 @@ export default function NavLinks() {
   ];
 
   return (
-    <div className="pt-10 text-2xl">
-      <ul className="space-y-2 ">
+    <div className="pt-10 md:text-2xl text-4xl">
+      <ul className="md:space-y-2 space-y-4">
         {natItems.map((item) => (
           <li className="flex gap-1 items-center group" key={item.name}>
             <Link className={navItemClasses} href={item.href}>
