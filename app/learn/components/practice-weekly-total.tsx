@@ -32,7 +32,7 @@ export default function PracticeWeeklyTotal({
 
   const totalWeeklyPractice = getWeeklyPracticeTotal();
   return (
-    <Card className="max-w-md">
+    <Card className="w-full md:w-1/3">
       <CardHeader>
         <CardTitle>Practice Time This Week</CardTitle>
       </CardHeader>

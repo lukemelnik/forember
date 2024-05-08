@@ -73,7 +73,7 @@ export default async function LearnerLevelCard({
   const remainingMinutes = nextLevel!.threshold - averagePractice;
 
   return (
-    <Card className="max-w-md">
+    <Card className="w-full md:w-1/3">
       <CardHeader>
         <CardTitle>Your Learning Level:</CardTitle>
       </CardHeader>

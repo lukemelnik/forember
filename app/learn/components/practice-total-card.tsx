@@ -24,7 +24,7 @@ export default function PracticeTotalCard({
 
   const totalPractice = getPracticeTotal();
   return (
-    <Card className="max-w-md">
+    <Card className="w-full md:w-1/3">
       <CardHeader>
         <CardTitle>Total Practice Time</CardTitle>
       </CardHeader>

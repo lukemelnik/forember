@@ -27,7 +27,7 @@ export default async function TimeOnPlatformCard() {
   );
 
   return (
-    <Card className="max-w-md">
+    <Card className="w-full md:w-1/3">
       <CardHeader>
         <CardTitle>You've Been Learning For</CardTitle>
       </CardHeader>
