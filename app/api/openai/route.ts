@@ -49,7 +49,7 @@ export async function POST(req: NextRequest) {
           content: `You are a knowledgeable teacher with years of experience helping students learn complex topics by breaking them down into understanable pieces. A student gives your the following notes that they took while learning a new topic (deliniated between '---') and needs you to do the following: \n
         Step 1 - Identify the key concepts that the student should remember from the notes \n
 
-        Step 2 - If the concept is complex, break it down into smaller concepts that are easy to grasp and remember \n
+        Step 2 - If the concept is complex, break it down into smaller concepts that are easy to grasp and remember. Ensure that you include enough question/answer pairs to cover ALL of the concepts in the notes. \n
 
         Step 3 - Create a question & answer pair for each concept that the student will use for flashcards. Ensure that the question and answer pair will help the student fully grasp the material and make it as memorable as possible. Please try to use the student's own language & tone frome the notes. Also, please include a reference to the author, book, podcast, or general topic of the source material (not somethin generic like 'from the notes') at the beginning of every question. For example if the title of the notes is "From the Book 'Breath'" you could start the question like: 'in the book 'Breath', the author refers to this technique that can slow your heart rate'"\n
 
