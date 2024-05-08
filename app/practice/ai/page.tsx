@@ -103,7 +103,7 @@ export default function AIPage() {
           <li>
             <p>Step 1: Enter your notes</p>
             <p className="italic">
-              *Hot Tip* Include a title that references the source e.g. a book
+              * Hot Tip * Include a title that references the source e.g. a book
               title & author, podcast host etc. to give each fragment more
               context.
             </p>

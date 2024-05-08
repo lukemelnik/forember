@@ -183,3 +183,5 @@ if (!notes) {
 ```
 
 15. JSON: Learned some cool things while fighting the openai api to send back the right format of information. I was telling it to return JSON, but ideally I wanted a JSON string, which I could then JSON.parse and turn into the expected array. Then added lots of checks to make sure it actually was an array and the shape was correct. LASTLY: in the prompt I had accidentally left out the quotes on the key in example object, which was creating a parsing error!
+
+16. Product design / UI: I really want to improve on making apps incredibly intuitive to use. From the first feedback I got from other people I realized that it wasn't immediately obvious how to operate it, and simple changes like effective page titles can make a huge difference.
