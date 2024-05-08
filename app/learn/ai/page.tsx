@@ -14,6 +14,7 @@ import { Textarea } from "@/components/ui/textarea";
 import React, { useState } from "react";
 import EditableFragment from "../components/editable-fragment";
 import { set } from "date-fns";
+import ArrowRightIcon from "@/components/arrow-right-icon";
 
 // generated fragments are given a simple temporary id for displaying to the user that will be replaced when its saved in the db
 export type TemporaryFragment = {
@@ -26,6 +27,7 @@ export default function AIPage() {
   const [fragments, setFragments] = useState<TemporaryFragment[]>([]);
   const [loading, setLoading] = useState(false);
   const [fetchError, setFetchError] = useState<string | null>(null);
+  const [instructionShow, setInstructionShow] = useState(false);
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -86,22 +88,34 @@ export default function AIPage() {
   return (
     <div className="max-w-2xl">
       <h1 className="mb-3">Generate Fragments with AI</h1>
-      <ul className="">
-        <li>
-          Step 1: Enter your notes{" "}
-          <span className="italic">
-            *Hot Tip* Include a title that references the source e.g. a book
-            title & author, podcast host/guest etc. to make each fragment more
-            memorable.
-          </span>
-        </li>
-        <li>Step 2: Generate fragments</li>
-        <li>
-          Step 3: You can edit the fragments you like, or add them directly to
-          the library.
-        </li>
-        <li>Step 4: Practice!</li>
-      </ul>
+      <Button
+        variant="outline"
+        className="border-2 border-zinc-300 text-zinc-300 bg-black mb-3 group"
+        onClick={() => setInstructionShow(!instructionShow)}
+      >
+        {instructionShow ? "Hide Instructions" : "Show Instructions"}{" "}
+        <span className={instructionShow ? "rotate-90" : ""}>
+          <ArrowRightIcon />
+        </span>
+      </Button>
+      {instructionShow && (
+        <ul className=" space-y-3">
+          <li>
+            <p>Step 1: Enter your notes</p>
+            <p className="italic">
+              *Hot Tip* Include a title that references the source e.g. a book
+              title & author, podcast host etc. to give each fragment more
+              context.
+            </p>
+          </li>
+          <li>Step 2: Generate fragments</li>
+          <li>
+            Step 3: You can edit the fragments you like, or add them directly to
+            the library.
+          </li>
+          <li>Step 4: Practice!</li>
+        </ul>
+      )}
 
       <form
         onSubmit={handleSubmit}
