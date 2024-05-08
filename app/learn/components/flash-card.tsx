@@ -21,10 +21,14 @@ export default function FlashCard({
   fragment,
   handleClick,
   handleDelete,
+  handleRightAnswer,
+  handleWrongAnswer,
 }: {
   fragment: Fragment;
   handleClick: () => void;
   handleDelete: (id: string) => void;
+  handleRightAnswer: () => void;
+  handleWrongAnswer: () => void;
 }) {
   const [isFlipped, setIsFlipped] = useState(false);
 
@@ -43,6 +47,7 @@ export default function FlashCard({
   }
 
   async function resetInterval(id: string) {
+    handleWrongAnswer();
     const date = addDays(new Date(), 1);
     const supabase = createClient();
     const { error } = await supabase
@@ -54,6 +59,7 @@ export default function FlashCard({
     }
   }
   async function increaseInterval(fragment: Fragment) {
+    handleRightAnswer();
     const increasedInterval = fragment.interval + 1;
     // need logic for if the interval is > 20 the fragment is set to complete, but there's also still an issue where if we miss a day, when should the next_show_date be?
     const next_show_date = addDays(new Date(), increasedInterval);

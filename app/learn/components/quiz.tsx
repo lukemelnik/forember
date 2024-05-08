@@ -14,10 +14,24 @@ export type Fragment = {
   interval: number;
 };
 
+type TestScore = {
+  right: number;
+  wrong: number;
+};
+
 export default function Quiz() {
   const [questionNumber, setQuestionNumber] = useState(0);
   const [quizOver, setQuizOver] = useState(false);
   const [fragments, setFragments] = useState<Fragment[]>([]);
+  const [testScore, setTestScore] = useState<TestScore>({ right: 0, wrong: 0 });
+
+  function addRightAnswer() {
+    setTestScore({ ...testScore, right: testScore.right + 1 });
+  }
+
+  function addWrongAnswer() {
+    setTestScore({ ...testScore, wrong: testScore.wrong + 1 });
+  }
 
   // calulate progress for progress bar
   const progress = Math.round((questionNumber / fragments.length) * 100);
@@ -80,8 +94,21 @@ export default function Quiz() {
           document.body
         )}
         <div>
-          <h1>All done!</h1>
-          <p>Great job, you're on your way to having an invicible memory.</p>
+          <h1 className="mb-5">All done! Here's your score:</h1>
+          <p>
+            You answered {testScore.right} out of{" "}
+            {testScore.right + testScore.wrong} correctly. That's an average of{" "}
+            {Math.round(
+              (testScore.right / (testScore.right + testScore.wrong)) * 100
+            )}
+            %.{" "}
+            <p className="font-bold text-lg">
+              {testScore.right > testScore.wrong
+                ? "Great job!"
+                : "Keep practicing!"}
+              {/* in the future could add links to resources for improving */}
+            </p>
+          </p>
         </div>
       </>
     );
@@ -96,6 +123,8 @@ export default function Quiz() {
             fragment={fragments[questionNumber]}
             handleClick={nextQuestion}
             handleDelete={deleteFromQuiz}
+            handleRightAnswer={addRightAnswer}
+            handleWrongAnswer={addWrongAnswer}
           />
         </>
       )}

@@ -71,7 +71,7 @@ export default function PracticeDialog() {
         <Quiz />
         <DialogFooter className="sm:justify-start">
           <DialogClose asChild>
-            <Button type="button" variant="secondary">
+            <Button type="button" variant="outline">
               Close
             </Button>
           </DialogClose>
