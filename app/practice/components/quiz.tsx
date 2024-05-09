@@ -114,6 +114,9 @@ export default function Quiz({
       {fragments.length === 0 && <p>You're all done for the day!</p>}
       {fragments.length > 0 && (
         <>
+          <p className="mb-1">
+            {questionNumber} of {fragments.length}
+          </p>
           <Progress value={progress} className="mb-5 bg-zinc-300" />
           <FlashCard
             fragment={fragments[questionNumber]}
