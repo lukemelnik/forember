@@ -63,6 +63,7 @@ export default function FlashCard({
     const increasedInterval = fragment.interval + 1;
     let is_complete = false;
     // once a fragment has made it to an interval of two weeks, it is considered complete and won't be shown again in the quiz
+    // this will become a user adjustable setting in the future (set it in the profile)
     if (increasedInterval > 14) {
       is_complete = true;
     }

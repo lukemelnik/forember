@@ -36,7 +36,8 @@ export default function Quiz({
       const supabase = createClient();
       const { data: fragments, error } = await supabase
         .from("fragment")
-        .select("*");
+        .select("*")
+        .eq("is_complete", false);
       if (error) {
         console.log(error);
       }
