@@ -8,13 +8,16 @@ import TimeOnPlatformCard from "./time-on-platform-card";
 export type Session = {
   session_duration: number;
   created_at: string;
+  total_questions: number;
+  right_answers: number;
 };
 
 export default async function LearningDashboard() {
   const supabase = createClient();
   const { data: sessions, error } = await supabase
     .from("practice_session")
-    .select("session_duration, created_at");
+    .select("*");
+  // could filter for the user's own but I think RLS is already taking care of that
 
   if (!sessions) {
     return <div>Loading...</div>;

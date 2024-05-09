@@ -145,6 +145,7 @@ const filteredFragments = fragments.filter((fragment) => {
 - if you want to compare full days it's easiest to set the time to zero with startOfDay(Date)
 - you can't compare date objects (because you're comparing their reference location) so you need to convert them to strings first.
 - TIME ZONES: even if you set the time to zero, you still have to account for the difference in time zones.
+- Toronto time has a UTC offset of 4 (in the spring vs 5 in the fall), meaning that the time for dates in Supabase appear 4 hours ahead (because it's stored with no offset, just reference to the timezone). Very confusing because sessions I know ocurred on May 8th were showing up as May 9th, but that's why you use `toLocaleDateString()` where it'll apply the offset.
 
 12. Classic stuff but you have to parse the req with data = req.json() before you can access the req.body! I had a problem where I was getting either nothing, or partial responses from openAI and it's because it was getting none, or pieces of the readable stream from the request.
 
