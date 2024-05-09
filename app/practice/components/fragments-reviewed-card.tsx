@@ -25,7 +25,7 @@ export default function FragmentsReviewedCard({
   return (
     <Card className="w-full md:w-1/3">
       <CardHeader>
-        <CardTitle>Daily Appetite</CardTitle>
+        <CardTitle>Knowledge Appetite</CardTitle>
       </CardHeader>
       <CardContent>
         {/* this is all-time but would probably be better as 'your recall average this week, vs last week' */}
