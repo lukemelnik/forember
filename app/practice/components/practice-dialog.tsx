@@ -12,6 +12,7 @@ import {
 import React, { useState } from "react";
 import Quiz from "./quiz";
 import { createClient } from "@/utils/supabase/client";
+import { set } from "date-fns";
 
 export type TestScore = {
   right: number;
@@ -68,6 +69,8 @@ export default function PracticeDialog() {
     } catch (error) {
       console.error(error);
     }
+    // had to reset the score otherwise it logs the total daily numbers for every session vs. only what they did while the dialog was open
+    setTestScore({ right: 0, wrong: 0 });
     setStartTime(null);
   }
 
