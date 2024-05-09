@@ -38,9 +38,10 @@ export default async function LearnerLevelCard({
   console.log(dailySessions);
 
   // calculate user metrics:
-  // 1. Average daily quiz score:
+  // what do I want to know?
+  // 1. Is my memory getting better. But how do we measure? Faster recall time? More accuracy? More questions reviewed? But for recall time it's complicated because we have the total session but not the time per card.
 
-  function getAverageDailyScore() {}
+  // get overall recall average. Then on a graph we can plot quiz percentages
 
   // then need an algorith to determine user's 'learning level' which should be a mix of the amount of questions they review per day, their recall accuracy, and the amount of time they spend practicing
 
@@ -94,11 +95,6 @@ export default async function LearnerLevelCard({
     <Card className="w-full md:w-1/3">
       <CardHeader>
         <CardTitle>Your Learning Level:</CardTitle>
-        {dailySessions.map((session) => (
-          <CardDescription key={session.created_at}>
-            {new Date(session.created_at).toLocaleDateString()}
-          </CardDescription>
-        ))}
       </CardHeader>
       <CardContent>
         <div className="">

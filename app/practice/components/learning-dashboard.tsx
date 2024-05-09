@@ -1,7 +1,7 @@
 import React from "react";
 import PracticeTimeCard from "./practice-weekly-total";
 import { createClient } from "@/utils/supabase/server";
-import PracticeTotalCard from "./practice-total-card";
+import PracticeTotalCard from "./user-stats-card";
 import LearnerLevelCard from "./learner-level-card";
 import TimeOnPlatformCard from "./time-on-platform-card";
 
