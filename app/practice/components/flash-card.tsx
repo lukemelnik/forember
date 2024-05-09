@@ -61,7 +61,11 @@ export default function FlashCard({
   async function increaseInterval(fragment: Fragment) {
     handleRightAnswer();
     const increasedInterval = fragment.interval + 1;
-    // need logic for if the interval is > 20 the fragment is set to complete, but there's also still an issue where if we miss a day, when should the next_show_date be?
+    let is_complete = false;
+    // once a fragment has made it to an interval of two weeks, it is considered complete and won't be shown again in the quiz
+    if (increasedInterval > 14) {
+      is_complete = true;
+    }
     const next_show_date = addDays(new Date(), increasedInterval);
     const supabase = createClient();
     const { error } = await supabase
@@ -70,6 +74,7 @@ export default function FlashCard({
         interval: fragment.interval + 1,
         next_show_date,
         last_shown_at: new Date(),
+        is_complete,
       })
       .eq("id", fragment.id);
     if (error) {
