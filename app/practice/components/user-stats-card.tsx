@@ -8,28 +8,22 @@ import {
 } from "@/components/ui/card";
 import React from "react";
 import { Session } from "./learning-dashboard";
+import { getRecallAverage } from "@/lib/statistic-calculations";
 
 export default function PracticeTotalCard({
   sessions,
 }: {
   sessions: Session[];
 }) {
-  function getPracticeTotal() {
-    const totalInMs = Math.round(
-      sessions.reduce((acc, session) => acc + session.session_duration, 0)
-    );
-    // convert to minutes
-    return Math.round(totalInMs / (1000 * 60));
-  }
-
-  const totalPractice = getPracticeTotal();
+  const recallAverage = getRecallAverage(sessions);
   return (
     <Card className="w-full md:w-1/3">
       <CardHeader>
-        <CardTitle>Total Practice Time</CardTitle>
+        <CardTitle>Learning Statistics</CardTitle>
       </CardHeader>
       <CardContent>
-        <p className="font-black text-4xl">{totalPractice}</p>
+        {/* this is all-time but would probably be better as 'your recall average this week, vs last week' */}
+        <h2>Recall Average: {recallAverage}%</h2>
       </CardContent>
       <CardFooter>
         <p>Minutes</p>
