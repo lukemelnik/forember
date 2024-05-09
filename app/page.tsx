@@ -7,7 +7,7 @@ export default async function HomePage() {
       <Link href="/login">
         <Button className="text-2xl text-black bg-zinc-300 p-7">Login</Button>
       </Link>
-      <Link href="/learn">
+      <Link href="/practice">
         <Button className="text-2xl text-black bg-green-500 p-7">
           Start Learning
         </Button>
