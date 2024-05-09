@@ -35,6 +35,9 @@ export default function PracticeDialog() {
 
   async function logSession(endTime: Date) {
     if (!startTime || !endTime) return;
+    const total_questions = testScore.right + testScore.wrong;
+    if (total_questions === 0) return;
+
     const session_duration = endTime.getTime() - startTime.getTime();
     if (session_duration < 1500) {
       console.log("session too short");
@@ -49,11 +52,18 @@ export default function PracticeDialog() {
       if (!user) {
         throw new Error("No user found");
       }
+      const session_score = Math.round(
+        (testScore.right / (testScore.right + testScore.wrong)) * 100
+      );
+
       const { error: dbError } = await supabase
         .from("practice_session")
         .insert({
           session_duration,
           user_id: user.id,
+          session_score,
+          right_answers: testScore.right,
+          total_questions,
         });
     } catch (error) {
       console.error(error);
