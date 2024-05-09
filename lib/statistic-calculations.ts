@@ -19,3 +19,11 @@ export function getPracticeTotal(sessions: Session[]) {
   // convert to minutes
   return Math.round(totalInMs / (1000 * 60));
 }
+
+export function getAverageFragmentsReviewed(dailySessions: Session[]) {
+  const totalFragmentsReviewed = dailySessions.reduce(
+    (acc, session) => acc + session.total_questions,
+    0
+  );
+  return Math.round(totalFragmentsReviewed / dailySessions.length);
+}
