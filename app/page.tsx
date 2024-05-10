@@ -28,7 +28,7 @@ export default async function HomePage() {
           </h1>
         </div>
         <div className="mr-4 flex gap-3 items-center">
-          {user && <p>Logged in as {user.email}</p>}
+          {user && <p className="hidden md:block">Logged in as {user.email}</p>}
           {user ? (
             <Link href="/practice">
               <Button className="text-xl text-black bg-zinc-300 p-5">
@@ -44,24 +44,24 @@ export default async function HomePage() {
           )}
         </div>
       </nav>
-      <main className="">
-        <div className="absolute m-auto top-[300px] bg-gradient-to-r from-blue-700 to-blue-400 h-72 -rotate-12 w-[800px] rounded-full blur-[100px] opacity-20"></div>
-        <section className="flex flex-col items-center justify-center min-h-screen">
+      <main className="max-w-screen overflow-hidden">
+        <div className="absolute m-auto top-[300px] bg-gradient-to-r from-blue-700 to-blue-400 h-72 -rotate-12 w-3/4 md:w-1/2 rounded-full blur-[100px] opacity-20"></div>
+        <section className="flex flex-col items-center justify-center min-h-svh">
           <div className="">
-            <div className="text-[95px] flex flex-col items-center -space-y-10 font-bold -rotate-1">
+            <div className="text-[50px] md:text-[95px] flex flex-col items-center -space-y-3 md:-space-y-10 font-bold -rotate-1">
               <p>Learn faster.</p>
-              <p className="relative z-0 after:absolute after:bg-gradient-to-r after:from-pink-700 after:to-pink-500 after:-left-8 after:-right-8 after:h-24  after:-z-10 after:top-6 text-black bg-opacity-90">
+              <p className="relative z-0 after:absolute after:bg-gradient-to-r after:from-pink-700 after:to-pink-500 md:after:-left-8 md:after:-right-8 md:after:h-24  after:-z-10 md:after:top-6 text-black bg-opacity-90 after:h-14 after:top-3 after:-left-2 after:-right-2">
                 Remember more.
               </p>
             </div>
-            <p className="text-xl max-w-2xl text-center m-auto">
+            <p className="max-w-sm text-lg md:text-xl md:max-w-2xl text-center m-auto mt-3 md:mt-1">
               The world is moving at a blinding pace. Upskill quicker and
               enhance your creativity with the power of AI and spaced
               repetition.
             </p>
           </div>
-          <Link href="/login" className="mt-5">
-            <Button className="text-2xl text-black bg-zinc-300 p-7">
+          <Link href="/login" className="mt-7">
+            <Button className="text-2xl text-black bg-zinc-300 p-7 hover:bg-zinc-100 hover:scale-105 duration-300 transition-all">
               Start Now
             </Button>
           </Link>
