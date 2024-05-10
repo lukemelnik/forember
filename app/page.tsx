@@ -28,13 +28,13 @@ export default async function HomePage() {
         <div className="mr-4 flex gap-3 items-center">
           {user && <p className="hidden md:block">Logged in as {user.email}</p>}
           {user ? (
-            <Link href="/practice">
+            <Link href="/practice" className="hidden md:block ">
               <Button className="text-xl text-black bg-zinc-300 p-5">
                 Practice
               </Button>
             </Link>
           ) : (
-            <Link href="/login">
+            <Link href="/login" className="hidden md:block ">
               <Button className="text-xl text-black bg-zinc-300 p-5">
                 Login
               </Button>
@@ -42,7 +42,7 @@ export default async function HomePage() {
           )}
         </div>
       </nav>
-      <main className="max-w-screen ">
+      <main className="max-w-screen">
         <div className="absolute m-auto top-[300px] bg-gradient-to-r from-blue-700 to-blue-400 h-72 -rotate-12 w-3/4 md:w-1/2 rounded-full blur-[100px] opacity-20"></div>
         <section className="flex flex-col items-center justify-center min-h-svh">
           <div className="">
