@@ -44,13 +44,13 @@ export default async function HomePage() {
           )}
         </div>
       </nav>
-      <main className="max-w-screen overflow-hidden">
+      <main className="max-w-screen ">
         <div className="absolute m-auto top-[300px] bg-gradient-to-r from-blue-700 to-blue-400 h-72 -rotate-12 w-3/4 md:w-1/2 rounded-full blur-[100px] opacity-20"></div>
         <section className="flex flex-col items-center justify-center min-h-svh">
           <div className="">
-            <div className="text-[50px] md:text-[95px] flex flex-col items-center -space-y-3 md:-space-y-10 font-bold -rotate-1">
-              <p>Learn faster.</p>
-              <p className="relative z-0 after:absolute after:bg-gradient-to-r after:from-pink-700 after:to-pink-500 md:after:-left-8 md:after:-right-8 md:after:h-24  after:-z-10 md:after:top-6 text-black bg-opacity-90 after:h-14 after:top-3 after:-left-2 after:-right-2">
+            <div className="text-[50px] md:text-[75px] lg:text-[95px] flex flex-col items-center -space-y-3 md:-space-y-10 font-bold -rotate-1">
+              <p className="opacity-90">Learn faster.</p>
+              <p className="relative z-0 after:absolute after:bg-gradient-to-r after:from-pink-700 after:to-pink-500 md:after:h-20 lg:after:h-24 after:-z-10 md:after:top-5 lg:after:top-6 text-black bg-opacity-90 after:h-14 after:top-3 md:after:-left-6 md:after:-right-6 after:-right-3 after:-left-3">
                 Remember more.
               </p>
             </div>
@@ -61,7 +61,7 @@ export default async function HomePage() {
             </p>
           </div>
           <Link href="/login" className="mt-7">
-            <Button className="text-2xl text-black bg-zinc-300 p-7 hover:bg-zinc-100 hover:scale-105 duration-300 transition-all">
+            <Button className="text-lg md:text-2xl text-black bg-zinc-300 p-6 md:p-7 hover:bg-zinc-100 hover:scale-105 duration-300 transition-all ">
               Start Now
             </Button>
           </Link>
