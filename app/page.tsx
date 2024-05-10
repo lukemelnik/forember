@@ -43,12 +43,12 @@ export default async function HomePage() {
         </div>
       </nav>
       <main className="">
-        <div className="absolute left-0 right-0 m-auto top-[300px] bg-gradient-to-r from-blue-700 to-blue-400 h-72 -rotate-12 w-3/4 md:w-3/4 rounded-full blur-[100px] opacity-20 -z-10"></div>
+        <div className="absolute left-0 right-0 m-auto top-[300px] bg-gradient-to-r from-purple-700 to-pink-400 h-72 -rotate-12 w-3/4 md:w-3/4 rounded-full blur-[100px] opacity-20 -z-10"></div>
         <section className="flex flex-col items-center justify-center min-h-svh">
           <div className="">
             <div className="text-[40px] md:text-[75px] lg:text-[95px] flex flex-col items-center -space-y-3 md:-space-y-10 font-bold -rotate-1">
               <p className="opacity-90">Learn faster.</p>
-              <p className="relative z-0 after:absolute after:bg-gradient-to-r after:from-pink-700 after:to-pink-500 md:after:h-20 lg:after:h-24 after:-z-10 md:after:top-5 lg:after:top-6 text-black bg-opacity-90 after:h-14 after:top-2 md:after:-left-6 md:after:-right-6 after:-right-3 after:-left-3">
+              <p className="relative z-0 after:absolute after:bg-gradient-to-r after:from-pink-700 after:to-purple-500 md:after:h-20 lg:after:h-24 after:-z-10 md:after:top-5 lg:after:top-6 text-black bg-opacity-90 after:h-14 after:top-1 md:after:-left-6 md:after:-right-6 after:-right-3 after:-left-3">
                 Remember more.
               </p>
             </div>
