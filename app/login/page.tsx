@@ -93,14 +93,14 @@ export default function Login({
         />
         <SubmitButton
           formAction={signIn}
-          className="bg-green-700 rounded-md px-4 py-2 text-foreground mb-2"
+          className="bg-pink-600 rounded-md px-4 py-2 text-foreground mb-2 hover:bg-pink-500"
           pendingText="Signing In..."
         >
           Sign In
         </SubmitButton>
         <SubmitButton
           formAction={signUp}
-          className="border border-foreground/20 rounded-md px-4 py-2 text-black bg-zinc-300 mb-2"
+          className="border border-foreground/20 rounded-md px-4 py-2 text-black bg-zinc-300 mb-2 hover:bg-zinc-200"
           pendingText="Signing Up..."
         >
           Sign Up

@@ -10,9 +10,7 @@ export default async function HomePage() {
     data: { user },
     error,
   } = await supabase.auth.getUser();
-  if (error) {
-    return redirect("/login");
-  }
+
   return (
     <>
       <nav className="p-5 px-10 flex justify-between items-center fixed top-0 left-0 right-0 border-b-2 border-zinc-700">
