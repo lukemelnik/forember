@@ -46,13 +46,13 @@ export default async function HomePage() {
         <div className="absolute m-auto top-[300px] bg-gradient-to-r from-blue-700 to-blue-400 h-72 -rotate-12 w-3/4 md:w-1/2 rounded-full blur-[100px] opacity-20"></div>
         <section className="flex flex-col items-center justify-center min-h-svh">
           <div className="">
-            <div className="text-[50px] md:text-[75px] lg:text-[95px] flex flex-col items-center -space-y-3 md:-space-y-10 font-bold -rotate-1">
+            <div className="text-[44px] md:text-[75px] lg:text-[95px] flex flex-col items-center -space-y-3 md:-space-y-10 font-bold -rotate-1">
               <p className="opacity-90">Learn faster.</p>
-              <p className="relative z-0 after:absolute after:bg-gradient-to-r after:from-pink-700 after:to-pink-500 md:after:h-20 lg:after:h-24 after:-z-10 md:after:top-5 lg:after:top-6 text-black bg-opacity-90 after:h-14 after:top-3 md:after:-left-6 md:after:-right-6 after:-right-3 after:-left-3">
+              <p className="relative z-0 after:absolute after:bg-gradient-to-r after:from-pink-700 after:to-pink-500 md:after:h-20 lg:after:h-24 after:-z-10 md:after:top-5 lg:after:top-6 text-black bg-opacity-90 after:h-14 after:top-2 md:after:-left-6 md:after:-right-6 after:-right-3 after:-left-3">
                 Remember more.
               </p>
             </div>
-            <p className="max-w-sm text-lg md:text-xl md:max-w-2xl text-center m-auto mt-3 md:mt-1">
+            <p className="max-w-[375px] text-lg md:text-xl md:max-w-2xl text-center m-auto mt-3 md:mt-1">
               The world is moving at a blinding pace. Upskill quicker and
               enhance your creativity with the power of AI and spaced
               repetition.
