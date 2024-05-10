@@ -10,6 +10,7 @@ import HamburgerIcon from "@/components/hamburger-icon";
 import { useState } from "react";
 import NavLinks from "./nav-links";
 import UserInfoAndSignOut from "./user-info-and-signout";
+import XIcon from "@/components/x-icon";
 
 export default function NavHeaderMobile({
   children,
@@ -34,12 +35,12 @@ export default function NavHeaderMobile({
         </div>
         <div className="flex items-center gap-4 justify-between text-gray-300 flex-wrap">
           <Button onClick={() => setShowMenu(!showMenu)}>
-            <HamburgerIcon />
+            {!showMenu ? <HamburgerIcon /> : <XIcon width={45} height={45} />}
           </Button>
         </div>
       </div>
       {showMenu && (
-        <div className="mb-5 mt-3">
+        <div className="mb-5 mt-3 min-h-svh">
           <Separator className="bg-white" />
           {/* included the signout button as children so that it can operate as a server component */}
           {children}
