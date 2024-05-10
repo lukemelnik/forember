@@ -42,7 +42,7 @@ export default async function HomePage() {
           )}
         </div>
       </nav>
-      <main className="">
+      <div className="">
         <div className="absolute left-0 right-0 m-auto top-[300px] bg-gradient-to-r from-purple-700 to-pink-400 h-72 -rotate-12 w-3/4 md:w-3/4 rounded-full blur-[100px] opacity-20 -z-10"></div>
         <section className="landscape:mt-16 flex flex-col items-center justify-center min-h-svh">
           <div className="">
@@ -64,7 +64,7 @@ export default async function HomePage() {
             </Button>
           </Link>
         </section>
-      </main>
+      </div>
     </>
   );
 }
