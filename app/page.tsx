@@ -15,7 +15,7 @@ export default async function HomePage() {
   }
   return (
     <>
-      <nav className="p-5 px-10 flex justify-between fixed top-0 left-0 right-0 border-b-2 border-zinc-700">
+      <nav className="p-5 px-10 flex justify-between items-center fixed top-0 left-0 right-0 border-b-2 border-zinc-700">
         <div className="flex items-center text-zinc-100">
           <Image
             src={"/assets/images/favicon.png"}
@@ -30,13 +30,13 @@ export default async function HomePage() {
         <div className="mr-4">
           {user ? (
             <Link href="/practice">
-              <Button className="text-2xl text-black bg-green-500 p-7">
+              <Button className="text-xl text-black bg-zinc-300 p-5">
                 Practice
               </Button>
             </Link>
           ) : (
             <Link href="/login">
-              <Button className="text-2xl text-black bg-zinc-300 p-7">
+              <Button className="text-xl text-black bg-zinc-300 p-5">
                 Login
               </Button>
             </Link>
@@ -45,13 +45,15 @@ export default async function HomePage() {
       </nav>
       <main className="mt-40">
         <section className="flex flex-col items-center ">
-          <div className="text-[95px] text-center -space-y-12 font-bold">
+          <div className="text-[95px] text-center -space-y-10 font-bold -rotate-1">
             <p>Learn faster.</p>
-            <p className="">Remember more.</p>
+            <p className="relative z-0 after:absolute after:bg-gradient-to-r after:from-pink-700 after:to-pink-500 after:-left-8 after:-right-8 after:h-24  after:-z-10 after:top-6 text-black">
+              Remember more.
+            </p>
           </div>
           <p className="text-xl max-w-2xl text-center m-auto">
             The world is moving at a blinding pace. Upskill quicker and enhance
-            your creativity with the power of learning science and AI.
+            your creativity with the power of AI and spaced repetition.
           </p>
           <Link href="/login" className="mt-5">
             <Button className="text-2xl text-black bg-zinc-300 p-7">
