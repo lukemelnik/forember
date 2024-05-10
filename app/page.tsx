@@ -44,7 +44,7 @@ export default async function HomePage() {
       </nav>
       <main className="">
         <div className="absolute left-0 right-0 m-auto top-[300px] bg-gradient-to-r from-purple-700 to-pink-400 h-72 -rotate-12 w-3/4 md:w-3/4 rounded-full blur-[100px] opacity-20 -z-10"></div>
-        <section className="flex flex-col items-center justify-center min-h-svh">
+        <section className="landscape:mt-16 flex flex-col items-center justify-center min-h-svh">
           <div className="">
             <div className="text-[40px] md:text-[75px] lg:text-[95px] flex flex-col items-center -space-y-3 md:-space-y-10 font-bold -rotate-1">
               <p className="opacity-90">Learn faster.</p>
