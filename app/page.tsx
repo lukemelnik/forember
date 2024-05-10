@@ -58,8 +58,8 @@ export default async function HomePage() {
               repetition.
             </p>
           </div>
-          <Link href="/login" className="mt-7">
-            <Button className="text-lg md:text-2xl text-black bg-zinc-300 p-6 md:p-7 hover:bg-zinc-100 hover:scale-105 duration-300 transition-all ">
+          <Link href="/login">
+            <Button className="text-lg md:text-2xl text-black bg-zinc-300 p-6 md:p-7 hover:bg-zinc-100 hover:scale-105 duration-300 transition-all mt-7">
               Start Now
             </Button>
           </Link>
