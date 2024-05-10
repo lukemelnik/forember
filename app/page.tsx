@@ -13,7 +13,7 @@ export default async function HomePage() {
 
   return (
     <>
-      <nav className="p-5 px-10 flex justify-between items-center fixed top-0 left-0 right-0 border-b-2 border-zinc-700">
+      <nav className="p-3 md:p-5 px-10 flex justify-between items-center fixed top-0 left-0 right-0 border-b-2 border-zinc-700">
         <div className="flex items-center text-zinc-100">
           <Image
             src={"/assets/images/favicon.png"}
@@ -42,7 +42,7 @@ export default async function HomePage() {
           )}
         </div>
       </nav>
-      <main className="max-w-screen">
+      <main className="">
         <div className="absolute left-0 right-0 m-auto top-[300px] bg-gradient-to-r from-blue-700 to-blue-400 h-72 -rotate-12 w-3/4 md:w-3/4 rounded-full blur-[100px] opacity-20 -z-10"></div>
         <section className="flex flex-col items-center justify-center min-h-svh">
           <div className="">

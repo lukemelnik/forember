@@ -16,6 +16,13 @@ export default function Login({
     const password = formData.get("password") as string;
     const supabase = createClient();
 
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+    if (user) {
+      redirect("/practice");
+    }
+
     const { error } = await supabase.auth.signInWithPassword({
       email,
       password,
@@ -52,7 +59,7 @@ export default function Login({
   };
 
   return (
-    <div className="flex-1 flex flex-col w-full px-8 sm:max-w-md justify-center gap-2">
+    <div className="flex-1 flex flex-col w-full px-8 sm:max-w-md justify-center gap-2 ">
       <Link
         href="/"
         className="absolute left-8 top-8 py-2 px-4 rounded-md no-underline text-foreground bg-btn-background text-white hover:bg-btn-background-hover flex items-center group text-sm"
