@@ -75,9 +75,7 @@ export default function Login({
             width={95}
             height={95}
           />
-          <h1 className="text-white text-5xl">
-            Re<sup>Collect</sup>
-          </h1>
+          <h1 className="text-white text-5xl">Forember</h1>
         </div>
         <label className="text-md" htmlFor="email">
           Email

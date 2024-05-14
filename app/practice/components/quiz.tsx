@@ -53,7 +53,6 @@ export default function Quiz({
           new Date(fragment.next_show_date)
         );
         const today = startOfDay(new Date());
-        console.log(fragmentNextShowDay.getTime(), today.getTime());
         return (
           fragmentNextShowDay.getTime() === today.getTime() ||
           fragment.last_shown_at === null ||

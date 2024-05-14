@@ -29,9 +29,7 @@ export default function NavHeaderMobile({
             width={55}
             height={55}
           />
-          <h1>
-            Re<sup>Collect</sup>
-          </h1>
+          <h1>Forember</h1>
         </div>
         <div className="flex items-center gap-4 justify-between text-gray-300 flex-wrap">
           <Button onClick={() => setShowMenu(!showMenu)}>

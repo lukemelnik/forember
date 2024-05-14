@@ -21,9 +21,7 @@ export default async function HomePage() {
             width={55}
             height={55}
           />
-          <h1>
-            Re<sup>Collect</sup>
-          </h1>
+          <h1>Forember</h1>
         </div>
         <div className="mr-4 flex gap-3 items-center">
           {user && <p className="hidden md:block">Logged in as {user.email}</p>}

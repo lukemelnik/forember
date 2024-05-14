@@ -21,9 +21,7 @@ export default async function NavHeader() {
           width={55}
           height={55}
         />
-        <h1>
-          Re<sup>Collect</sup>
-        </h1>
+        <h1>Forember</h1>
       </div>
       <Separator className="bg-zinc-300 mb-6 h-[2px]" />
       <div className="flex gap-3 items-center justify-between text-gray-300 flex-wrap">
