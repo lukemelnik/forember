@@ -1,24 +1,41 @@
 # Forember App
 
-Forember is a memory enhancing app that uses spaced repetition and active recall to lock in important details forever.
+## A Full Stack Memory Enhancing App Using React, NextJS, Tailwind, Supabase, Shadcn, OpenAI
 
-## Tech Stack: React, NextJS, Tailwind, Supabase, Shadcn, OpenAI
+Forember is a memory enhancing app that uses [spaced repetition](https://en.wikipedia.org/wiki/Spaced_repetition) and [active recall](https://en.wikipedia.org/wiki/Testing_effect) to lock in important information forever. It's modelled after [the Leitner System](https://en.wikipedia.org/wiki/Leitner_system).
+
+Each piece of knowledge is saved as a 'fragment', which you can add manually or automatically using generative AI. When working with the AI model you're able to edit or discard any generated fragments before adding them to your knowledge library. As your knowledge base grows
 
 ## How it works:
 
-1. You're reading an amazing book and taking notes about all the lifechanging things your learning...but by next week they'll just be a forgotten fragment in the labrynth of your Notion folder.
+Ever spend a couple weeks reading a great book, feeling like you were absorbing a wealth of life-changing information...only to remember two, maybe three things when someone asks you about it later? I got sick of that feeling so I started taking notes on what I was reading, but soon those too got lost in a sea of other information in my journal. So instead, I created Forember to help generate more lasting memories from all of the content I consume.
 
-2. Instead, this time you upload your note to Forember. Our tuned AI takes your note and transforms it into the perfect set of questions to test your knowledge.
+2. First, upload your notes to Forember. The generative AI process identifies the key concepts and transforms them into 'fragments' which are then added to your knowledge library. For extra ease of use, include a title at the top of your notes that references the source and the AI will include context in each of the fragments.
 
-3. Now what? Enter our spaced repetition algorithm. To make things stick you need to _actively_ review them at increasing intervals until they become a part of the fabric of your being.
+3. If necessary, edit fragments to make them more clear and delete anything that isn't essential. No need to store what you can look up on the internet at any time. The knowledge libary is like a special cache of all your most important ideas and facts that inform your worldview and enhance your creativity.
 
-4. Each new peice of information gets put into a queue. You review it on the first day, if you get the question right then the interval increases to 2, 3, 4...up to 30 days after which it's been solidified in your memory. BUT - if you get the question wrong at one of the later intervals then the piece of information drops back to the beginning of the queue.
+4. Now what? Enter our spaced repetition algorithm. To make things stick you need to _actively_ review them at increasing intervals until they become a part of the fabric of your being.
 
-5. Then all you have to do is open the app and practice for 20 minutes a day. Without any effort you'll be retaining up to 85% more than with conventional note taking _need to find a real metric 🙂_ .
+5. Each new peice of information gets put into a queue. You review it on the first day, if you get the question right then the interval increases to 2, 3, 4...up to 16 days after which it's been solidified in your memory. _BUT_, if you get the question wrong at one of the later intervals then the fragment drops back down to a daily interval and has to go through the process again.
 
-## Takeaways:
+6. Then you just have to practice for 15-20 minutes a day and enjoy the sweet sweet reward of remembering all your precious pieces of knoweldge.
 
-1. If you want to run other code on submission you can pass the formData into the action and add other lines. When using server action you can clear using a ref:
+---
+
+Planned features:
+
+- Additional metrics/charts on the dashboard
+- Ability to associate images with fragments
+- Creating embeddings from fragments to allow detailed queries of the knowledge base (e.g. to identify skill gaps, suggestions for what to study next, recommended books & podcasts) as well as enhanced visualization of the data.
+- Adjustable user settings so they can customize the spaced repetition algorithm
+- AI driven knowledge tests. I'd like to go beyond basic flashcards and use new capabilities like integrating learning material into engaging narratives that enhance memorization.
+- Deeper research into the latest learning science to identify other best practices.
+
+---
+
+## Things I learned while working on the project:
+
+1. If you want to run other code on submission you can pass the formData into the action and add other lines. When using server action you can clear using a ref. (though as we'll see this is better achieved with a useEffect to ensure it runs only after meeting conditions, and with data that isn't stale):
 
 ```js
   const [formState, action] = useFormState(createFragment, { errors: {} });
@@ -36,7 +53,7 @@ Forember is a memory enhancing app that uses spaced repetition and active recall
 
 2. Anything involving data fetching has to be done asynchronously or the data won't be available (ie. if you're seeing data is undefined check that the function is async and you're awaiting the db call)
 
-3. If a CRUD operation isn't working, check RLS 🙂
+3. On supabase, if a CRUD operation isn't working but there are no obvious errors, check RLS 🙂
 
 4. Cool lesson about useState: I was fetching from db then passing to a component, but useState doesn't run till after the dom is updated. That means the data was undefined when the component mounted. Had to add a loading state so that it re-renders when the data is avaiable:
 
