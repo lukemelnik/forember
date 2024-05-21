@@ -30,7 +30,7 @@ export default async function LearningDashboard() {
       <div className="flex gap-5 flex-wrap">
         <PracticeTimeCard sessions={sessions} />
         <RecallPercentageCard sessions={sessions} />
-        <LearnerLevelCard sessions={sessions} />
+        {/* <LearnerLevelCard sessions={sessions} /> */}
         <FragmentsReviewedCard sessions={sessions} />
         <TimeOnPlatformCard />
       </div>
