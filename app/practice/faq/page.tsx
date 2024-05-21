@@ -13,10 +13,10 @@ export default function FAQPage() {
         <AccordionItem value="item-1">
           <AccordionTrigger>How does it work?</AccordionTrigger>
           <AccordionContent>
-            With Forember you can turn fleeting notes into lasting knowledge.
-            You upload your notes, we transform them into memory-boosting
-            questions using spaced repetition. Spend just 20 minutes a day, and
-            remember up to 85% more of what you learn.
+            With Forember you can turn important information into lasting
+            knowledge. Upload your notes and we'll transform them into
+            memory-boosting questions using spaced repetition. A simple review
+            habit of 20 minutes a day will drammatically improve your retention.
           </AccordionContent>
         </AccordionItem>
         <AccordionItem value="item-2">
