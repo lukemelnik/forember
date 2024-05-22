@@ -29,13 +29,13 @@ export const createFragmentSchema = z.object({
   question: z
     .string()
     .min(5, { message: "Question must be at least 5 characters long" })
-    .max(250, {
+    .max(500, {
       message: "Question must be at most 250 characters long",
     }),
   answer: z
     .string()
     .min(3, { message: "Answer must be at least 3 characters long" })
-    .max(250, { message: "Answer must be at most 250 characters long" }),
+    .max(500, { message: "Answer must be at most 250 characters long" }),
 });
 
 export default function EditableFragment({
