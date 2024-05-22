@@ -66,7 +66,10 @@ export default async function resetTestAccount() {
   } = await supabase.auth.getUser();
 
   if (!user) {
-    return;
+    return {
+      success: false,
+      message: "You must be signed in to reset your test account",
+    };
   }
 
   try {

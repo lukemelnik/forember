@@ -1,11 +1,43 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import resetTestAccount from "../actions/resetTestAccount";
 import { Button } from "@/components/ui/button";
+import { useFormState } from "react-dom";
+import { toast } from "sonner";
 
 export default function WelcomeMessage() {
   const [hideMessage, setHideMessage] = useState(false);
+  const [resetting, setResetting] = useState(false);
+  const [formState, action] = useFormState(resetTestAccount, {
+    success: false,
+    message: "",
+  });
+  const [firstRender, setFirstRender] = useState(true);
+
+  console.log(formState);
+  // toast to let the user know the reset was successful
+  useEffect(() => {
+    if (firstRender) {
+      setFirstRender(false);
+      return;
+    }
+    if (formState.message) {
+      toast("Reset successful, time to start learning! 🎉", {
+        duration: 3000,
+      });
+    }
+  }, [formState]);
+
+  // disabled the reset button while the reset is in progress
+  function handleResetClick() {
+    setTimeout(() => {
+      setResetting(true);
+    }, 50);
+    setTimeout(() => {
+      setResetting(false);
+    }, 2000);
+  }
   return (
     <>
       {hideMessage && (
@@ -27,8 +59,16 @@ export default function WelcomeMessage() {
           <p className="mt-3">
             You can also visit the 'Create With AI' page to add your own.
           </p>
-          <form action={resetTestAccount}>
-            <Button className="bg-black text-zinc-300 shadow-md mt-3 hover:bg-zinc-800">
+          <form
+            action={async () => {
+              action();
+            }}
+          >
+            <Button
+              className="bg-black text-zinc-300 shadow-md mt-3 hover:bg-zinc-800"
+              disabled={resetting}
+              onClick={handleResetClick}
+            >
               Reset Test Account
             </Button>
           </form>
