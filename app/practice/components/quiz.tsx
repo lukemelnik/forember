@@ -2,7 +2,7 @@
 import { createClient } from "@/utils/supabase/client";
 import { useEffect, useState } from "react";
 import FlashCard from "./flash-card";
-import { addDays, isPast, startOfDay } from "date-fns";
+import { addDays, isPast, set, startOfDay } from "date-fns";
 import Confetti from "./confetti";
 import ReactDOM from "react-dom";
 import { Progress } from "@/components/ui/progress";
@@ -27,12 +27,14 @@ export default function Quiz({
   const [questionNumber, setQuestionNumber] = useState(0);
   const [quizOver, setQuizOver] = useState(false);
   const [fragments, setFragments] = useState<Fragment[]>([]);
+  const [loading, setLoading] = useState(false);
 
   // calulate progress for progress bar
   const progress = Math.round((questionNumber / fragments.length) * 100);
 
   useEffect(() => {
     async function getFragments() {
+      setLoading(true);
       const supabase = createClient();
       const { data: fragments, error } = await supabase
         .from("fragment")
@@ -64,6 +66,7 @@ export default function Quiz({
       setFragments(filteredFragments);
     }
     getFragments();
+    setLoading(false);
   }, []);
 
   function nextQuestion() {
@@ -111,7 +114,10 @@ export default function Quiz({
 
   return (
     <div>
-      {fragments.length === 0 && <p>You're all done for the day!</p>}
+      {loading && <p>Loading...</p>}
+      {fragments.length === 0 && !loading && (
+        <p>You're all done for the day!</p>
+      )}
       {fragments.length > 0 && (
         <>
           <p className="mb-1">
