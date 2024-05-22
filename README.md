@@ -4,7 +4,7 @@
 
 Forember is a memory enhancing app that uses [spaced repetition](https://en.wikipedia.org/wiki/Spaced_repetition) and [active recall](https://en.wikipedia.org/wiki/Testing_effect) to lock in important information forever. It's modelled after [the Leitner System](https://en.wikipedia.org/wiki/Leitner_system).
 
-Each piece of knowledge is saved as a 'fragment', which you can add manually or automatically using generative AI. When working with the AI model you're able to edit or discard any generated fragments before adding them to your knowledge library. [Try the app here!](https://forember-9vyt.vercel.app/)
+Each piece of knowledge is saved as a 'fragment', which you can add manually or automatically using generative AI. When working with the AI model you're able to edit or discard any generated fragments before adding them to your knowledge library. [Try the app here!](https://forember-9vyt.vercel.app/). You can log in with the email 'test@test.com' and password: 'testing'. Click the reset dialogue to pre-populate some fragments.
 
 ## How it works:
 
