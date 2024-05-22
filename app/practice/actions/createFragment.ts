@@ -5,7 +5,7 @@ import { addDays } from "date-fns";
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
 
-export const createFragmentSchema = z.object({
+const createFragmentSchema = z.object({
   question: z
     .string()
     .min(5, { message: "Question must be at least 5 characters long" })
