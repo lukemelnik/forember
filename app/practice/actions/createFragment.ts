@@ -76,7 +76,7 @@ export async function createFragment(
       return { errors: { _form: ["Uh oh, something went wrong"] } };
     }
   }
-  revalidatePath("/learn");
+  revalidatePath("/practice");
   // return an empty error object to keep everyone happy
   return { errors: {} };
 }

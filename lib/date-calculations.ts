@@ -1,4 +1,4 @@
-import { differenceInDays, format, startOfDay } from "date-fns";
+import { addDays, differenceInDays, format, startOfDay } from "date-fns";
 
 export function totalDaysOnPlatform(userCreatedDate: string) {
   // time has to be set to zero so it calculates using full days
@@ -7,4 +7,10 @@ export function totalDaysOnPlatform(userCreatedDate: string) {
   const formattedJoinedDate = format(joinedDate, "MM/dd/yyyy");
   const totalDays = differenceInDays(currentDate, joinedDate) + 1;
   return { totalDays, formattedJoinedDate };
+}
+
+export function tomorrow() {
+  const currentDate = new Date();
+  const tomorrow = addDays(currentDate, 1);
+  return tomorrow;
 }

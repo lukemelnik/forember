@@ -21,13 +21,14 @@ export default function RecallPercentageCard({
   const recallAverage = getRecallAverage(sessions);
   const weeklyRecallAverage = getWeeklyRecallAverage(sessions);
   // thinking about logging the recall time, but questionable whether its useful because the content of the cards is so different. And not usefull to create an average from the whole session length because its affected by the answers they got wrong
+  // this could be more valuable as a graph that shows recall for each category, ie. programming vs math vs history
   return (
     <Card className="w-full md:w-1/3">
       <CardHeader>
         <CardTitle>Weekly Recall Percentage</CardTitle>
       </CardHeader>
       <CardContent>
-        {/* this is all-time but would probably be better as 'your recall average this week, vs last week' */}
+        {/* currently showing all time recall average but needs to be updated with a more useful metric */}
         <div className="flex gap-2 items-center">
           <h2 className="font-black text-4xl">{recallAverage}%</h2>
         </div>

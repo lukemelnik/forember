@@ -5,6 +5,7 @@ import NavHeaderMobile from "./components/nav-header-mobile";
 import UserInfoAndSignOut from "./components/user-info-and-signout";
 import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
+import { Button } from "@/components/ui/button";
 
 export default async function LearnLayout({
   children,
