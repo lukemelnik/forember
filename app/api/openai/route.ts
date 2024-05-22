@@ -71,6 +71,8 @@ export async function POST(req: NextRequest) {
           },
         ]
         \n
+        Step 6 - Double check the shape and validity of the returned JSON array. Make sure there are no unterminated strings or missing commas. If there are any issues, please correct them before returning the data. \n
+        
       Here are the notes: \n
     ---
     ${notes}
