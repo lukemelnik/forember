@@ -71,9 +71,13 @@ export default async function resetTestAccount() {
 
   try {
     const { data: deleteData, error: deleteError } = await supabase
-      .from("fragments")
+      .from("fragment")
       .delete()
-      .match({ user_id: user.id });
+      .eq("user_id", user.id);
+
+    if (deleteError) {
+      console.log("deleteError:", deleteError);
+    }
 
     for (let fragment of sampleFragments) {
       const { error: insertError } = await supabase.from("fragment").insert({
