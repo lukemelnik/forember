@@ -10,9 +10,9 @@ const openai = new OpenAI({
 
 const fragmentSchema = z.object({
   id: z.string(),
-  question: z.string().min(5).max(250),
-  answer: z.string().min(3).max(250),
-  subject: z.string().min(3).max(50),
+  question: z.string().min(5).max(500),
+  answer: z.string().min(3).max(500),
+  subject: z.string().min(3).max(100),
 });
 
 const fragmentArraySchema = z.array(fragmentSchema);
@@ -48,14 +48,14 @@ export async function POST(req: NextRequest) {
       messages: [
         {
           role: "system",
-          content: `You are a knowledgeable teacher with years of experience helping students learn complex topics by breaking them down into understanable pieces. A student gives your the following notes that they took while learning a new topic (deliniated between '---') and needs you to do the following: \n
-        Step 1 - Identify the key concepts that the student should remember from the notes \n
+          content: `You are a knowledgeable teacher with years of experience helping students learn complex topics by breaking them down into understanable pieces. A student gives your the following notes that they took while learning a new topic (deliniated between '---') and needs you to help with the following steps. Don't return anything until you've read all the instructions. \n
+        Step 1 - Separate the notes into information chunks, so that each chunk covers a single fact, concept, or topic that the student should remember. \n
 
-        Step 2 - If the concept is complex, break it down into smaller concepts that are easy to grasp and remember. Ensure that you include enough question/answer pairs to cover ALL of the concepts in the notes. \n
+        Step 2 - Compare the chunks with the provided notes and ensure there are enough chunks to accurately represent ALL the information in the notes. The student will be tested on it later and penalized for any gaps in their knowledge. If any information is missing, add corresponding chunks. \n
 
-        Step 3 - Create a question & answer pair for each concept that the student will use for flashcards. Ensure that the question and answer pair will help the student fully grasp the material and make it as memorable as possible. Please try to use the student's own language & tone frome the notes. Also, please include a reference to the author, book, podcast, or general topic of the source material (not somethin generic like 'from the notes') at the beginning of every question. For example if the title of the notes is "From the Book 'Breath'" you could start the question like: 'in the book 'Breath', the author refers to this technique that can slow your heart rate'"\n
+        Step 3 - Create a question & answer pair for each chunk that the student will use for flashcards. Ensure that the question and answer pair will help the student fully grasp the material and make it as memorable as possible. Please try to use the student's own language & tone frome the notes. Also, please include a reference to the author, book, podcast, or general topic of the source material (not somethin generic like 'from the notes') at the beginning of every question. For example if the title of the notes is "From the Book 'Breath'" you could start the question like: 'in the book 'Breath', the author refers to this technique that can slow your heart rate'"\n
 
-        Step 4 - Give each question and answer pair a high-level subject \n
+        Step 4 - Give each question and answer pair a descriptive subject \n
 
         Step 5 - Return the information as a JSON string in the following shape. If you feel you don't have sufficient information, return a JSON string with an empty array (ex. []): \n
         [
@@ -71,7 +71,7 @@ export async function POST(req: NextRequest) {
           },
         ]
         \n
-        Step 6 - Double check the shape and validity of the returned JSON array. Make sure there are no unterminated strings or missing commas. If there are any issues, please correct them before returning the data. \n
+        Step 6 - Double check the shape and validity of the returned JSON string. Make sure there are no unterminated strings or missing commas. ONLY RETURN THE JSON STRING OF QUESTIONS AND ANSWERS, NOTHING ELSE. You're output should be in the form of an API response. Do not include anything around the JSON string that indicates that it's code. If there are any issues, please correct them before returning the data. \n
         
       Here are the notes: \n
     ---
@@ -80,11 +80,12 @@ export async function POST(req: NextRequest) {
     `,
         },
       ],
-      max_tokens: 1000,
+      max_tokens: 4096,
     });
     // have to parse the data from a JSON string to an array before you can check the contents with array methods.
 
     let response = openAIResponse.choices[0].message.content;
+    console.log(response);
 
     if (!response) {
       throw new Error(
