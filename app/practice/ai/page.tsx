@@ -15,6 +15,7 @@ import React, { useState } from "react";
 import EditableFragment from "../components/editable-fragment";
 import { set } from "date-fns";
 import ArrowRightIcon from "@/components/arrow-right-icon";
+import { Skeleton } from "@/components/ui/skeleton";
 
 // generated fragments are given a simple temporary id for displaying to the user that will be replaced when its saved in the db
 export type TemporaryFragment = {
@@ -156,6 +157,25 @@ export default function AIPage() {
       </form>
       {fetchError && (
         <h2 className="bg-red-500 p-3 rounded-xl">{fetchError}</h2>
+      )}
+      {loading && (
+        <div className="relative">
+          <h2 className="text-2xl font-bold animate-pulse">
+            Creating your fragments...
+          </h2>
+          <Skeleton className="rounded-full w-8 h-8 absolute -left-12 top-28"></Skeleton>
+          <Skeleton className="rounded-full w-8 h-8 absolute -right-12 top-28"></Skeleton>
+          <Skeleton className="mt-4 border-2 border-zinc-800 rounded-xl p-5 w-[350px] md:w-full bg-black">
+            <Skeleton className="h-20"></Skeleton>
+            <div className="flex justify-between mt-4">
+              <Skeleton className="h-10 w-32"></Skeleton>
+              <div className="flex gap-3">
+                <Skeleton className="h-10 w-20"></Skeleton>
+                <Skeleton className="h-10 w-20"></Skeleton>
+              </div>
+            </div>
+          </Skeleton>
+        </div>
       )}
 
       {fragments && fragments.length > 0 && (

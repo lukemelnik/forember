@@ -39,10 +39,12 @@ export async function POST(req: NextRequest) {
   // should probably add even more validation here so the input has to be above a certain length, since we're using tokens just to send the prompt
 
   // add a section to the prompt called 'issues' where the ai model can point out any factual errors in the notes. Will display them separately from the flashcard options.
+  const lqModel = "gpt-3.5-turbo-0125";
+  const hqModel = "gpt-4o-2024-05-13";
 
   try {
     const openAIResponse = await openai.chat.completions.create({
-      model: "gpt-3.5-turbo-0125",
+      model: lqModel,
       messages: [
         {
           role: "system",
