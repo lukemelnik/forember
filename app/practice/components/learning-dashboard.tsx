@@ -21,7 +21,7 @@ export default async function LearningDashboard() {
   // could filter for the user's own but I think RLS is already taking care of that
 
   if (!sessions) {
-    return <div>Loading...</div>;
+    return <div>No sessions available.</div>;
   }
 
   return (
