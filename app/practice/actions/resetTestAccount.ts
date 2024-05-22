@@ -93,7 +93,7 @@ export default async function resetTestAccount() {
     return {
       success: true,
       message:
-        "Reset successful, feel free to try practicing the fragments or add your own on the 'Create With AI' page 🎉",
+        "Reset successful! You can start practicing on this page, or add your own fragments on the 'Create With AI' page 🎉",
     };
   } catch (error) {
     return {

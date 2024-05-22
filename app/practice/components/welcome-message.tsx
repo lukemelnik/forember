@@ -23,8 +23,8 @@ export default function WelcomeMessage() {
       return;
     }
     if (formState.message) {
-      toast("Reset successful, time to start learning! 🎉", {
-        duration: 3000,
+      toast(formState.message, {
+        duration: 4000,
       });
     }
   }, [formState]);
