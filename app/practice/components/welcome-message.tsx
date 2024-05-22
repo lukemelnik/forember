@@ -11,7 +11,7 @@ export default function WelcomeMessage() {
       {hideMessage && (
         <Button
           onClick={() => setHideMessage(false)}
-          className="bg-zinc-100 text-black shadow-md mt-3 hover:bg-zinc-300 text-md"
+          className="bg-black border-2 border-zinc-300 text-zinc-300 shadow-md mt-3 hover:bg-zinc-800 text-lg p-6"
         >
           Show Reset Dialogue
         </Button>
