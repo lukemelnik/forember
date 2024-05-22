@@ -20,12 +20,19 @@ export default async function PracticePage() {
     <>
       <div className="p-1 md:p-10 space-y-10">
         {user.email === "test@test.com" && (
-          <div className="text-black bg-zinc-100 max-w-max p-5 rounded-lg">
+          <div className="text-black bg-zinc-100  max-w-3xl p-5 rounded-lg">
             <h1>Welcome! You're signed in with the test account.</h1>
+            <p className="mt-3">
+              Clicking reset below will reinitialize the account data and
+              pre-load a few javascript questions so you can try out the spaced
+              repetition dialog below.
+            </p>
+            <p className="mt-3">
+              You can also visit the 'Create With AI' page to add your own.
+            </p>
             <form action={resetTestAccount}>
-              <Button className="border-2 border-black shadow-md mt-3 hover:bg-zinc-300">
-                Click here to reset the account data & autopopulate some
-                fragments
+              <Button className="bg-black text-zinc-300 shadow-md mt-3 hover:bg-zinc-800">
+                Reset Test Account
               </Button>
             </form>
           </div>
