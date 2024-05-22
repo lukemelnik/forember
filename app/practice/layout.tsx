@@ -2,14 +2,24 @@ import React from "react";
 import NavHeader from "./components/nav-header";
 import NavLinks from "./components/nav-links";
 import NavHeaderMobile from "./components/nav-header-mobile";
-import { User } from "lucide-react";
 import UserInfoAndSignOut from "./components/user-info-and-signout";
+import { createClient } from "@/utils/supabase/server";
+import { redirect } from "next/navigation";
 
-export default function LearnLayout({
+export default async function LearnLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const supabase = createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user) {
+    redirect("/login");
+  }
+
   return (
     <>
       <nav className="p-5 fixed top-0 left-0 right-0 border-b-[1px] border-zinc-700 bg-black z-[50] sm:block xl:hidden ">
