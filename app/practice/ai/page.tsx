@@ -16,6 +16,7 @@ import EditableFragment from "../components/editable-fragment";
 import { set } from "date-fns";
 import ArrowRightIcon from "@/components/arrow-right-icon";
 import { Skeleton } from "@/components/ui/skeleton";
+import { toast } from "sonner";
 
 // generated fragments are given a simple temporary id for displaying to the user that will be replaced when its saved in the db
 export type TemporaryFragment = {
@@ -77,6 +78,12 @@ export default function AIPage() {
   function removeFragment(id: string) {
     const updatedFragments = fragments.filter((f) => f.id !== id);
     setFragments(updatedFragments);
+    if (updatedFragments.length === 0) {
+      toast(
+        "You're all done, head over to the practice page to start learning!",
+        { duration: 2000 }
+      );
+    }
   }
 
   function saveFragment(fragment: TemporaryFragment) {

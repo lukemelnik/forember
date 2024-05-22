@@ -34,7 +34,7 @@ export default function WelcomeMessage() {
           </form>
           <Button
             onClick={() => setHideMessage(true)}
-            className="bg-black text-zinc-300 shadow-md mt-3 hover:bg-zinc-800 absolute bottom-5 right-5"
+            className="border-2 border-black shadow-md mt-3 hover:bg-zinc-300 absolute bottom-5 right-5"
           >
             Hide Message
           </Button>
