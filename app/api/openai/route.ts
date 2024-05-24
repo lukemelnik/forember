@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 import { NextRequest } from "next/server";
 import OpenAI from "openai";
 import { z } from "zod";
+import crypto from "crypto";
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
@@ -19,11 +20,15 @@ const fragmentArraySchema = z.array(fragmentSchema);
 
 export async function POST(req: NextRequest) {
   const supabase = createClient();
-  const { data } = await supabase.auth.getUser();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
 
-  if (!data.user) {
+  if (!user) {
     redirect("/login");
   }
+
+  // consider encrypting the user's email and including it as a 'user' parameter with the api reques to openai. That will allow you to monitor any abuse.
 
   const reqData = await req.json();
   const notes = reqData.notes;

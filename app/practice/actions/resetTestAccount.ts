@@ -2,6 +2,7 @@
 
 import { tomorrow } from "@/lib/date-calculations";
 import { createClient } from "@/utils/supabase/server";
+import { revalidatePath } from "next/cache";
 import { toast } from "sonner";
 
 export default async function resetTestAccount() {
@@ -82,6 +83,11 @@ export default async function resetTestAccount() {
       console.log("deleteError:", deleteError);
     }
 
+    const { error: profileError } = await supabase
+      .from("profile")
+      .update({ first_name: "Testy", last_name: "McTestface" })
+      .eq("user_id", user.id);
+
     for (let fragment of sampleFragments) {
       const { error: insertError } = await supabase.from("fragment").insert({
         question: fragment.question,
@@ -90,6 +96,7 @@ export default async function resetTestAccount() {
         next_show_date: tomorrow(),
       });
     }
+    revalidatePath("/practice");
     return {
       success: true,
       message:
