@@ -86,10 +86,20 @@ export default function WeeklySummaryCard({
             </h1>
             <p>{date}</p>
           </div>
-          <p className="pt-2 font-thin">
-            It's time to shred! You've got {fragments.length} fragments to
-            review.
-          </p>
+          {fragments.length > 0 ? (
+            <p className="pt-2 font-thin">
+              It's time to shred! You've got {fragments.length} fragments to
+              review.
+            </p>
+          ) : // when you're done for the day
+          sessions.length > 0 ? (
+            <p>No fragments left to review, keep up the good work!</p>
+          ) : (
+            // for first time visitors
+            <p className="pt-2 font-thin">
+              No fragments to review - time to start adding some knowledge!{" "}
+            </p>
+          )}
         </CardTitle>
       </CardHeader>
       <CardContent>
