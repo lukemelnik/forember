@@ -19,7 +19,7 @@ export function getWeeklyRecallAverage(sessions: Session[]) {
     const sessionDate = new Date(session.created_at);
     return isThisWeek(sessionDate, { weekStartsOn: 1 });
   });
-  if (weeklySessions.length === 0) return "No review this week";
+  if (weeklySessions.length === 0) return 0;
   return getRecallAverage(weeklySessions);
 }
 

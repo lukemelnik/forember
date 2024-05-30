@@ -76,7 +76,7 @@ export default function WeeklySummaryCard({
 
   const date = new Date().toDateString();
   return (
-    <Card className="h-96 w-full">
+    <Card className="h-96 md:col-span-3">
       <CardHeader>
         <CardTitle>
           <div className="flex justify-between items-center">

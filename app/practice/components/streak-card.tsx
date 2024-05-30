@@ -10,11 +10,7 @@ import React from "react";
 import { Session } from "./learning-dashboard";
 import { isThisWeek } from "date-fns";
 
-export default function PracticeWeeklyTotal({
-  sessions,
-}: {
-  sessions: Session[];
-}) {
+export default function StreakCard({ sessions }: { sessions: Session[] }) {
   const currentDate = new Date();
   function getWeeklyPracticeTotal() {
     const weeklySessionTotal = sessions.filter((session) => {
@@ -32,9 +28,9 @@ export default function PracticeWeeklyTotal({
 
   const totalWeeklyPractice = getWeeklyPracticeTotal();
   return (
-    <Card className="w-full md:w-1/3">
+    <Card className="">
       <CardHeader>
-        <CardTitle>Practice Time This Week</CardTitle>
+        <CardTitle>Current Streak</CardTitle>
       </CardHeader>
       <CardContent>
         <p className="font-black text-4xl">{totalWeeklyPractice}</p>
