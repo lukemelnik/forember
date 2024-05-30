@@ -45,6 +45,10 @@ export default async function LearningDashboard() {
     .select("*")
     .eq("user_id", user.id);
 
+  if (!profile) {
+    redirect("/login");
+  }
+
   return (
     <>
       <div className="flex gap-5 flex-wrap">
