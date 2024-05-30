@@ -27,6 +27,7 @@ export async function POST(req: NextRequest) {
   if (!user) {
     redirect("/login");
   }
+  console.time("Processing Time");
 
   // consider encrypting the user's email and including it as a 'user' parameter with the api reques to openai. That will allow you to monitor any abuse.
 
@@ -125,6 +126,7 @@ export async function POST(req: NextRequest) {
         "Invalid data returned from AI model, please generate again."
       );
     }
+    console.timeEnd("Processing Time");
 
     return Response.json(parsedArray.data, {
       status: 200,

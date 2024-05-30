@@ -142,7 +142,7 @@ export default function AIPage() {
         {/* check that the number of tokens doesn't exceed 4000 for sending to the ai model. ~4 characters is a token so the number of characters can't exceed 16000, subtract 1000 for a safety factor */}
         {notes && notes.length <= 15000 && (
           <p className="text-zinc-300">
-            <strong>{notes?.length}/15000</strong>Characters
+            <strong>{notes?.length}/15000</strong> Characters
           </p>
         )}
         {notes && notes.length > 15000 && (

@@ -52,6 +52,7 @@ export default async function ProfilePage() {
   }
 
   const profile: Profile = await getProfile();
+  const joinedDate = new Date(user.created_at).toDateString();
 
   return (
     <div>
@@ -59,6 +60,7 @@ export default async function ProfilePage() {
       <Separator className="bg-slate-300 max-w-2xl mb-5" />
       <p>First Name: {profile?.first_name}</p>
       <p>Last Name: {profile?.last_name}</p>
+      <p>Joined On: {joinedDate}</p>
       <Dialog>
         <DialogTrigger className="bg-gray-300 rounded p-3 mt-10 text-zinc-900">
           Edit Profile

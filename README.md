@@ -24,6 +24,7 @@ Ever spend a couple weeks reading a great book, feeling like you were absorbing 
 
 ## Planned features:
 
+- Fix Vercel 10s timeout issue w/ some sort of response streaming.
 - Additional metrics/charts on the dashboard
 - Ability to associate images with fragments
 - Creating embeddings from fragments to allow detailed queries of the knowledge base (e.g. to identify skill gaps, suggestions for what to study next, recommended books & podcasts) as well as enhanced visualization of the data.
@@ -209,3 +210,5 @@ if (!notes) {
 18. I can see where a specific tool for desigining with LLMS would be really helpful. Switching to the GPT-4o model caused some issues because it was being more thorough, meaning I had to increase the max_tokens so the response wouldn't be cut off. The returned fragments were way better, but the response time was significantly longer which wasn't great for UX. It'd be cool to be able to measure response times & quality, subbing out different models and optimizing.
 
 19. If you want to use revalidatePath in a client component, you can just set it up as a server action.
+
+20. Ran into Vercel's 10s function timeout on the free plan. Could upgrade to fix it but I think it highlights a UX issue anyway, because that's too long to wait. I'd like to implement some kind of advanced streaming where it sends complete fragments as they're generated.
