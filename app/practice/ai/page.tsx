@@ -30,6 +30,7 @@ export default function AIPage() {
   const [loading, setLoading] = useState(false);
   const [fetchError, setFetchError] = useState<string | null>(null);
   const [instructionShow, setInstructionShow] = useState(false);
+  const [notes, setNotes] = useState<string>("");
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -138,16 +139,31 @@ export default function AIPage() {
         >
           Enter Your Notes
         </Label>
+        {/* check that the number of tokens doesn't exceed 4000 for sending to the ai model. ~4 characters is a token so the number of characters can't exceed 16000, subtract 1000 for a safety factor */}
+        {notes && notes.length <= 15000 && (
+          <p className="text-zinc-300">
+            <strong>{notes?.length}/15000</strong>Characters
+          </p>
+        )}
+        {notes && notes.length > 15000 && (
+          <p className="text-red-500">
+            <strong>{notes?.length}/15000</strong> Character length exceeded.
+            Please split the note up into smaller pieces so they can be
+            processed by the model.
+          </p>
+        )}
         <Textarea
           disabled={loading}
           className="bg-black text-zinc-300 min-h-[200px] mt-5 text-md p-5"
           id="notes"
           name="notes"
           placeholder="Enter your notes here and our AI will turn them into knowledge fragments."
+          value={notes}
+          onChange={(e) => setNotes(e.target.value)}
         />
         <div className="relative z-0 group mt-5">
           <Button
-            disabled={loading}
+            disabled={loading || notes?.length > 15000}
             className={
               `bg-zinc-300 py-6 w-full text-md` + (loading && " animate-pulse")
             }
