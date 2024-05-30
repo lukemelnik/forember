@@ -1,5 +1,6 @@
 import { Session } from "@/app/practice/components/learning-dashboard";
-import { isThisWeek } from "date-fns";
+import { uniqueSession } from "@/app/practice/components/streak-card";
+import { isThisWeek, startOfDay } from "date-fns";
 
 export function getRecallAverage(dailySessions: Session[]) {
   const totalRight = dailySessions.reduce(
@@ -38,4 +39,25 @@ export function getAverageFragmentsReviewed(dailySessions: Session[]) {
   );
   if (totalFragmentsReviewed === 0) return 0;
   return Math.round(totalFragmentsReviewed / dailySessions.length);
+}
+
+export function getStreak(uniqueSessions: uniqueSession[]) {
+  let streak = 0;
+  const MILLISECONDS_PER_DAY = 1000 * 60 * 60 * 24;
+  const lastSesssion = uniqueSessions[uniqueSessions.length - 1];
+  if (uniqueSessions.length === 1) return streak;
+
+  for (let i = uniqueSessions.length - 1; i >= 0; i--) {
+    let currentDate = new Date(uniqueSessions[i].created_date);
+    console.log(currentDate);
+    let dateMinusOne = new Date(uniqueSessions[i - 1].created_date);
+    const dateDifference = currentDate.getTime() - dateMinusOne.getTime();
+    console.log("Diff: ", dateDifference);
+    console.log("Days Diff: ", dateDifference / MILLISECONDS_PER_DAY);
+    if (dateDifference === MILLISECONDS_PER_DAY) {
+      streak++;
+    } else {
+      return streak;
+    }
+  }
 }

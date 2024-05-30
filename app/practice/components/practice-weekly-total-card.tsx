@@ -34,7 +34,7 @@ export default function PracticeWeeklyTotal({
   return (
     <Card className="">
       <CardHeader>
-        <CardTitle>Practice Time This Week</CardTitle>
+        <CardTitle>Weekly Practice 🏋️</CardTitle>
       </CardHeader>
       <CardContent>
         <p className="font-black text-4xl">{totalWeeklyPractice}</p>

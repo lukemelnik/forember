@@ -27,7 +27,7 @@ export default function RecallPercentageCard({
   return (
     <Card className="">
       <CardHeader>
-        <CardTitle>Weekly Recall Percentage</CardTitle>
+        <CardTitle>Weekly Recall 🧠</CardTitle>
       </CardHeader>
       <CardContent>
         {/* currently showing all time recall average but needs to be updated with a more useful metric */}
