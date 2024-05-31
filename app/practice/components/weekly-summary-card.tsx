@@ -14,6 +14,8 @@ import { isPast, startOfDay } from "date-fns";
 import { Fragment } from "./quiz";
 import RecallChart from "./recall-chart";
 import { Separator } from "@/components/ui/separator";
+import PracticeDialog from "./practice-dialog";
+import FragmentsReviewedChart from "./fragments-reviewed-chart";
 
 export default function WeeklySummaryCard({
   profile,
@@ -82,33 +84,44 @@ export default function WeeklySummaryCard({
       <CardHeader>
         <CardTitle>
           <div className="flex justify-between items-center">
-            <h1>
-              Good{" "}
-              {timeOfDay && profile && `${timeOfDay} ${profile[0].first_name}`}
-            </h1>
-            <p>{date}</p>
+            <div className="flex flex-col">
+              <h1>
+                Good{" "}
+                {timeOfDay &&
+                  profile &&
+                  `${timeOfDay} ${profile[0].first_name}`}
+              </h1>
+              {fragments.length > 0 ? (
+                <p className="pt-2 font-thin">
+                  It's time to shred! You've got {fragments.length} fragments to
+                  review.
+                </p>
+              ) : // when you're done for the day
+              sessions.length > 0 ? (
+                <p className="pt-2 font-thin">
+                  No fragments left to review, keep up the good work!
+                </p>
+              ) : (
+                // for first time visitors
+                <p className="pt-2 font-thin">
+                  No fragments to review - time to start adding some knowledge!{" "}
+                </p>
+              )}
+            </div>
+            <div>
+              <p className="mb-5">{date}</p>
+              <PracticeDialog />
+            </div>
           </div>
-          {fragments.length > 0 ? (
-            <p className="pt-2 font-thin">
-              It's time to shred! You've got {fragments.length} fragments to
-              review.
-            </p>
-          ) : // when you're done for the day
-          sessions.length > 0 ? (
-            <p className="pt-2 font-thin">
-              No fragments left to review, keep up the good work!
-            </p>
-          ) : (
-            // for first time visitors
-            <p className="pt-2 font-thin">
-              No fragments to review - time to start adding some knowledge!{" "}
-            </p>
-          )}
+
           <Separator className="bg-zinc-300 mt-5" />
         </CardTitle>
       </CardHeader>
       <CardContent>
-        <RecallChart />
+        <div className="lg:flex">
+          <RecallChart />
+          <FragmentsReviewedChart />
+        </div>
       </CardContent>
       <CardFooter>
         <p>Footer</p>
