@@ -17,6 +17,16 @@ import { set } from "date-fns";
 import ArrowRightIcon from "@/components/arrow-right-icon";
 import { Skeleton } from "@/components/ui/skeleton";
 import { toast } from "sonner";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
 
 // generated fragments are given a simple temporary id for displaying to the user that will be replaced when its saved in the db
 export type TemporaryFragment = {
@@ -95,7 +105,7 @@ export default function AIPage() {
   }
 
   return (
-    <div className="max-w-2xl">
+    <div className="max-w-2xl md:mt-16 md:ml-10">
       <h1 className="mb-3">Generate Fragments with AI</h1>
       <Button
         variant="outline"
@@ -152,31 +162,71 @@ export default function AIPage() {
             processed by the model.
           </p>
         )}
+        <div className="relative z-0 group mt-5">
+          <Dialog>
+            <DialogTrigger asChild>
+              <>
+                <Button
+                  disabled={loading || notes?.length > 15000}
+                  className={
+                    `bg-zinc-300 py-6 w-full text-md` +
+                    (loading && " animate-pulse")
+                  }
+                  type="submit"
+                >
+                  {loading ? "Generating..." : "Generate Fragments"}{" "}
+                  <span className="ml-2 group-hover:scale-105 group-hover:rotate-3 group-hover:translate-x-1 duration-300">
+                    <MagicWandIcon />
+                  </span>
+                </Button>
+                <div className="absolute inset-0 top-0 bg-pink-500/70 -z-10  blur-md group-hover:bg-pink-500 group-hover:blur-lg duration-300 group-hover:scale-105"></div>
+              </>
+            </DialogTrigger>
+            <DialogContent className="sm:max-w-[425px]">
+              <DialogHeader>
+                <DialogTitle>Edit profile</DialogTitle>
+                <DialogDescription>
+                  Make changes to your profile here. Click save when you're
+                  done.
+                </DialogDescription>
+              </DialogHeader>
+              <div className="grid gap-4 py-4">
+                <div className="grid grid-cols-4 items-center gap-4">
+                  <Label htmlFor="name" className="text-right">
+                    Name
+                  </Label>
+                  <Input
+                    id="name"
+                    defaultValue="Pedro Duarte"
+                    className="col-span-3"
+                  />
+                </div>
+                <div className="grid grid-cols-4 items-center gap-4">
+                  <Label htmlFor="username" className="text-right">
+                    Username
+                  </Label>
+                  <Input
+                    id="username"
+                    defaultValue="@peduarte"
+                    className="col-span-3"
+                  />
+                </div>
+              </div>
+              <DialogFooter>
+                <Button type="submit">Save changes</Button>
+              </DialogFooter>
+            </DialogContent>
+          </Dialog>
+        </div>
         <Textarea
           disabled={loading}
-          className="bg-black text-zinc-300 min-h-[200px] mt-5 text-md p-5"
+          className="bg-black text-zinc-300 min-h-[1000px] mt-5 text-md p-5"
           id="notes"
           name="notes"
           placeholder="Enter your notes here and our AI will turn them into knowledge fragments."
           value={notes}
           onChange={(e) => setNotes(e.target.value)}
         />
-        <div className="relative z-0 group mt-5">
-          <Button
-            disabled={loading || notes?.length > 15000}
-            className={
-              `bg-zinc-300 py-6 w-full text-md` + (loading && " animate-pulse")
-            }
-            type="submit"
-          >
-            {loading ? "Generating..." : "Generate Fragments"}{" "}
-            <span className="ml-2 group-hover:scale-105 group-hover:rotate-3 group-hover:translate-x-1 duration-300">
-              <MagicWandIcon />
-            </span>
-          </Button>
-          <div className="absolute inset-0 top-0 bg-pink-500/70 -z-10  blur-md group-hover:bg-pink-500 group-hover:blur-lg duration-300 group-hover:scale-105"></div>
-        </div>
-        ``
       </form>
       {fetchError && (
         <h2 className="bg-red-500 p-3 rounded-xl">{fetchError}</h2>
