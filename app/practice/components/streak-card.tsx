@@ -46,6 +46,7 @@ export default async function StreakCard({
     return "Loading...";
   }
 
+  // this is probably something that should be added to the user's profile so that it can be displayed publicly and not just in the dashboard
   const streak = getStreak(data);
 
   return (

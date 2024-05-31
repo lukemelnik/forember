@@ -1,7 +1,10 @@
 import { Session } from "@/app/practice/components/learning-dashboard";
 import { isSameDay } from "date-fns";
 
+// Function aggregates sessions for each day in case the user has multiple sessions in a day. This could benefit from a specific db view I think
+
 export function getDailySessions(sessions: Session[]) {
+  console.log("Sessions: ", sessions);
   let dailySessions: Session[] = [];
   // an object to accumulate the total session duration and total questions for a single day
   let dailyTotal = {
@@ -24,7 +27,6 @@ export function getDailySessions(sessions: Session[]) {
     // if theres no next session, and there's no accumulated total, then push the session to daily sessions
     if (!sessions[i + 1] && dailyTotal.session_duration === 0) {
       dailySessions.push(sessions[i]);
-      console.log("pushed from the first block");
       break;
     } else if (!sessions[i + 1] && dailyTotal.session_duration !== 0) {
       // i.e. if there is no next session, but there's an acculated total, then the current value must be from the same date as the previous session, so add it and push them to the daily sessions array
@@ -37,7 +39,6 @@ export function getDailySessions(sessions: Session[]) {
         right_answers: dailyTotal.right_answers + sessions[i].right_answers,
       };
       dailySessions.push(dailyTotal);
-      console.log("pushed from the second block");
       break;
     }
     // if the next session is not on the same day, and there's no accumulated total, then push the session to daily sessions
@@ -85,5 +86,6 @@ export function getDailySessions(sessions: Session[]) {
       };
     }
   }
+  console.log("Daily Sessions: ", dailySessions);
   return dailySessions;
 }

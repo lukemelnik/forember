@@ -12,6 +12,8 @@ import { Profile, Session } from "./learning-dashboard";
 import { createClient } from "@/utils/supabase/client";
 import { isPast, startOfDay } from "date-fns";
 import { Fragment } from "./quiz";
+import RecallChart from "./recall-chart";
+import { Separator } from "@/components/ui/separator";
 
 export default function WeeklySummaryCard({
   profile,
@@ -76,7 +78,7 @@ export default function WeeklySummaryCard({
 
   const date = new Date().toDateString();
   return (
-    <Card className="h-96 md:col-span-3">
+    <Card className=" md:col-span-3">
       <CardHeader>
         <CardTitle>
           <div className="flex justify-between items-center">
@@ -93,17 +95,20 @@ export default function WeeklySummaryCard({
             </p>
           ) : // when you're done for the day
           sessions.length > 0 ? (
-            <p>No fragments left to review, keep up the good work!</p>
+            <p className="pt-2 font-thin">
+              No fragments left to review, keep up the good work!
+            </p>
           ) : (
             // for first time visitors
             <p className="pt-2 font-thin">
               No fragments to review - time to start adding some knowledge!{" "}
             </p>
           )}
+          <Separator className="bg-zinc-300 mt-5" />
         </CardTitle>
       </CardHeader>
       <CardContent>
-        <p className="font-black text-4xl">CONTENT</p>
+        <RecallChart />
       </CardContent>
       <CardFooter>
         <p>Footer</p>

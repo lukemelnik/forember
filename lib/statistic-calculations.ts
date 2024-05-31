@@ -1,8 +1,10 @@
 import { Session } from "@/app/practice/components/learning-dashboard";
 import { uniqueSession } from "@/app/practice/components/streak-card";
 import { isThisWeek, startOfDay } from "date-fns";
+import { getDailySessions } from "./dailySessions";
 
-export function getRecallAverage(dailySessions: Session[]) {
+export function getRecallAverage(sessions: Session[]) {
+  const dailySessions = getDailySessions(sessions);
   const totalRight = dailySessions.reduce(
     (acc, session) => acc + session.right_answers,
     0
@@ -22,6 +24,15 @@ export function getWeeklyRecallAverage(sessions: Session[]) {
   });
   if (weeklySessions.length === 0) return 0;
   return getRecallAverage(weeklySessions);
+}
+
+export function lastSevenDaysRecall(sessions: Session[]) {
+  const lastSevenDaysSessions = sessions.filter((session) => {
+    const sessionDate = new Date(session.created_at);
+    return startOfDay(new Date()).getTime() - sessionDate.getTime() <= 7;
+  });
+  if (lastSevenDaysSessions.length === 0) return 0;
+  return getRecallAverage(lastSevenDaysSessions);
 }
 
 export function getPracticeTotal(sessions: Session[]) {
@@ -45,9 +56,11 @@ export function getStreak(uniqueSessions: uniqueSession[]) {
   let streak = 0;
   const MILLISECONDS_PER_DAY = 1000 * 60 * 60 * 24;
   const lastSesssion = uniqueSessions[uniqueSessions.length - 1];
-  if (uniqueSessions.length === 1) return streak;
+  if (uniqueSessions.length === 1 || uniqueSessions.length === 0) return streak;
 
+  // dates are arriving in chronological order from the db so we can start from the end and work our way back.
   for (let i = uniqueSessions.length - 1; i >= 0; i--) {
+    if (!uniqueSessions[i - 1]) return streak;
     let currentDate = new Date(uniqueSessions[i].created_date);
     console.log(currentDate);
     let dateMinusOne = new Date(uniqueSessions[i - 1].created_date);
