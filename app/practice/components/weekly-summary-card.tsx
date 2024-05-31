@@ -8,7 +8,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import React, { useContext, useEffect } from "react";
-import { Profile, Session } from "./learning-dashboard";
+import { DailySession, Profile, Session } from "./learning-dashboard";
 import { createClient } from "@/utils/supabase/client";
 import { isPast, startOfDay } from "date-fns";
 import { Fragment } from "./quiz";
@@ -22,7 +22,7 @@ export default function WeeklySummaryCard({
   sessions,
 }: {
   profile: Profile[];
-  sessions: Session[];
+  sessions: DailySession[];
 }) {
   const [timeOfDay, setTimeOfDay] = React.useState("");
   const [fragments, setFragments] = React.useState<Fragment[]>([]);
@@ -121,8 +121,8 @@ export default function WeeklySummaryCard({
       </CardHeader>
       <CardContent>
         <div className="lg:flex mb-10">
-          <RecallChart />
-          <FragmentsReviewedChart />
+          <RecallChart sessions={sessions} />
+          <FragmentsReviewedChart sessions={sessions} />
         </div>
       </CardContent>
     </Card>
