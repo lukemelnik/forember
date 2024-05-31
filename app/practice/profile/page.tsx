@@ -43,7 +43,7 @@ export default async function ProfilePage() {
   const joinedDate = new Date(profile[0].created_at).toDateString();
 
   return (
-    <div>
+    <div className="md:p-20">
       <h1 className="mb-5">Profile</h1>
       <Separator className="bg-slate-300 max-w-2xl mb-5" />
       <p>First Name: {profile[0].first_name}</p>
