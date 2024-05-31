@@ -7,7 +7,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import React from "react";
-import { Session } from "./learning-dashboard";
+import { DailySession, Session } from "./learning-dashboard";
 import {
   getRecallAverage,
   getWeeklyRecallAverage,
@@ -17,10 +17,9 @@ import { getDailySessions } from "@/lib/dailySessions";
 export default function RecallPercentageCard({
   sessions,
 }: {
-  sessions: Session[];
+  sessions: DailySession[];
 }) {
   const recallAverage = getRecallAverage(sessions);
-  console.log(recallAverage);
   const weeklyRecallAverage = getWeeklyRecallAverage(sessions);
   // thinking about logging the recall time, but questionable whether its useful because the content of the cards is so different. And not usefull to create an average from the whole session length because its affected by the answers they got wrong
   // this could be more valuable as a graph that shows recall for each category, ie. programming vs math vs history

@@ -7,12 +7,23 @@ import RecallPercentageCard from "./recall-percentage-card";
 import { redirect } from "next/navigation";
 import WeeklySummaryCard from "./weekly-summary-card";
 import StreakCard from "./streak-card";
+import UserDataProvider from "./user-data-provider";
 
 export type Session = {
   session_duration: number;
   created_at: string;
   total_questions: number;
   right_answers: number;
+};
+
+export type DailySession = {
+  user_id: string;
+  session_date: string;
+  day_of_week: string;
+  session_count: number;
+  total_session_duration: number;
+  total_questions: number;
+  total_right_answers: number;
 };
 
 export type Profile = {
@@ -31,10 +42,13 @@ export default async function LearningDashboard() {
   if (!user) {
     redirect("/login");
   }
+  // create a custom view that aggregates the daily session data
   const { data: sessions, error: sessionsError } = await supabase
-    .from("practice_session")
+    .from("daily_user_sessions")
     .select("*")
     .eq("user_id", user.id);
+
+  console.log("Daily Sessions: ", sessions);
 
   if (!sessions) {
     return <div>No sessions available.</div>;
@@ -51,12 +65,14 @@ export default async function LearningDashboard() {
 
   return (
     <>
-      <div className="grid md:grid-cols-3 gap-4">
-        <WeeklySummaryCard sessions={sessions} profile={profile} />
-        <PracticeTimeCard sessions={sessions} />
-        <RecallPercentageCard sessions={sessions} />
-        <StreakCard sessions={sessions} />
-      </div>
+      <UserDataProvider>
+        <div className="grid md:grid-cols-3 gap-4">
+          <WeeklySummaryCard sessions={sessions} profile={profile} />
+          <PracticeTimeCard sessions={sessions} />
+          <RecallPercentageCard sessions={sessions} />
+          <StreakCard sessions={sessions} />
+        </div>
+      </UserDataProvider>
     </>
   );
 }

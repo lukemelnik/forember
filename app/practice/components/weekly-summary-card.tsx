@@ -7,7 +7,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import { Profile, Session } from "./learning-dashboard";
 import { createClient } from "@/utils/supabase/client";
 import { isPast, startOfDay } from "date-fns";
@@ -85,8 +85,8 @@ export default function WeeklySummaryCard({
     <Card className=" md:col-span-3">
       <CardHeader>
         <CardTitle>
-          <div className="flex justify-between items-center">
-            <div className="flex flex-col">
+          <div className="sm:flex justify-between items-center">
+            <div className="flex flex-col mb-5 sm:mb-0">
               {timeOfDay && profile && (
                 <h1>
                   Good {timeOfDay} {profile[0].first_name}
@@ -111,7 +111,7 @@ export default function WeeklySummaryCard({
               )}
             </div>
             <div>
-              <p className="mb-5">{date}</p>
+              <p className="mb-5 hidden sm:block">{date}</p>
               <PracticeDialog />
             </div>
           </div>

@@ -6,7 +6,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import React from "react";
+import React, { useContext } from "react";
 import { Session } from "./learning-dashboard";
 
 import { getStreak } from "@/lib/statistic-calculations";

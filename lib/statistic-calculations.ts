@@ -1,15 +1,17 @@
-import { Session } from "@/app/practice/components/learning-dashboard";
+import {
+  DailySession,
+  Session,
+} from "@/app/practice/components/learning-dashboard";
 import { uniqueSession } from "@/app/practice/components/streak-card";
 import { isThisWeek, startOfDay } from "date-fns";
 import { getDailySessions } from "./dailySessions";
 
-export function getRecallAverage(sessions: Session[]) {
-  const dailySessions = getDailySessions(sessions);
-  const totalRight = dailySessions.reduce(
-    (acc, session) => acc + session.right_answers,
+export function getRecallAverage(sessions: DailySession[]) {
+  const totalRight = sessions.reduce(
+    (acc, session) => acc + session.total_right_answers,
     0
   );
-  const totalQuestions = dailySessions.reduce(
+  const totalQuestions = sessions.reduce(
     (acc, session) => acc + session.total_questions,
     0
   );
@@ -17,22 +19,13 @@ export function getRecallAverage(sessions: Session[]) {
   return Math.round((totalRight / totalQuestions) * 100);
 }
 
-export function getWeeklyRecallAverage(sessions: Session[]) {
+export function getWeeklyRecallAverage(sessions: DailySession[]) {
   const weeklySessions = sessions.filter((session) => {
-    const sessionDate = new Date(session.created_at);
+    const sessionDate = new Date(session.session_date);
     return isThisWeek(sessionDate, { weekStartsOn: 1 });
   });
   if (weeklySessions.length === 0) return 0;
   return getRecallAverage(weeklySessions);
-}
-
-export function lastSevenDaysRecall(sessions: Session[]) {
-  const lastSevenDaysSessions = sessions.filter((session) => {
-    const sessionDate = new Date(session.created_at);
-    return startOfDay(new Date()).getTime() - sessionDate.getTime() <= 7;
-  });
-  if (lastSevenDaysSessions.length === 0) return 0;
-  return getRecallAverage(lastSevenDaysSessions);
 }
 
 export function getPracticeTotal(sessions: Session[]) {

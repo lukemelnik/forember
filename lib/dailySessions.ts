@@ -86,6 +86,5 @@ export function getDailySessions(sessions: Session[]) {
       };
     }
   }
-  console.log("Daily Sessions: ", dailySessions);
   return dailySessions;
 }
