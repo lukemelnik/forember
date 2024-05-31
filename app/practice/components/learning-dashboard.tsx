@@ -9,6 +9,8 @@ import WeeklySummaryCard from "./weekly-summary-card";
 import StreakCard from "./streak-card";
 import UserDataProvider from "./user-data-provider";
 
+export const dynamic = "force-dynamic";
+
 export type Session = {
   session_duration: number;
   created_at: string;

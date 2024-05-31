@@ -129,8 +129,8 @@ export default function AIPage() {
           </li>
           <li>Step 2: Generate fragments</li>
           <li>
-            Step 3: You can edit the fragments you like, or add them directly to
-            the library.
+            Step 3: Review the fragments, adding them to your library or editing
+            them first. Delete any you don't want to keep.
           </li>
           <li>Step 4: Practice!</li>
         </ul>
@@ -202,7 +202,8 @@ export default function AIPage() {
           <Button
             disabled={loading || notes?.length > 15000}
             className={
-              `bg-zinc-300 py-6 w-full text-md` + (loading && " animate-pulse")
+              `bg-zinc-300 hover:bg-zinc-100 py-6 w-full text-md` +
+              (loading && " animate-pulse")
             }
             type="submit"
           >

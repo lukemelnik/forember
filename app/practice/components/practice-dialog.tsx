@@ -13,7 +13,7 @@ import React, { useState } from "react";
 import Quiz from "./quiz";
 import { createClient } from "@/utils/supabase/client";
 import { revalidatePath } from "next/cache";
-import { redirect } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import revalidatePracticePage from "../actions/revalidatePracticePage";
 
 export type TestScore = {
@@ -27,6 +27,8 @@ export default function PracticeDialog() {
   // for reference, the structure is like this: Practice Page -> PracticeDialog -> Quiz -> FlashCard
   // Sessions are being logged here in the practice dialog, I'm going to add the scores & number of questions to the session log.
   const [testScore, setTestScore] = useState<TestScore>({ right: 0, wrong: 0 });
+
+  const router = useRouter();
 
   function addRightAnswer() {
     setTestScore({ ...testScore, right: testScore.right + 1 });
@@ -84,8 +86,10 @@ export default function PracticeDialog() {
         if (!isOpen) {
           const endTime = new Date();
           logSession(endTime);
-          // use server action to revalidate the practice page so the user's practice data is up to date
+          // None of these are working to refresh the dashboard.
           revalidatePracticePage();
+          router.push("/practice");
+          router.refresh();
         }
       }}
     >

@@ -46,9 +46,17 @@ export default async function ProfilePage() {
     <div className="md:p-20">
       <h1 className="mb-5">Profile</h1>
       <Separator className="bg-slate-300 max-w-2xl mb-5" />
-      <p>First Name: {profile[0].first_name}</p>
-      <p>Last Name: {profile[0].last_name}</p>
-      <p>Joined On: {joinedDate}</p>
+      <div className="space-y-2 text-lg">
+        <p>
+          First Name: <strong>{profile[0].first_name}</strong>
+        </p>
+        <p>
+          Last Name: <strong>{profile[0].last_name}</strong>
+        </p>
+        <p>
+          Joined On: <strong>{joinedDate}</strong>
+        </p>
+      </div>
       <Dialog>
         <DialogTrigger className="bg-gray-300 rounded p-3 mt-10 text-zinc-900">
           Edit Profile
