@@ -36,7 +36,7 @@ export default function WeeklySummaryCard({
         setTimeOfDay("Morning");
       } else if (hour >= 12 && hour < 16) {
         setTimeOfDay("Afternoon");
-      } else if (hour >= 18) {
+      } else if (hour >= 16) {
         setTimeOfDay("Evening");
       }
     }
