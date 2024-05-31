@@ -19,13 +19,16 @@ export default function FragmentsReviewedChart() {
     { day: "Sun", amount: 30 },
   ];
   return (
-    <ResponsiveContainer width="100%" height={250}>
-      <LineChart width={500} height={250} data={data}>
-        <Line type="monotone" dataKey="amount" stroke="#8884d8" />
-        <XAxis dataKey="day" />
-        <YAxis />
-        <CartesianGrid stroke="#ccc" />
-      </LineChart>
-    </ResponsiveContainer>
+    <div className="w-full lg:w-1/2">
+      <h2 className="text-xl ml-16 mb-3">Fragments Per Day</h2>
+      <ResponsiveContainer width="100%" height={250}>
+        <LineChart width={500} height={250} data={data} className="-ml-4">
+          <Line type="monotone" dataKey="amount" stroke="#8884d8" />
+          <XAxis dataKey="day" />
+          <YAxis />
+          <CartesianGrid stroke="#ccc" />
+        </LineChart>
+      </ResponsiveContainer>
+    </div>
   );
 }

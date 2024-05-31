@@ -9,6 +9,11 @@ const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
 
+// increase the maximum function time in Vercel
+export const config = {
+  maxDuration: 20,
+};
+
 const fragmentSchema = z.object({
   id: z.string(),
   question: z.string().min(5).max(500),

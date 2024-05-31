@@ -32,7 +32,9 @@ export default function WeeklySummaryCard({
     function getCurrentTime() {
       const date = new Date();
       const hour = date.getHours();
-      if (hour >= 12 && hour < 16) {
+      if (hour >= 0 && hour < 12) {
+        setTimeOfDay("Morning");
+      } else if (hour >= 12 && hour < 16) {
         setTimeOfDay("Afternoon");
       } else if (hour >= 18) {
         setTimeOfDay("Evening");
@@ -85,12 +87,12 @@ export default function WeeklySummaryCard({
         <CardTitle>
           <div className="flex justify-between items-center">
             <div className="flex flex-col">
-              <h1>
-                Good{" "}
-                {timeOfDay &&
-                  profile &&
-                  `${timeOfDay} ${profile[0].first_name}`}
-              </h1>
+              {timeOfDay && profile && (
+                <h1>
+                  Good {timeOfDay} {profile[0].first_name}
+                  👋
+                </h1>
+              )}
               {fragments.length > 0 ? (
                 <p className="pt-2 font-thin">
                   It's time to shred! You've got {fragments.length} fragments to
@@ -118,14 +120,11 @@ export default function WeeklySummaryCard({
         </CardTitle>
       </CardHeader>
       <CardContent>
-        <div className="lg:flex">
+        <div className="lg:flex mb-10">
           <RecallChart />
           <FragmentsReviewedChart />
         </div>
       </CardContent>
-      <CardFooter>
-        <p>Footer</p>
-      </CardFooter>
     </Card>
   );
 }
