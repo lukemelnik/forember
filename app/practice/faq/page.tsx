@@ -7,7 +7,7 @@ import {
 
 export default function FAQPage() {
   return (
-    <div className="max-w-2xl">
+    <div className="max-w-2xl md:p-20">
       <h1>Frequently Asked Questions:</h1>
       <Accordion type="single" collapsible className="w-full">
         <AccordionItem value="item-1">

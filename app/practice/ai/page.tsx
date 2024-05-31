@@ -105,11 +105,11 @@ export default function AIPage() {
   }
 
   return (
-    <div className="max-w-2xl md:mt-16 md:ml-10">
+    <div className="max-w-2xl md:mt-16 md:ml-20">
       <h1 className="mb-3">Generate Fragments with AI</h1>
       <Button
         variant="outline"
-        className="border-2 border-zinc-300 text-zinc-300 bg-black mb-3 group"
+        className="border-2 border-zinc-300 text-zinc-300 bg-black mb-5 group"
         onClick={() => setInstructionShow(!instructionShow)}
       >
         {instructionShow ? "Hide Instructions" : "Show Instructions"}{" "}
@@ -118,7 +118,7 @@ export default function AIPage() {
         </span>
       </Button>
       {instructionShow && (
-        <ul className=" space-y-3">
+        <ul className=" space-y-3 mb-4">
           <li>
             <p>Step 1: Enter your notes</p>
             <p className="italic">
@@ -136,6 +136,54 @@ export default function AIPage() {
         </ul>
       )}
 
+      {loading && (
+        <div className="relative">
+          <h2 className="text-2xl font-bold animate-pulse text-zinc-300">
+            Creating your fragments...
+          </h2>
+          <Skeleton className="rounded-full w-8 h-8 absolute -left-12 top-28"></Skeleton>
+          <Skeleton className="rounded-full w-8 h-8 absolute -right-12 top-28"></Skeleton>
+          <Skeleton className="mt-4 border-2 border-zinc-800 rounded-xl p-5 w-[350px] md:w-full bg-black">
+            <Skeleton className="h-20"></Skeleton>
+            <div className="flex justify-between mt-4">
+              <Skeleton className="h-10 w-32"></Skeleton>
+              <div className="flex gap-3">
+                <Skeleton className="h-10 w-20"></Skeleton>
+                <Skeleton className="h-10 w-20"></Skeleton>
+              </div>
+            </div>
+          </Skeleton>
+        </div>
+      )}
+
+      {fragments && fragments.length > 0 && (
+        <div className=" text-zinc-300">
+          <div className="flex items-center gap-5">
+            <h2 className="text-2xl font-bold">
+              {fragments.length} fragments created
+            </h2>
+            {/* I've realized it's going to be way more complex to validate all of them at once while doing useful error handling & displaying for the user. Will have to suss this out after. */}
+            {/* <Button variant="outline" className="bg-zinc-300 text-black">
+              ADD ALL
+            </Button> */}
+          </div>
+          <Carousel className="mt-4 border-2 border-zinc-300 rounded-xl p-5 w-[350px] md:w-full">
+            <CarouselContent>
+              {fragments.map((fragment) => (
+                <CarouselItem key={fragment.question}>
+                  <EditableFragment
+                    fragment={fragment}
+                    handleRemoveFragment={removeFragment}
+                    handleSaveFragment={saveFragment}
+                  />
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <CarouselPrevious className="text-black" />
+            <CarouselNext className="text-black" />
+          </Carousel>
+        </div>
+      )}
       <form
         onSubmit={handleSubmit}
         className={
@@ -150,56 +198,7 @@ export default function AIPage() {
           Enter Your Notes
         </Label>
 
-        {loading && (
-          <div className="relative">
-            <h2 className="text-2xl font-bold animate-pulse text-zinc-300">
-              Creating your fragments...
-            </h2>
-            <Skeleton className="rounded-full w-8 h-8 absolute -left-12 top-28"></Skeleton>
-            <Skeleton className="rounded-full w-8 h-8 absolute -right-12 top-28"></Skeleton>
-            <Skeleton className="mt-4 border-2 border-zinc-800 rounded-xl p-5 w-[350px] md:w-full bg-black">
-              <Skeleton className="h-20"></Skeleton>
-              <div className="flex justify-between mt-4">
-                <Skeleton className="h-10 w-32"></Skeleton>
-                <div className="flex gap-3">
-                  <Skeleton className="h-10 w-20"></Skeleton>
-                  <Skeleton className="h-10 w-20"></Skeleton>
-                </div>
-              </div>
-            </Skeleton>
-          </div>
-        )}
-
-        {fragments && fragments.length > 0 && (
-          <div className=" text-zinc-300">
-            <div className="flex items-center gap-5">
-              <h2 className="text-2xl font-bold">
-                {fragments.length} fragments created
-              </h2>
-              {/* I've realized it's going to be way more complex to validate all of them at once while doing useful error handling & displaying for the user. Will have to suss this out after. */}
-              {/* <Button variant="outline" className="bg-zinc-300 text-black">
-              ADD ALL
-            </Button> */}
-            </div>
-            <Carousel className="mt-4 border-2 border-zinc-300 rounded-xl p-5 w-[350px] md:w-full">
-              <CarouselContent>
-                {fragments.map((fragment) => (
-                  <CarouselItem key={fragment.question}>
-                    <EditableFragment
-                      fragment={fragment}
-                      handleRemoveFragment={removeFragment}
-                      handleSaveFragment={saveFragment}
-                    />
-                  </CarouselItem>
-                ))}
-              </CarouselContent>
-              <CarouselPrevious className="text-black" />
-              <CarouselNext className="text-black" />
-            </Carousel>
-          </div>
-        )}
-
-        <div className="relative z-0 group mt-5">
+        <div className="relative z-0 group mt-1">
           <Button
             disabled={loading || notes?.length > 15000}
             className={
@@ -232,7 +231,7 @@ export default function AIPage() {
         )}
         <Textarea
           disabled={loading}
-          className="bg-black text-zinc-300 min-h-[1000px] mt-5 text-md p-5"
+          className="bg-black text-zinc-300 min-h-[800px] mt-5 text-md p-5"
           id="notes"
           name="notes"
           placeholder="Enter your notes here and our AI will turn them into knowledge fragments."
