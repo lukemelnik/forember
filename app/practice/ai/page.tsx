@@ -149,75 +149,87 @@ export default function AIPage() {
         >
           Enter Your Notes
         </Label>
+
+        {loading && (
+          <div className="relative">
+            <h2 className="text-2xl font-bold animate-pulse text-zinc-300">
+              Creating your fragments...
+            </h2>
+            <Skeleton className="rounded-full w-8 h-8 absolute -left-12 top-28"></Skeleton>
+            <Skeleton className="rounded-full w-8 h-8 absolute -right-12 top-28"></Skeleton>
+            <Skeleton className="mt-4 border-2 border-zinc-800 rounded-xl p-5 w-[350px] md:w-full bg-black">
+              <Skeleton className="h-20"></Skeleton>
+              <div className="flex justify-between mt-4">
+                <Skeleton className="h-10 w-32"></Skeleton>
+                <div className="flex gap-3">
+                  <Skeleton className="h-10 w-20"></Skeleton>
+                  <Skeleton className="h-10 w-20"></Skeleton>
+                </div>
+              </div>
+            </Skeleton>
+          </div>
+        )}
+
+        {fragments && fragments.length > 0 && (
+          <div className=" text-zinc-300">
+            <div className="flex items-center gap-5">
+              <h2 className="text-2xl font-bold">
+                {fragments.length} fragments created
+              </h2>
+              {/* I've realized it's going to be way more complex to validate all of them at once while doing useful error handling & displaying for the user. Will have to suss this out after. */}
+              {/* <Button variant="outline" className="bg-zinc-300 text-black">
+              ADD ALL
+            </Button> */}
+            </div>
+            <Carousel className="mt-4 border-2 border-zinc-300 rounded-xl p-5 w-[350px] md:w-full">
+              <CarouselContent>
+                {fragments.map((fragment) => (
+                  <CarouselItem key={fragment.question}>
+                    <EditableFragment
+                      fragment={fragment}
+                      handleRemoveFragment={removeFragment}
+                      handleSaveFragment={saveFragment}
+                    />
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+              <CarouselPrevious className="text-black" />
+              <CarouselNext className="text-black" />
+            </Carousel>
+          </div>
+        )}
+
+        <div className="relative z-0 group mt-5">
+          <Button
+            disabled={loading || notes?.length > 15000}
+            className={
+              `bg-zinc-300 py-6 w-full text-md` + (loading && " animate-pulse")
+            }
+            type="submit"
+          >
+            {loading ? "Generating..." : "Generate Fragments"}{" "}
+            <span className="ml-2 group-hover:scale-105 group-hover:rotate-3 group-hover:translate-x-1 duration-300">
+              <MagicWandIcon />
+            </span>
+          </Button>
+
+          {fetchError && (
+            <h2 className="bg-red-500 p-3 mt-4 rounded-xl">{fetchError}</h2>
+          )}
+        </div>
         {/* check that the number of tokens doesn't exceed 4000 for sending to the ai model. ~4 characters is a token so the number of characters can't exceed 16000, subtract 1000 for a safety factor */}
         {notes && notes.length <= 15000 && (
-          <p className="text-zinc-300">
+          <p className="text-zinc-300 mt-4">
             <strong>{notes?.length}/15000</strong> Characters
           </p>
         )}
         {notes && notes.length > 15000 && (
-          <p className="text-red-500">
+          <p className="text-red-500 mt-4">
             <strong>{notes?.length}/15000</strong> Character length exceeded.
             Please split the note up into smaller pieces so they can be
             processed by the model.
           </p>
         )}
-        <div className="relative z-0 group mt-5">
-          <Dialog>
-            <DialogTrigger asChild>
-              <>
-                <Button
-                  disabled={loading || notes?.length > 15000}
-                  className={
-                    `bg-zinc-300 py-6 w-full text-md` +
-                    (loading && " animate-pulse")
-                  }
-                  type="submit"
-                >
-                  {loading ? "Generating..." : "Generate Fragments"}{" "}
-                  <span className="ml-2 group-hover:scale-105 group-hover:rotate-3 group-hover:translate-x-1 duration-300">
-                    <MagicWandIcon />
-                  </span>
-                </Button>
-                <div className="absolute inset-0 top-0 bg-pink-500/70 -z-10  blur-md group-hover:bg-pink-500 group-hover:blur-lg duration-300 group-hover:scale-105"></div>
-              </>
-            </DialogTrigger>
-            <DialogContent className="sm:max-w-[425px]">
-              <DialogHeader>
-                <DialogTitle>Edit profile</DialogTitle>
-                <DialogDescription>
-                  Make changes to your profile here. Click save when you're
-                  done.
-                </DialogDescription>
-              </DialogHeader>
-              <div className="grid gap-4 py-4">
-                <div className="grid grid-cols-4 items-center gap-4">
-                  <Label htmlFor="name" className="text-right">
-                    Name
-                  </Label>
-                  <Input
-                    id="name"
-                    defaultValue="Pedro Duarte"
-                    className="col-span-3"
-                  />
-                </div>
-                <div className="grid grid-cols-4 items-center gap-4">
-                  <Label htmlFor="username" className="text-right">
-                    Username
-                  </Label>
-                  <Input
-                    id="username"
-                    defaultValue="@peduarte"
-                    className="col-span-3"
-                  />
-                </div>
-              </div>
-              <DialogFooter>
-                <Button type="submit">Save changes</Button>
-              </DialogFooter>
-            </DialogContent>
-          </Dialog>
-        </div>
         <Textarea
           disabled={loading}
           className="bg-black text-zinc-300 min-h-[1000px] mt-5 text-md p-5"
@@ -228,57 +240,6 @@ export default function AIPage() {
           onChange={(e) => setNotes(e.target.value)}
         />
       </form>
-      {fetchError && (
-        <h2 className="bg-red-500 p-3 rounded-xl">{fetchError}</h2>
-      )}
-      {loading && (
-        <div className="relative">
-          <h2 className="text-2xl font-bold animate-pulse">
-            Creating your fragments...
-          </h2>
-          <Skeleton className="rounded-full w-8 h-8 absolute -left-12 top-28"></Skeleton>
-          <Skeleton className="rounded-full w-8 h-8 absolute -right-12 top-28"></Skeleton>
-          <Skeleton className="mt-4 border-2 border-zinc-800 rounded-xl p-5 w-[350px] md:w-full bg-black">
-            <Skeleton className="h-20"></Skeleton>
-            <div className="flex justify-between mt-4">
-              <Skeleton className="h-10 w-32"></Skeleton>
-              <div className="flex gap-3">
-                <Skeleton className="h-10 w-20"></Skeleton>
-                <Skeleton className="h-10 w-20"></Skeleton>
-              </div>
-            </div>
-          </Skeleton>
-        </div>
-      )}
-
-      {fragments && fragments.length > 0 && (
-        <div className="mt-10">
-          <div className="flex items-center gap-5">
-            <h2 className="text-2xl font-bold">
-              {fragments.length} fragments created
-            </h2>
-            {/* I've realized it's going to be way more complex to validate all of them at once while doing useful error handling & displaying for the user. Will have to suss this out after. */}
-            {/* <Button variant="outline" className="bg-zinc-300 text-black">
-              ADD ALL
-            </Button> */}
-          </div>
-          <Carousel className="mt-4 border-2 border-zinc-300 rounded-xl p-5 w-[350px] md:w-full">
-            <CarouselContent>
-              {fragments.map((fragment) => (
-                <CarouselItem key={fragment.question}>
-                  <EditableFragment
-                    fragment={fragment}
-                    handleRemoveFragment={removeFragment}
-                    handleSaveFragment={saveFragment}
-                  />
-                </CarouselItem>
-              ))}
-            </CarouselContent>
-            <CarouselPrevious className="text-black" />
-            <CarouselNext className="text-black" />
-          </Carousel>
-        </div>
-      )}
     </div>
   );
 }
