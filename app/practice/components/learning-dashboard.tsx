@@ -42,13 +42,12 @@ export default async function LearningDashboard() {
   if (!user) {
     redirect("/login");
   }
-  // create a custom view that aggregates the daily session data
+  // created a custom view that aggregates the daily session data. Have to order by the date
   const { data: sessions, error: sessionsError } = await supabase
     .from("daily_user_sessions")
     .select("*")
-    .eq("user_id", user.id);
-
-  console.log("Daily Sessions: ", sessions);
+    .eq("user_id", user.id)
+    .order("session_date", { ascending: true });
 
   if (!sessions) {
     return <div>No sessions available.</div>;

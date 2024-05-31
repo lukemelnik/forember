@@ -55,11 +55,9 @@ export function getStreak(uniqueSessions: uniqueSession[]) {
   for (let i = uniqueSessions.length - 1; i >= 0; i--) {
     if (!uniqueSessions[i - 1]) return streak;
     let currentDate = new Date(uniqueSessions[i].created_date);
-    console.log(currentDate);
+
     let dateMinusOne = new Date(uniqueSessions[i - 1].created_date);
     const dateDifference = currentDate.getTime() - dateMinusOne.getTime();
-    console.log("Diff: ", dateDifference);
-    console.log("Days Diff: ", dateDifference / MILLISECONDS_PER_DAY);
     if (dateDifference === MILLISECONDS_PER_DAY) {
       streak++;
     } else {

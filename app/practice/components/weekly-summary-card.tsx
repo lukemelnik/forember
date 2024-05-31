@@ -90,7 +90,7 @@ export default function WeeklySummaryCard({
               {timeOfDay && profile && (
                 <h1>
                   Good {timeOfDay} {profile[0].first_name}
-                  👋
+                  <span className="ml-2">👋</span>
                 </h1>
               )}
               {fragments.length > 0 ? (
@@ -120,10 +120,12 @@ export default function WeeklySummaryCard({
         </CardTitle>
       </CardHeader>
       <CardContent>
-        <div className="lg:flex mb-10">
-          <RecallChart sessions={sessions} />
-          <FragmentsReviewedChart sessions={sessions} />
-        </div>
+        {sessions.length > 0 ? (
+          <div className="lg:flex mb-10">
+            <RecallChart sessions={sessions} />
+            <FragmentsReviewedChart sessions={sessions} />
+          </div>
+        ) : null}
       </CardContent>
     </Card>
   );

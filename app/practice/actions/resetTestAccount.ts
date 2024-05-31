@@ -83,6 +83,15 @@ export default async function resetTestAccount() {
       console.log("deleteError:", deleteError);
     }
 
+    const { error: sessionsDeleteError } = await supabase
+      .from("practice_session")
+      .delete()
+      .eq("user_id", user.id);
+
+    if (sessionsDeleteError) {
+      console.log("sessionsDeleteError:", sessionsDeleteError);
+    }
+
     const { error: profileError } = await supabase
       .from("profile")
       .update({ first_name: "Testy", last_name: "McTestface" })

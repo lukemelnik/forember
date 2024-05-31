@@ -19,10 +19,12 @@ export default function FragmentsReviewedChart({
     const recallPerecentage = Math.round(
       (session.total_right_answers / session.total_questions) * 100
     );
+
     return {
       ...session,
       session_date: session.session_date,
       recall: recallPerecentage,
+      // need to fix this to compensate for time zone, right now its off by a day
       month_day: new Date(session.session_date).toLocaleDateString("en-US", {
         month: "numeric",
         day: "numeric",
