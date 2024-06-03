@@ -3,6 +3,8 @@ import DashboardGreeting from "./dashboard-greeting";
 import PracticeDialog from "../quiz/quiz-dialog";
 import { createClient } from "@/utils/supabase/server";
 import { isPast, startOfDay } from "date-fns";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 export default async function DashboardHeader() {
   const supabase = createClient();
@@ -68,7 +70,16 @@ export default async function DashboardHeader() {
       />
       <div>
         <p className="mb-5 hidden sm:block">{new Date().toDateString()}</p>
-        <PracticeDialog />
+        {fragments?.length === 0 && sessions?.length === 0 ? (
+          <div className="relative z-0 group max-w-[300px]">
+            <Button className="w-full z-0 bg-zinc-100 text-black  group-hover:scale-105 duration-300 transition-all text-lg p-6">
+              <Link href="/practice/ai">Add Fragments</Link>
+            </Button>
+            <div className="absolute inset-0 bg-pink-500/70 -z-10  blur-lg scale-105 group-hover:bg-pink-500 group-hover:blur-xl duration-300 group-hover:scale-110"></div>
+          </div>
+        ) : (
+          <PracticeDialog />
+        )}
       </div>
     </div>
   );

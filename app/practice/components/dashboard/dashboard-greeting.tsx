@@ -20,9 +20,9 @@ export default function DashboardGreeting({
           <span className="ml-2">👋</span>
         </h1>
       )}
-      {!sessionCheck && (
+      {timeOfDay && !username && (
         <h1>
-          Welcome!
+          Good {timeOfDay}
           <span className="ml-2">👋</span>
         </h1>
       )}
@@ -40,9 +40,7 @@ export default function DashboardGreeting({
         // for first time visitors
         <p className="pt-2 font-thin">
           No fragments to review yet -{" "}
-          <Link className="underline" href="/practice/ai">
-            time to start adding some knowledge!
-          </Link>{" "}
+          <Link href="/practice/ai">time to start adding some knowledge!</Link>{" "}
         </p>
       )}
     </div>

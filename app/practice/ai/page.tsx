@@ -27,6 +27,8 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
+import { revalidatePath } from "next/cache";
+import revalidatePracticePage from "../actions/revalidatePracticePage";
 
 // generated fragments are given a simple temporary id for displaying to the user that will be replaced when its saved in the db
 export type TemporaryFragment = {
@@ -95,6 +97,7 @@ export default function AIPage() {
         { duration: 2000 }
       );
     }
+    revalidatePracticePage();
   }
 
   function saveFragment(fragment: TemporaryFragment) {

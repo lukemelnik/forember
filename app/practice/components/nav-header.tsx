@@ -4,6 +4,7 @@ import signOut from "../actions/signOut";
 import LogoIcon from "@/components/logo-svg";
 import { Separator } from "@/components/ui/separator";
 import Image from "next/image";
+import { redirect } from "next/navigation";
 
 export default async function NavHeader() {
   const supabase = createClient();
@@ -11,6 +12,15 @@ export default async function NavHeader() {
   const {
     data: { user },
   } = await supabase.auth.getUser();
+
+  if (!user) {
+    redirect("/login");
+  }
+
+  const { data: profile } = await supabase
+    .from("profile")
+    .select("*")
+    .eq("user_id", user.id);
 
   return (
     <div>
