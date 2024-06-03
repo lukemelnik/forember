@@ -7,7 +7,6 @@ import RecallPercentageCard from "./recall-percentage-card";
 import { redirect } from "next/navigation";
 import WeeklySummaryCard from "./weekly-summary-card";
 import StreakCard from "./streak-card";
-import UserDataProvider from "./user-data-provider";
 
 export const dynamic = "force-dynamic";
 
@@ -66,14 +65,12 @@ export default async function LearningDashboard() {
 
   return (
     <>
-      <UserDataProvider>
-        <div className="grid md:grid-cols-3 gap-4">
-          <WeeklySummaryCard sessions={sessions} profile={profile} />
-          <PracticeTimeCard sessions={sessions} />
-          <RecallPercentageCard sessions={sessions} />
-          <StreakCard sessions={sessions} />
-        </div>
-      </UserDataProvider>
+      <div className="grid md:grid-cols-3 gap-4">
+        <WeeklySummaryCard sessions={sessions} profile={profile} />
+        <PracticeTimeCard sessions={sessions} />
+        <RecallPercentageCard sessions={sessions} />
+        <StreakCard sessions={sessions} />
+      </div>
     </>
   );
 }

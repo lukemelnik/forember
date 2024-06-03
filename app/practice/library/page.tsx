@@ -13,7 +13,7 @@ export default async function DashboardPage() {
     return <div>Loading...</div>;
   }
   return (
-    <div className="text-white md:p-20">
+    <div className="text-white md:p-20 max-w-3xl">
       <h1 className="mb-4">Your Knowledge Library:</h1>
       {data.map((fragment) => (
         <div key={fragment.id} className="mb-4">

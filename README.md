@@ -212,3 +212,7 @@ if (!notes) {
 19. If you want to use revalidatePath in a client component, you can just set it up as a server action.
 
 20. Ran into Vercel's 10s function timeout on the free plan. Could upgrade to fix it but I think it highlights a UX issue anyway, because that's too long to wait. I'd like to implement some kind of advanced streaming where it sends complete fragments as they're generated.
+
+21. SQL Views. Goodness, I wish I new about these beforehand. I was trying to use so much JS logic to sort the session data into different usable formats and it turns out it's so much easier to just do it in the db.
+
+22. Layout of client and server components is key. If a smaller piece of code needs interactivity, just separate it and make it a client component. Also necessary for creating interactivity with server actions. Also in general, fetch data in server components to avoid the use of useEffect.

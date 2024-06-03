@@ -14,7 +14,7 @@ import Quiz from "./quiz";
 import { createClient } from "@/utils/supabase/client";
 import { revalidatePath } from "next/cache";
 import { redirect, useRouter } from "next/navigation";
-import revalidatePracticePage from "../actions/revalidatePracticePage";
+import revalidatePracticePage from "../../actions/revalidatePracticePage";
 
 export type TestScore = {
   right: number;

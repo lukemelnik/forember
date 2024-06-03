@@ -136,7 +136,11 @@ export async function POST(req: NextRequest) {
     });
   } catch (error) {
     if (error instanceof Error) {
-      return Response.json({ error: error.message }, { status: 500 });
+      console.log(error);
+      return Response.json(
+        { error: "Oh dang, something went wrong. Please generate again." },
+        { status: 500 }
+      );
     }
   }
 }

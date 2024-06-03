@@ -1,10 +1,9 @@
 import {
   DailySession,
   Session,
-} from "@/app/practice/components/learning-dashboard";
-import { uniqueSession } from "@/app/practice/components/streak-card";
+} from "@/app/practice/components/dashboard/learning-dashboard";
+import { uniqueSession } from "@/app/practice/components/dashboard/streak-card";
 import { isThisWeek, startOfDay } from "date-fns";
-import { getDailySessions } from "./dailySessions";
 
 export function getRecallAverage(sessions: DailySession[]) {
   const totalRight = sessions.reduce(

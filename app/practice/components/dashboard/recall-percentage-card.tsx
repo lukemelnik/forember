@@ -12,7 +12,6 @@ import {
   getRecallAverage,
   getWeeklyRecallAverage,
 } from "@/lib/statistic-calculations";
-import { getDailySessions } from "@/lib/dailySessions";
 
 export default function RecallPercentageCard({
   sessions,

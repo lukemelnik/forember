@@ -11,10 +11,10 @@ import React, { useContext, useEffect } from "react";
 import { DailySession, Profile, Session } from "./learning-dashboard";
 import { createClient } from "@/utils/supabase/client";
 import { isPast, startOfDay } from "date-fns";
-import { Fragment } from "./quiz";
+import { Fragment } from "../quiz/quiz";
 import RecallChart from "./recall-chart";
 import { Separator } from "@/components/ui/separator";
-import PracticeDialog from "./practice-dialog";
+import PracticeDialog from "../quiz/practice-dialog";
 import FragmentsReviewedChart from "./fragments-reviewed-chart";
 
 export default function WeeklySummaryCard({

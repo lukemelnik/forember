@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Fragment } from "./quiz";
 import { Button } from "@/components/ui/button";
 import { createClient } from "@/utils/supabase/client";
-import { addDays } from "date-fns";
+import { addDays, set } from "date-fns";
 import TrashIcon from "@/components/trash-icon";
 import {
   AlertDialog,
@@ -39,7 +39,7 @@ export default function FlashCard({
       .from("fragment")
       .delete()
       .eq("id", fragment.id);
-    console.log("Fragment deleted");
+    // add toast
 
     if (error) {
       console.log(error);
@@ -50,11 +50,17 @@ export default function FlashCard({
     handleWrongAnswer();
     const date = addDays(new Date(), 1);
     const supabase = createClient();
-    const { error } = await supabase
-      .from("fragment")
-      .update({ interval: 1, next_show_date: date, last_shown_at: new Date() })
-      .eq("id", id);
-    if (error) {
+    try {
+      const { error } = await supabase
+        .from("fragment")
+        .update({
+          interval: 1,
+          next_show_date: date,
+          last_shown_at: new Date(),
+        })
+        .eq("id", id);
+      setIsFlipped(false);
+    } catch (error) {
       console.log(error);
     }
   }

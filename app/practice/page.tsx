@@ -1,7 +1,7 @@
 import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
-import PracticeDialog from "./components/practice-dialog";
-import LearningDashboard from "./components/learning-dashboard";
+import PracticeDialog from "./components/quiz/practice-dialog";
+import LearningDashboard from "./components/dashboard/learning-dashboard";
 import { revalidatePath } from "next/cache";
 import { Button } from "@/components/ui/button";
 import resetTestAccount from "./actions/resetTestAccount";
