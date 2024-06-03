@@ -9,12 +9,13 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Quiz from "./quiz";
 import { createClient } from "@/utils/supabase/client";
 import { revalidatePath } from "next/cache";
 import { redirect, useRouter } from "next/navigation";
 import revalidatePracticePage from "../../actions/revalidatePracticePage";
+import StartQuizButton from "./start-quiz-button";
 
 export type TestScore = {
   right: number;
@@ -27,8 +28,19 @@ export default function PracticeDialog() {
   // for reference, the structure is like this: Practice Page -> PracticeDialog -> Quiz -> FlashCard
   // Sessions are being logged here in the practice dialog, I'm going to add the scores & number of questions to the session log.
   const [testScore, setTestScore] = useState<TestScore>({ right: 0, wrong: 0 });
-
+  const [open, setOpen] = useState(false);
   const router = useRouter();
+
+  // the session status is controlled by the open state of the quiz dialog
+  useEffect(() => {
+    if (open) {
+      setStartTime(new Date());
+    } else {
+      const endTime = new Date();
+      logSession(endTime);
+      revalidatePracticePage();
+    }
+  }, [open]);
 
   function addRightAnswer() {
     setTestScore({ ...testScore, right: testScore.right + 1 });
@@ -78,21 +90,7 @@ export default function PracticeDialog() {
     setStartTime(null);
   }
   return (
-    <Dialog
-      onOpenChange={(isOpen) => {
-        if (isOpen) {
-          setStartTime(new Date());
-        }
-        if (!isOpen) {
-          const endTime = new Date();
-          logSession(endTime);
-          // None of these are working to refresh the dashboard.
-          revalidatePracticePage();
-          router.push("/practice");
-          router.refresh();
-        }
-      }}
-    >
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <div className="relative z-0 group max-w-[300px]">
           <Button className="w-full z-0 bg-zinc-100 text-black  group-hover:scale-105 duration-300 transition-all text-lg p-6">
@@ -104,7 +102,7 @@ export default function PracticeDialog() {
       <DialogContent className="sm:max-w-[425px] md:max-w-2xl bg-black border-zinc-500 px-10">
         <DialogHeader>
           <DialogTitle>
-            <h2 className="text-zinc-300">Daily Practice</h2>
+            <h2 className="text-zinc-300">Daily Quiz</h2>
           </DialogTitle>
         </DialogHeader>
         <Quiz
@@ -115,7 +113,7 @@ export default function PracticeDialog() {
         <DialogFooter className="sm:justify-start">
           <DialogClose asChild>
             <Button type="button" variant="outline" className="bg-zinc-300">
-              Close
+              Quit
             </Button>
           </DialogClose>
         </DialogFooter>

@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import Confetti from "./confetti";
-import { TestScore } from "./practice-dialog";
+import { TestScore } from "./quiz-dialog";
 
 export default function QuizFinished({ testScore }: { testScore: TestScore }) {
   return (

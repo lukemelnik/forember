@@ -1,6 +1,6 @@
 import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
-import PracticeDialog from "./components/quiz/practice-dialog";
+import PracticeDialog from "./components/quiz/quiz-dialog";
 import LearningDashboard from "./components/dashboard/learning-dashboard";
 import { revalidatePath } from "next/cache";
 import { Button } from "@/components/ui/button";

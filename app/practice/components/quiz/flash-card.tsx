@@ -127,17 +127,17 @@ export default function FlashCard({
         </AlertDialog>
       </div>
       {!isFlipped ? (
-        <div>
+        <div className="text-black">
           <h2 className="font-bold text-xl">Q:</h2>
           <p>{fragment.question}</p>
         </div>
       ) : (
         <>
-          <div>
+          <div className="text-black">
             <h2 className="font-bold text-xl">A:</h2>
-            <p className="italic">{fragment.answer}</p>{" "}
+            <p className="">{fragment.answer}</p>{" "}
           </div>
-          <div className="absolute bottom-5 flex gap-5">
+          <div className="absolute bottom-5 flex gap-5 text-black">
             <Button
               onClick={() => {
                 increaseInterval(fragment);

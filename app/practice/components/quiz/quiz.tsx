@@ -6,7 +6,7 @@ import { addDays, isPast, set, startOfDay } from "date-fns";
 import Confetti from "./confetti";
 import ReactDOM from "react-dom";
 import { Progress } from "@/components/ui/progress";
-import { TestScore } from "./practice-dialog";
+import { TestScore } from "./quiz-dialog";
 import QuizFinished from "./quiz-finished";
 
 export type Fragment = {

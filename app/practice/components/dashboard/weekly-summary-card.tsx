@@ -14,8 +14,9 @@ import { isPast, startOfDay } from "date-fns";
 import { Fragment } from "../quiz/quiz";
 import RecallChart from "./recall-chart";
 import { Separator } from "@/components/ui/separator";
-import PracticeDialog from "../quiz/practice-dialog";
+import PracticeDialog from "../quiz/quiz-dialog";
 import FragmentsReviewedChart from "./fragments-reviewed-chart";
+import DashboardGreeting from "./dashboard-greeting";
 
 export default function WeeklySummaryCard({
   profile,
@@ -86,30 +87,12 @@ export default function WeeklySummaryCard({
       <CardHeader>
         <CardTitle>
           <div className="sm:flex justify-between items-center">
-            <div className="flex flex-col mb-5 sm:mb-0">
-              {timeOfDay && profile && (
-                <h1>
-                  Good {timeOfDay} {profile[0].first_name}
-                  <span className="ml-2">👋</span>
-                </h1>
-              )}
-              {fragments.length > 0 ? (
-                <p className="pt-2 font-thin">
-                  It's time to shred! You've got {fragments.length} fragments to
-                  review.
-                </p>
-              ) : // when you're done for the day
-              sessions.length > 0 ? (
-                <p className="pt-2 font-thin">
-                  No fragments left to review, keep up the good work!
-                </p>
-              ) : (
-                // for first time visitors
-                <p className="pt-2 font-thin">
-                  No fragments to review - time to start adding some knowledge!{" "}
-                </p>
-              )}
-            </div>
+            <DashboardGreeting
+              timeOfDay={timeOfDay}
+              username={profile[0].first_name}
+              sessionCheck={!!sessions}
+              fragmentCount={fragments.length}
+            />
             <div>
               <p className="mb-5 hidden sm:block">{date}</p>
               <PracticeDialog />
