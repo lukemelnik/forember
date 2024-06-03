@@ -5,6 +5,7 @@ import { createClient } from "@/utils/supabase/server";
 import { isPast, startOfDay } from "date-fns";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { getCurrentTime } from "@/lib/date-calculations";
 
 export default async function DashboardHeader() {
   const supabase = createClient();
@@ -13,19 +14,6 @@ export default async function DashboardHeader() {
     .from("practice_session")
     .select("*");
 
-  function getCurrentTime() {
-    const date = new Date();
-    let timeOfDay = "Morning";
-    const hour = date.getHours();
-    if (hour >= 0 && hour < 12) {
-      timeOfDay = "Morning";
-    } else if (hour >= 12 && hour < 16) {
-      timeOfDay = "Afternoon";
-    } else if (hour >= 16) {
-      timeOfDay = "Evening";
-    }
-    return timeOfDay;
-  }
   let timeOfDay = getCurrentTime();
 
   async function getFragments() {

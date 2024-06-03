@@ -20,7 +20,7 @@ export type Session = {
 export type DailySession = {
   user_id: string;
   session_date: string;
-  day_of_week: string;
+  month_and_day: string;
   session_count: number;
   total_session_duration: number;
   total_questions: number;
@@ -50,7 +50,7 @@ export default async function LearningDashboard() {
     .eq("user_id", user.id)
     .order("session_date", { ascending: true });
 
-  console.log(sessions);
+  console.log("SESSIONS: ", sessions);
 
   if (!sessions) {
     return <div>No sessions available.</div>;
@@ -65,13 +65,18 @@ export default async function LearningDashboard() {
     redirect("/login");
   }
 
+  const timeframe = 7;
+
   return (
     <>
       <section className="grid md:grid-cols-3 gap-4">
-        <WeeklySummaryCard sessions={sessions} profile={profile} />
-        <PracticeTimeCard sessions={sessions} />
-
-        <RecallPercentageCard sessions={sessions} />
+        <WeeklySummaryCard
+          sessions={sessions}
+          profile={profile}
+          timeframe={timeframe}
+        />
+        <PracticeTimeCard sessions={sessions} timeframe={timeframe} />
+        <RecallPercentageCard sessions={sessions} timeframe={timeframe} />
         <StreakCard sessions={sessions} />
       </section>
     </>

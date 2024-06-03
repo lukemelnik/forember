@@ -7,7 +7,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import React, { useContext } from "react";
-import { Session } from "./learning-dashboard";
+import { Session } from "./dashboard";
 
 import { getStreak } from "@/lib/statistic-calculations";
 import { createClient } from "@/utils/supabase/server";

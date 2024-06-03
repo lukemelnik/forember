@@ -7,7 +7,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import React from "react";
-import { DailySession, Session } from "./learning-dashboard";
+import { DailySession, Session } from "./dashboard";
 import {
   getRecallAverage,
   getWeeklyRecallAverage,

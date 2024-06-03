@@ -5,7 +5,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { DailySession, Profile, Session } from "./learning-dashboard";
+import { DailySession, Profile, Session } from "./dashboard";
 import { createClient } from "@/utils/supabase/client";
 import { isPast, startOfDay } from "date-fns";
 
@@ -19,24 +19,25 @@ import DashboardHeader from "./dashboard-header";
 export default async function WeeklySummaryCard({
   profile,
   sessions,
+  timeframe,
 }: {
   profile: Profile[];
   sessions: DailySession[];
+  timeframe: number;
 }) {
   return (
     <Card className=" md:col-span-3">
       <CardHeader>
         <CardTitle>
           <DashboardHeader />
-
           <Separator className="bg-zinc-300 mt-5" />
         </CardTitle>
       </CardHeader>
       <CardContent>
         {sessions.length > 0 && (
           <div className="lg:flex mb-10">
-            <RecallChart sessions={sessions} />
-            <FragmentsReviewedChart sessions={sessions} />
+            <RecallChart sessions={sessions} timeframe={timeframe} />
+            <FragmentsReviewedChart sessions={sessions} timeframe={timeframe} />
           </div>
         )}
       </CardContent>

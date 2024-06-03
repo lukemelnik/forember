@@ -14,3 +14,17 @@ export function tomorrow() {
   const tomorrow = addDays(currentDate, 1);
   return tomorrow;
 }
+
+export function getCurrentTime() {
+  const date = new Date();
+  let timeOfDay = "Morning";
+  const hour = date.getHours();
+  if (hour >= 0 && hour < 12) {
+    timeOfDay = "Morning";
+  } else if (hour >= 12 && hour < 16) {
+    timeOfDay = "Afternoon";
+  } else if (hour >= 16) {
+    timeOfDay = "Evening";
+  }
+  return timeOfDay;
+}

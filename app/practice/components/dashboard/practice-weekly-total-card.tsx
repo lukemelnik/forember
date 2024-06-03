@@ -7,37 +7,36 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import React from "react";
-import { DailySession, Session } from "./learning-dashboard";
+import { DailySession, Session } from "./dashboard";
 import { isThisWeek } from "date-fns";
+import { createClient } from "@/utils/supabase/server";
 
-export default function PracticeWeeklyTotal({
+export default async function PracticeWeeklyTotal({
   sessions,
 }: {
   sessions: DailySession[];
 }) {
-  const currentDate = new Date();
-  function getWeeklyPracticeTotal() {
-    const weeklySessionTotal = sessions.filter((session) => {
-      const sessionDate = new Date(session.session_date);
-      return isThisWeek(sessionDate, { weekStartsOn: 1 });
-    });
-    return Math.round(
-      weeklySessionTotal.reduce(
-        (acc, session) => acc + session.total_session_duration,
-        0
-      ) /
-        (1000 * 60)
-    );
+  const supabase = createClient();
+
+  const { data: sessionsInMinutes, error } = await supabase
+    .from("daily_user_sessions_last_seven_days")
+    .select("total_session_duration_minutes");
+
+  if (!sessionsInMinutes) {
+    return <div>Loading...</div>;
   }
 
-  const totalWeeklyPractice = getWeeklyPracticeTotal();
+  const practiceTime = sessionsInMinutes.reduce((acc, session) => {
+    return acc + session.total_session_duration_minutes;
+  }, 0);
+
   return (
     <Card className="">
       <CardHeader>
         <CardTitle>Weekly Practice 🏋️</CardTitle>
       </CardHeader>
       <CardContent>
-        <p className="font-black text-4xl">{totalWeeklyPractice}</p>
+        <p className="font-black text-4xl">{practiceTime}</p>
       </CardContent>
       <CardFooter>
         <p>Minutes</p>

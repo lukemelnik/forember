@@ -1,7 +1,7 @@
 import {
   DailySession,
   Session,
-} from "@/app/practice/components/dashboard/learning-dashboard";
+} from "@/app/practice/components/dashboard/dashboard";
 import { uniqueSession } from "@/app/practice/components/dashboard/streak-card";
 import { isThisWeek, startOfDay } from "date-fns";
 
@@ -63,4 +63,17 @@ export function getStreak(uniqueSessions: uniqueSession[]) {
       return streak;
     }
   }
+}
+
+export function calculateUserData(sessions: DailySession[], timeframe: number) {
+  const userData = sessions.slice(-timeframe).map((session) => {
+    const recallPerecentage = Math.round(
+      (session.total_right_answers / session.total_questions) * 100
+    );
+    return {
+      ...session,
+      recall: recallPerecentage,
+    };
+  });
+  return userData;
 }
