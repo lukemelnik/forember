@@ -33,10 +33,12 @@ export default async function WeeklySummaryCard({
         </CardTitle>
       </CardHeader>
       <CardContent>
-        <div className="lg:flex mb-10">
-          <RecallChart sessions={sessions} />
-          <FragmentsReviewedChart sessions={sessions} />
-        </div>
+        {sessions.length > 0 && (
+          <div className="lg:flex mb-10">
+            <RecallChart sessions={sessions} />
+            <FragmentsReviewedChart sessions={sessions} />
+          </div>
+        )}
       </CardContent>
     </Card>
   );

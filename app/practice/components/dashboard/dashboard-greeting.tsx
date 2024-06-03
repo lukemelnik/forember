@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from "react";
 
 export default function DashboardGreeting({
@@ -19,6 +20,12 @@ export default function DashboardGreeting({
           <span className="ml-2">👋</span>
         </h1>
       )}
+      {!sessionCheck && (
+        <h1>
+          Welcome!
+          <span className="ml-2">👋</span>
+        </h1>
+      )}
       {fragmentCount > 0 ? (
         <p className="pt-2 font-thin">
           It's time to shred! You've got {fragmentCount}{" "}
@@ -32,7 +39,10 @@ export default function DashboardGreeting({
       ) : (
         // for first time visitors
         <p className="pt-2 font-thin">
-          No fragments to review - time to start adding some knowledge!{" "}
+          No fragments to review yet -{" "}
+          <Link className="underline" href="/practice/ai">
+            time to start adding some knowledge!
+          </Link>{" "}
         </p>
       )}
     </div>

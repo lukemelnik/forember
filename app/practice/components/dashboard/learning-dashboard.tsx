@@ -50,6 +50,8 @@ export default async function LearningDashboard() {
     .eq("user_id", user.id)
     .order("session_date", { ascending: true });
 
+  console.log(sessions);
+
   if (!sessions) {
     return <div>No sessions available.</div>;
   }
@@ -68,6 +70,7 @@ export default async function LearningDashboard() {
       <section className="grid md:grid-cols-3 gap-4">
         <WeeklySummaryCard sessions={sessions} profile={profile} />
         <PracticeTimeCard sessions={sessions} />
+
         <RecallPercentageCard sessions={sessions} />
         <StreakCard sessions={sessions} />
       </section>

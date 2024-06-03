@@ -64,7 +64,7 @@ export default async function DashboardHeader() {
         timeOfDay={timeOfDay}
         username={profile && profile.length > 0 ? profile[0].first_name : null}
         fragmentCount={fragments.length}
-        sessionCheck={!!sessions}
+        sessionCheck={sessions && sessions.length > 0 ? true : false}
       />
       <div>
         <p className="mb-5 hidden sm:block">{new Date().toDateString()}</p>
