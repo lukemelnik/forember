@@ -91,13 +91,15 @@ export default function FlashCard({
 
   return (
     <div
-      className="w-full h-72 bg-zinc-200 rounded-xl relative flex justify-center items-center shadow-lg border-2 border-zinc-300 p-10 text-lg mx-auto"
+      className={`w-full h-72  rounded-xl  relative flex justify-center items-center shadow-lg   p-10 text-lg mx-auto from-zinc-100 to-zinc-300 ${isFlipped ? " bg-gradient-to-l" : "bg-gradient-to-r"}`}
       onClick={() => setIsFlipped(!isFlipped)}
     >
       <div className="absolute top-5 right-3">
         <AlertDialog>
           <AlertDialogTrigger>
-            <TrashIcon />
+            <div className="text-red-600">
+              <TrashIcon width="25" height="25" />
+            </div>
           </AlertDialogTrigger>
           <AlertDialogContent>
             <AlertDialogHeader>

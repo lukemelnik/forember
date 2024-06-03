@@ -1,12 +1,17 @@
 import React from "react";
 
-export default function TrashIcon() {
+export default function TrashIcon({
+  height,
+  width,
+}: {
+  height: string;
+  width: string;
+}) {
   return (
     <svg
-      width="25"
-      height="25"
+      width={width}
+      height={height}
       viewBox="0 0 15 15"
-      fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
       <path

@@ -58,7 +58,7 @@ export async function POST(req: NextRequest) {
         {
           role: "system",
           content: `You are a knowledgeable teacher with years of experience helping students learn complex topics by breaking them down into understanable pieces. A student gives your the following notes that they took while learning a new topic (deliniated between '---') and needs you to help with the following steps. Don't return anything until you've read all the instructions. \n
-        Step 1 - Separate the notes into information chunks, so that each chunk covers a single fact, concept, or topic that the student should remember. \n
+        Step 1 - Separate the notes into information chunks, so that each chunk covers a single fact, concept, or topic that the student should remember. Ignore any links to external sources. \n
 
         Step 2 - Compare the chunks with the provided notes and ensure there are enough chunks to accurately represent ALL the information in the notes. The student will be tested on it later and penalized for any gaps in their knowledge. If any information is missing, add corresponding chunks. \n
 

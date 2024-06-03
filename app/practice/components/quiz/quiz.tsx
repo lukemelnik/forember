@@ -120,7 +120,7 @@ export default function Quiz({
       )}
       {fragments.length > 0 && (
         <>
-          <p className="mb-1">
+          <p className="mb-1 text-zinc-300">
             {questionNumber} of {fragments.length}
           </p>
           <Progress value={progress} className="mb-5 bg-zinc-300" />

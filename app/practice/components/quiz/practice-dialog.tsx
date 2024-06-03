@@ -101,9 +101,11 @@ export default function PracticeDialog() {
           <div className="absolute inset-0 bg-pink-500/70 -z-10  blur-lg scale-105 group-hover:bg-pink-500 group-hover:blur-xl duration-300 group-hover:scale-110"></div>
         </div>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px] md:max-w-2xl">
+      <DialogContent className="sm:max-w-[425px] md:max-w-2xl bg-black border-zinc-500 px-10">
         <DialogHeader>
-          <DialogTitle>Daily Practice</DialogTitle>
+          <DialogTitle>
+            <h2 className="text-zinc-300">Daily Practice</h2>
+          </DialogTitle>
         </DialogHeader>
         <Quiz
           testScore={testScore}
@@ -112,7 +114,7 @@ export default function PracticeDialog() {
         />
         <DialogFooter className="sm:justify-start">
           <DialogClose asChild>
-            <Button type="button" variant="outline">
+            <Button type="button" variant="outline" className="bg-zinc-300">
               Close
             </Button>
           </DialogClose>
