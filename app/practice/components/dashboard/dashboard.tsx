@@ -63,6 +63,7 @@ export default async function LearningDashboard() {
     redirect("/login");
   }
 
+  // make this user selectable to see larger ranges of time.
   const timeframe = 7;
 
   return (
@@ -73,8 +74,8 @@ export default async function LearningDashboard() {
           profile={profile}
           timeframe={timeframe}
         />
-        <PracticeTimeCard sessions={sessions} timeframe={timeframe} />
-        <RecallPercentageCard sessions={sessions} timeframe={timeframe} />
+        <PracticeTimeCard sessions={sessions} />
+        <RecallPercentageCard sessions={sessions} />
         <StreakCard sessions={sessions} />
       </section>
     </>

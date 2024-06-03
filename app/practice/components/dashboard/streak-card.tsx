@@ -32,11 +32,13 @@ export default async function StreakCard({
   if (!user) {
     return "Loading...";
   }
-  // created a view in supabase that selects the distinct user sessions, i.e. one per day so that they don't have to be filtered here. Had to use the DATE function in postgres to ensure they were compared on the same day.
+
   const { data, error } = await supabase
-    .from("practice_session")
-    .select("*")
+    .from("daily_user_sessions")
+    .select("session_date")
     .eq("user_id", user.id);
+
+  console.log("DATES", data);
 
   if (error) {
     console.log(error);
@@ -55,7 +57,7 @@ export default async function StreakCard({
         <CardTitle>Current Streak 🔥</CardTitle>
       </CardHeader>
       <CardContent>
-        <p className="font-black text-4xl">54</p>
+        <p className="font-black text-4xl">{streak}</p>
       </CardContent>
       <CardFooter>
         <p>Days</p>

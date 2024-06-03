@@ -8,7 +8,7 @@ export default async function DashboardPage() {
     console.error(error);
     return <div>Error</div>;
   }
-  console.log(data);
+
   if (!data) {
     return <div>Loading...</div>;
   }
