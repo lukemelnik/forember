@@ -10,6 +10,7 @@ import React from "react";
 import { DailySession, Session } from "./dashboard";
 import { isThisWeek } from "date-fns";
 import { createClient } from "@/utils/supabase/server";
+import { redirect } from "next/navigation";
 
 export default async function PracticeWeeklyTotal({
   sessions,
@@ -17,10 +18,18 @@ export default async function PracticeWeeklyTotal({
   sessions: DailySession[];
 }) {
   const supabase = createClient();
+  const {
+    data: { user },
+    error: userError,
+  } = await supabase.auth.getUser();
+  if (!user) {
+    redirect("/login");
+  }
 
   const { data: sessionsInMinutes, error } = await supabase
     .from("daily_user_sessions_last_seven_days")
-    .select("total_session_duration_minutes");
+    .select("total_session_duration_minutes")
+    .eq("user_id", user.id);
 
   if (!sessionsInMinutes) {
     return <div>Loading...</div>;
