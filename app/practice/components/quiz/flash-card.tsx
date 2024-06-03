@@ -127,10 +127,16 @@ export default function FlashCard({
         </AlertDialog>
       </div>
       {!isFlipped ? (
-        <p>{fragment.question}</p>
+        <div>
+          <h2 className="font-bold text-xl">Q:</h2>
+          <p>{fragment.question}</p>
+        </div>
       ) : (
         <>
-          <p className="italic">{fragment.answer}</p>{" "}
+          <div>
+            <h2 className="font-bold text-xl">A:</h2>
+            <p className="italic">{fragment.answer}</p>{" "}
+          </div>
           <div className="absolute bottom-5 flex gap-5">
             <Button
               onClick={() => {

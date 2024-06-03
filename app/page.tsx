@@ -1,68 +1,13 @@
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
-import Image from "next/image";
-import { createClient } from "@/utils/supabase/server";
-import { redirect } from "next/navigation";
+import HeroSection from "./practice/components/homepage/hero-section";
+import HomepageBackground from "./practice/components/homepage/homepage-bg";
+import HomepageNav from "./practice/components/homepage/homepage-nav";
 
 export default async function HomePage() {
-  const supabase = createClient();
-  const {
-    data: { user },
-    error,
-  } = await supabase.auth.getUser();
-
   return (
     <>
-      <nav className="p-3 md:p-5 px-10 flex justify-between items-center fixed top-0 left-0 right-0 border-b-2 border-zinc-700">
-        <div className="flex items-center text-zinc-100">
-          <Image
-            src={"/assets/images/favicon.png"}
-            alt={"logo"}
-            width={55}
-            height={55}
-          />
-          <h1>Forember</h1>
-        </div>
-        <div className="mr-4 flex gap-3 items-center">
-          {user && <p className="hidden md:block">Logged in as {user.email}</p>}
-          {user ? (
-            <Link href="/practice" className="hidden md:block ">
-              <Button className="text-xl text-black bg-zinc-300 p-5">
-                Practice
-              </Button>
-            </Link>
-          ) : (
-            <Link href="/login" className="hidden md:block ">
-              <Button className="text-xl text-black bg-zinc-300 p-5">
-                Login
-              </Button>
-            </Link>
-          )}
-        </div>
-      </nav>
-      <div className="">
-        <div className="absolute left-0 right-0 m-auto top-[300px] bg-gradient-to-r from-purple-700 to-pink-400 h-72 -rotate-12 w-3/4 md:w-3/4 rounded-full blur-[100px] opacity-20 -z-10"></div>
-        <section className="landscape:mt-16 flex flex-col items-center justify-center min-h-svh">
-          <div className="">
-            <div className="text-[40px] md:text-[75px] lg:text-[95px] flex flex-col items-center -space-y-3 md:-space-y-10 font-bold -rotate-1">
-              <p className="opacity-90">Learn faster.</p>
-              <p className="relative z-0 after:absolute after:bg-gradient-to-r after:from-pink-700 after:to-purple-500 md:after:h-20 lg:after:h-24 after:-z-10 md:after:top-5 lg:after:top-6 text-black bg-opacity-90 after:h-14 after:top-1 md:after:-left-6 md:after:-right-6 after:-right-3 after:-left-3">
-                Remember more.
-              </p>
-            </div>
-            <p className="max-w-[350px] text-md md:text-xl md:max-w-2xl text-center m-auto mt-4 md:mt-1">
-              The world is moving at a blinding pace. Upskill quicker and
-              enhance your creativity with the power of AI and spaced
-              repetition.
-            </p>
-          </div>
-          <Link href="/login">
-            <Button className="text-lg md:text-2xl text-black bg-zinc-300 p-6 md:p-7 hover:bg-zinc-100 hover:scale-105 duration-300 transition-all mt-7 z-100">
-              Start Now
-            </Button>
-          </Link>
-        </section>
-      </div>
+      <HomepageNav />
+      <HomepageBackground />
+      <HeroSection />
     </>
   );
 }

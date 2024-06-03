@@ -65,12 +65,12 @@ export default async function LearningDashboard() {
 
   return (
     <>
-      <div className="grid md:grid-cols-3 gap-4">
+      <section className="grid md:grid-cols-3 gap-4">
         <WeeklySummaryCard sessions={sessions} profile={profile} />
         <PracticeTimeCard sessions={sessions} />
         <RecallPercentageCard sessions={sessions} />
         <StreakCard sessions={sessions} />
-      </div>
+      </section>
     </>
   );
 }

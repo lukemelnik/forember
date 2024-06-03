@@ -21,10 +21,7 @@ export default async function PracticePage() {
     <>
       <div className="p-1 md:pt-10 md:px-16 space-y-10">
         {user.email === "test@test.com" && <WelcomeMessage />}
-        <section className="flex flex-col gap-5"></section>
-        <section>
-          <LearningDashboard />
-        </section>
+        <LearningDashboard />
       </div>
     </>
   );
