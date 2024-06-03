@@ -7,7 +7,7 @@ export default function DashboardGreeting({
   sessionCheck,
 }: {
   timeOfDay: string;
-  username: string;
+  username: string | null;
   fragmentCount: number;
   sessionCheck: boolean;
 }) {
