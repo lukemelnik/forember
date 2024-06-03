@@ -50,8 +50,6 @@ export default async function LearningDashboard() {
     .eq("user_id", user.id)
     .order("session_date", { ascending: true });
 
-  console.log("SESSIONS: ", sessions);
-
   if (!sessions) {
     return <div>No sessions available.</div>;
   }

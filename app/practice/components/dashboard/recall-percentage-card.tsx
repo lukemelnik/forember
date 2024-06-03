@@ -12,16 +12,43 @@ import {
   getRecallAverage,
   getWeeklyRecallAverage,
 } from "@/lib/statistic-calculations";
+import { createClient } from "@/utils/supabase/server";
+import { redirect } from "next/navigation";
 
-export default function RecallPercentageCard({
+export default async function RecallPercentageCard({
   sessions,
 }: {
   sessions: DailySession[];
 }) {
+  const supabase = createClient();
+
+  const {
+    data: { user },
+    error: userError,
+  } = await supabase.auth.getUser();
+  if (!user) {
+    redirect("/login");
+  }
+  const { data: sessionsLastSevenDays, error } = await supabase
+    .from("daily_user_sessions_last_seven_days")
+    .select("total_questions, total_right_answers")
+    .eq("user_id", user.id);
+
+  if (!sessions || !sessionsLastSevenDays) {
+    return <div>Loading...</div>;
+  }
+
   const recallAverage = getRecallAverage(sessions);
-  const weeklyRecallAverage = getWeeklyRecallAverage(sessions);
-  // thinking about logging the recall time, but questionable whether its useful because the content of the cards is so different. And not usefull to create an average from the whole session length because its affected by the answers they got wrong
-  // this could be more valuable as a graph that shows recall for each category, ie. programming vs math vs history
+  const lastSevenRecallAverage = Math.round(
+    sessionsLastSevenDays.reduce((acc, session) => {
+      return (
+        acc +
+        ((session.total_right_answers / session.total_questions) * 100) /
+          sessionsLastSevenDays.length
+      );
+    }, 0)
+  );
+
   return (
     <Card className="">
       <CardHeader>
@@ -30,9 +57,7 @@ export default function RecallPercentageCard({
       <CardContent>
         {/* currently showing all time recall average but needs to be updated with a more useful metric */}
         <div className="flex gap-2 items-center">
-          <h2 className="font-black text-4xl">
-            {weeklyRecallAverage ? `${weeklyRecallAverage}%` : "No data"}
-          </h2>
+          <h2 className="font-black text-4xl">{lastSevenRecallAverage}</h2>
         </div>
       </CardContent>
       <CardFooter>
