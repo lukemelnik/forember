@@ -37,10 +37,18 @@ export default function Quiz({
     async function getFragments() {
       setLoading(true);
       const supabase = createClient();
+      const {
+        data: { user },
+        error: userError,
+      } = await supabase.auth.getUser();
+      if (!user) {
+        return;
+      }
       const { data: fragments, error } = await supabase
         .from("fragment")
         .select("*")
-        .eq("is_complete", false);
+        .eq("is_complete", false)
+        .eq("user_id", user.id);
       if (error) {
         console.log(error);
       }
@@ -62,8 +70,6 @@ export default function Quiz({
           isPast(fragmentNextShowDay)
         );
       });
-
-      // Don't forget to set this to 'filteredFragments' after doing development testing
       setFragments(filteredFragments);
     }
     getFragments();
