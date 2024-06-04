@@ -56,6 +56,7 @@ export default async function DashboardHeader() {
         fragmentCount={fragments.length}
         sessionCheck={sessions && sessions.length > 0 ? true : false}
       />
+
       <div>
         <p className="mb-5 hidden sm:block">{new Date().toDateString()}</p>
         {fragments?.length === 0 && sessions?.length === 0 ? (

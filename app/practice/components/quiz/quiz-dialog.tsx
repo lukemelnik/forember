@@ -12,10 +12,7 @@ import {
 import React, { useEffect, useState } from "react";
 import Quiz from "./quiz";
 import { createClient } from "@/utils/supabase/client";
-import { revalidatePath } from "next/cache";
-import { redirect, useRouter } from "next/navigation";
 import revalidatePracticePage from "../../actions/revalidate-practice-page";
-import StartQuizButton from "./start-quiz-button";
 
 export type TestScore = {
   right: number;
@@ -29,17 +26,24 @@ export default function PracticeDialog() {
   // Sessions are being logged here in the practice dialog, I'm going to add the scores & number of questions to the session log.
   const [testScore, setTestScore] = useState<TestScore>({ right: 0, wrong: 0 });
   const [open, setOpen] = useState(false);
-  const router = useRouter();
+
+  console.log("OPEN STATE: ", open);
 
   // the session status is controlled by the open state of the quiz dialog
   useEffect(() => {
-    if (open) {
-      setStartTime(new Date());
-    } else {
-      const endTime = new Date();
-      logSession(endTime);
-      revalidatePracticePage();
+    async function practiceDialogChange() {
+      if (open) {
+        console.log("STARTING SESSION");
+        setStartTime(new Date());
+      } else {
+        console.log("ENDING SESSION");
+        console.log("START TIME: ", startTime);
+        const endTime = new Date();
+        await logSession(endTime);
+        revalidatePracticePage();
+      }
     }
+    practiceDialogChange();
   }, [open]);
 
   function addRightAnswer() {
@@ -51,15 +55,29 @@ export default function PracticeDialog() {
   }
 
   async function logSession(endTime: Date) {
-    if (!startTime || !endTime) return;
+    console.log("LOGGING SESSION");
+    if (!startTime || !endTime) {
+      console.log("no start or end time");
+      return;
+    }
     const total_questions = testScore.right + testScore.wrong;
-    if (total_questions === 0) return;
+    if (total_questions === 0) {
+      console.log("no questions answered");
+      return;
+    }
+    const session_score = Math.round(
+      (testScore.right / (testScore.right + testScore.wrong)) * 100
+    );
 
     const session_duration = endTime.getTime() - startTime.getTime();
     if (session_duration < 1500) {
       console.log("session too short");
       return;
     }
+    console.log("TOTAL QUESTIONS: ", total_questions);
+    console.log("RIGHT ANSWERS: ", testScore.right);
+    console.log("SESSION SCORE: ", session_score);
+    console.log("SESSION DURATION: ", session_duration);
     const supabase = createClient();
     try {
       const {
@@ -69,25 +87,25 @@ export default function PracticeDialog() {
       if (!user) {
         throw new Error("No user found");
       }
-      const session_score = Math.round(
-        (testScore.right / (testScore.right + testScore.wrong)) * 100
-      );
 
       const { error: dbError } = await supabase
         .from("practice_session")
-        .insert({
-          session_duration,
-          user_id: user.id,
-          session_score,
-          right_answers: testScore.right,
-          total_questions,
-        });
+        .insert([
+          {
+            session_duration,
+            user_id: user.id,
+            session_score,
+            right_answers: testScore.right,
+            total_questions,
+          },
+        ]);
     } catch (error) {
       console.error(error);
     }
     // had to reset the score otherwise it logs the total daily numbers for every session vs. only what they did while the dialog was open
     setTestScore({ right: 0, wrong: 0 });
     setStartTime(null);
+    console.log("SESSION LOGGED");
   }
   return (
     <Dialog open={open} onOpenChange={setOpen}>
@@ -101,9 +119,7 @@ export default function PracticeDialog() {
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px] md:max-w-2xl bg-black border-zinc-500 px-10">
         <DialogHeader>
-          <DialogTitle>
-            <h2 className="text-zinc-300">Daily Quiz</h2>
-          </DialogTitle>
+          <DialogTitle className="text-zinc-300">Daily Quiz</DialogTitle>
         </DialogHeader>
         <Quiz
           testScore={testScore}

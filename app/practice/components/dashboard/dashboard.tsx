@@ -7,6 +7,7 @@ import RecallPercentageCard from "./recall-percentage-card";
 import { redirect } from "next/navigation";
 import WeeklySummaryCard from "./weekly-summary-card";
 import StreakCard from "./streak-card";
+import DatabaseSessionTest from "../database-session-test";
 
 export const dynamic = "force-dynamic";
 
