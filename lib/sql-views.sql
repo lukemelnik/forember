@@ -1,4 +1,4 @@
-
+-- these aren't easy to keep track of in Supabase so I'm logging them here for version control
 
 -- create view that aggregates sessions so that there's only one per day
 create view
