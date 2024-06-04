@@ -52,7 +52,7 @@ export default async function StreakCard({
   const streak = getStreak(data);
 
   return (
-    <Card className="flex-col justify-center ">
+    <Card className="flex-col justify-center  ">
       <CardHeader>
         <CardTitle>Current Streak 🔥</CardTitle>
       </CardHeader>
