@@ -13,6 +13,7 @@ import React, { useEffect, useState } from "react";
 import Quiz from "./quiz";
 import { createClient } from "@/utils/supabase/client";
 import revalidatePracticePage from "../../actions/revalidate-practice-page";
+import { logSession } from "../../actions/add-session";
 
 export type TestScore = {
   right: number;
@@ -21,25 +22,19 @@ export type TestScore = {
 
 export default function PracticeDialog() {
   const [startTime, setStartTime] = useState<Date | null>(null);
-  // doing a bit of prop drilling right now to get this state & updating functions down into the flashcard, will update if it seems worth it.
-  // for reference, the structure is like this: Practice Page -> PracticeDialog -> Quiz -> FlashCard
-  // Sessions are being logged here in the practice dialog, I'm going to add the scores & number of questions to the session log.
   const [testScore, setTestScore] = useState<TestScore>({ right: 0, wrong: 0 });
   const [open, setOpen] = useState(false);
-
-  console.log("OPEN STATE: ", open);
 
   // the session status is controlled by the open state of the quiz dialog
   useEffect(() => {
     async function practiceDialogChange() {
       if (open) {
-        console.log("STARTING SESSION");
         setStartTime(new Date());
       } else {
-        console.log("ENDING SESSION");
-        console.log("START TIME: ", startTime);
-        const endTime = new Date();
-        await logSession(endTime);
+        if (!startTime) return;
+        await logSession(startTime, testScore);
+        setTestScore({ right: 0, wrong: 0 });
+        setStartTime(null);
         revalidatePracticePage();
       }
     }
@@ -54,59 +49,6 @@ export default function PracticeDialog() {
     setTestScore({ ...testScore, wrong: testScore.wrong + 1 });
   }
 
-  async function logSession(endTime: Date) {
-    console.log("LOGGING SESSION");
-    if (!startTime || !endTime) {
-      console.log("no start or end time");
-      return;
-    }
-    const total_questions = testScore.right + testScore.wrong;
-    if (total_questions === 0) {
-      console.log("no questions answered");
-      return;
-    }
-    const session_score = Math.round(
-      (testScore.right / (testScore.right + testScore.wrong)) * 100
-    );
-
-    const session_duration = endTime.getTime() - startTime.getTime();
-    if (session_duration < 1500) {
-      console.log("session too short");
-      return;
-    }
-    console.log("TOTAL QUESTIONS: ", total_questions);
-    console.log("RIGHT ANSWERS: ", testScore.right);
-    console.log("SESSION SCORE: ", session_score);
-    console.log("SESSION DURATION: ", session_duration);
-    const supabase = createClient();
-    try {
-      const {
-        data: { user },
-        error: userError,
-      } = await supabase.auth.getUser();
-      if (!user) {
-        throw new Error("No user found");
-      }
-
-      const { error: dbError } = await supabase
-        .from("practice_session")
-        .insert([
-          {
-            session_duration,
-            user_id: user.id,
-            session_score,
-            right_answers: testScore.right,
-            total_questions,
-          },
-        ]);
-    } catch (error) {
-      console.error(error);
-    }
-    // had to reset the score otherwise it logs the total daily numbers for every session vs. only what they did while the dialog was open
-    setTestScore({ right: 0, wrong: 0 });
-    setStartTime(null);
-    console.log("SESSION LOGGED");
-  }
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
