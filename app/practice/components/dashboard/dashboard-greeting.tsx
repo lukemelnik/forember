@@ -1,17 +1,19 @@
+"use client";
+
+import { getCurrentTime } from "@/lib/date-calculations";
 import Link from "next/link";
 import React from "react";
 
 export default function DashboardGreeting({
-  timeOfDay,
   username,
   fragmentCount,
   sessionCheck,
 }: {
-  timeOfDay: string;
   username: string | null;
   fragmentCount: number;
   sessionCheck: boolean;
 }) {
+  let timeOfDay = getCurrentTime();
   return (
     <div className="flex flex-col mb-5 sm:mb-0">
       {timeOfDay && username && (

@@ -14,8 +14,6 @@ export default async function DashboardHeader() {
     .from("practice_session")
     .select("*");
 
-  let timeOfDay = getCurrentTime();
-
   async function getFragments() {
     const { data: fragments, error } = await supabase
       .from("fragment")
@@ -51,7 +49,6 @@ export default async function DashboardHeader() {
   return (
     <div className="sm:flex justify-between items-center">
       <DashboardGreeting
-        timeOfDay={timeOfDay}
         username={profile && profile.length > 0 ? profile[0].first_name : null}
         fragmentCount={fragments.length}
         sessionCheck={sessions && sessions.length > 0 ? true : false}

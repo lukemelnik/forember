@@ -19,6 +19,7 @@ export function getCurrentTime() {
   const date = new Date();
   let timeOfDay = "Morning";
   const hour = date.getHours();
+  console.log("TIME: ", hour);
   if (hour >= 0 && hour < 12) {
     timeOfDay = "Morning";
   } else if (hour >= 12 && hour < 16) {

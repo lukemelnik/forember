@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { Fragment } from "../practice/components/quiz/quiz";
 import { isPast, startOfDay } from "date-fns";
 
-export function useFragmentsQuiz() {
+export function useFragmentsQuizState() {
   const [questionNumber, setQuestionNumber] = useState(0);
   const [quizOver, setQuizOver] = useState(false);
   const [fragments, setFragments] = useState<Fragment[]>([]);

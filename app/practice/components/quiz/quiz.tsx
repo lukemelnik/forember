@@ -1,12 +1,9 @@
 "use client";
-import { createClient } from "@/utils/supabase/client";
-import { useEffect, useState } from "react";
 import FlashCard from "./flash-card";
-import { isPast, startOfDay } from "date-fns";
 import { Progress } from "@/components/ui/progress";
 import { TestScore } from "./quiz-dialog";
 import QuizFinished from "./quiz-finished";
-import { useFragmentsQuiz } from "@/app/custom-hooks/fragments-quiz-hook";
+import { useFragmentsQuizState } from "@/app/custom-hooks/fragments-quiz-hook";
 
 export type Fragment = {
   id: string;
@@ -32,7 +29,7 @@ export default function Quiz({
     quizOver,
     questionNumber,
     nextQuestion,
-  } = useFragmentsQuiz();
+  } = useFragmentsQuizState();
 
   // calulate progress for progress bar
   const progress = Math.round((questionNumber / fragments.length) * 100);
