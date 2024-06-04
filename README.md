@@ -220,3 +220,5 @@ if (!notes) {
 23. RevalidatePath doesn't ensure that client components will re-render! The main dashboard component was a server component, but in one of the sub components I was fetching from the database in a useEffect. I was triggering revalidate path with the practice modal closes, but it wouldn't update the UI and I couldn't figure out why. Once I converted the sub component to run on the server it synced up properly. I'm not 100% sure why, because you'd think if the cache was emptied it would have to reload the whole page again, triggering the useEffect. Bottom line is that it should have been server rendered anyway, because it's just displaying data to the user, it's not interactive.
 
 24. An empty array is truthy!
+
+25. Server Components and Time: Once deployed on Vercel my dashboard was showing the wrong time in the welcome message - it's because it was server generated and when the date function ran it used the time at the location of the server. Fixed by moving it to the client.

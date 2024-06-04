@@ -1,9 +1,9 @@
 "use client";
 import FlashCard from "./flash-card";
 import { Progress } from "@/components/ui/progress";
-import { TestScore } from "./quiz-dialog";
 import QuizFinished from "./quiz-finished";
-import { useFragmentsQuizState } from "@/app/custom-hooks/fragments-quiz-hook";
+import { useFragmentsQuizState } from "@/app/custom-hooks/useFragmentsQuizState";
+import { TestScore } from "@/app/custom-hooks/usePracticeDialog";
 
 export type Fragment = {
   id: string;

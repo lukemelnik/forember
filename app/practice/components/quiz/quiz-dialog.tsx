@@ -14,52 +14,23 @@ import Quiz from "./quiz";
 import { createClient } from "@/utils/supabase/client";
 import revalidatePracticePage from "../../actions/revalidate-practice-page";
 import { logSession } from "../../actions/add-session";
-
-export type TestScore = {
-  right: number;
-  wrong: number;
-};
+import { usePracticeDialog } from "@/app/custom-hooks/usePracticeDialog";
 
 export default function PracticeDialog() {
-  const [startTime, setStartTime] = useState<Date | null>(null);
-  const [testScore, setTestScore] = useState<TestScore>({ right: 0, wrong: 0 });
-  const [open, setOpen] = useState(false);
-
-  // the session status is controlled by the open state of the quiz dialog
-  useEffect(() => {
-    async function practiceDialogChange() {
-      if (open) {
-        setStartTime(new Date());
-      } else {
-        if (!startTime) return;
-        await logSession(startTime, testScore);
-        setTestScore({ right: 0, wrong: 0 });
-        setStartTime(null);
-        revalidatePracticePage();
-      }
-    }
-    practiceDialogChange();
-  }, [open]);
-
-  function addRightAnswer() {
-    setTestScore({ ...testScore, right: testScore.right + 1 });
-  }
-
-  function addWrongAnswer() {
-    setTestScore({ ...testScore, wrong: testScore.wrong + 1 });
-  }
+  const { testScore, addRightAnswer, addWrongAnswer, open, setOpen } =
+    usePracticeDialog();
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <div className="relative z-0 group max-w-[300px]">
-          <Button className="w-full z-0 bg-zinc-100 text-black  group-hover:scale-105 duration-300 transition-all text-lg p-6">
+        <div className="group relative z-0 max-w-[300px]">
+          <Button className="z-0 w-full bg-zinc-100 p-6 text-lg text-black transition-all duration-300 group-hover:scale-105">
             Start Daily Quiz
           </Button>
-          <div className="absolute inset-0 bg-pink-500/70 -z-10  blur-lg scale-105 group-hover:bg-pink-500 group-hover:blur-xl duration-300 group-hover:scale-110"></div>
+          <div className="absolute inset-0 -z-10 scale-105 bg-pink-500/70 blur-lg duration-300 group-hover:scale-110 group-hover:bg-pink-500 group-hover:blur-xl"></div>
         </div>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px] md:max-w-2xl bg-black border-zinc-500 px-10">
+      <DialogContent className="border-zinc-500 bg-black px-10 sm:max-w-[425px] md:max-w-2xl">
         <DialogHeader>
           <DialogTitle className="text-zinc-300">Daily Quiz</DialogTitle>
         </DialogHeader>
