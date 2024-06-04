@@ -6,6 +6,7 @@ import { isPast, startOfDay } from "date-fns";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { getCurrentTime } from "@/lib/date-calculations";
+import CurrentDate from "./current-date";
 
 export default async function DashboardHeader() {
   const supabase = createClient();
@@ -55,7 +56,7 @@ export default async function DashboardHeader() {
       />
 
       <div>
-        <p className="mb-5 hidden sm:block">{new Date().toDateString()}</p>
+        <CurrentDate />
         {fragments?.length === 0 && sessions?.length === 0 ? (
           <div className="relative z-0 group max-w-[300px]">
             <Button className="w-full z-0 bg-zinc-100 text-black  group-hover:scale-105 duration-300 transition-all text-lg p-6">
