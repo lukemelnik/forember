@@ -61,7 +61,7 @@ export default async function ProfilePage() {
         <DialogTrigger className="bg-gray-300 rounded p-3 mt-10 text-zinc-900">
           Edit Profile
         </DialogTrigger>
-        <DialogContent>
+        <DialogContent className="bg-black text-zinc-300 border-zinc-500">
           <DialogHeader>
             <DialogTitle>Edit Profile</DialogTitle>
           </DialogHeader>

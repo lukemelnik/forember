@@ -1,7 +1,7 @@
 import React from "react";
-import NavHeader from "./components/nav-header";
-import NavLinks from "./components/nav-links";
-import NavHeaderMobile from "./components/nav-header-mobile";
+import NavHeader from "./components/navigation/nav-header";
+import NavLinks from "./components/navigation/nav-links";
+import NavHeaderMobile from "./components/navigation/nav-header-mobile";
 import UserInfoAndSignOut from "./components/user-info-and-signout";
 import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";

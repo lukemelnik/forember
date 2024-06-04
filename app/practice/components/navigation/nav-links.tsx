@@ -13,8 +13,7 @@ export default function NavLinks() {
 
   const natItems = [
     { name: "Practice", href: "/practice" },
-    { name: "Create With AI", href: "/practice/ai" },
-    { name: "Add Manually", href: "/practice/add" },
+    { name: "Create Fragments", href: "/practice/create" },
     { name: "Library", href: "/practice/library" },
     { name: "Profile", href: "/practice/profile" },
     { name: "FAQ", href: "/practice/faq" },

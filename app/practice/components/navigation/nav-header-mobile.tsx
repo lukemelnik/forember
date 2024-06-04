@@ -1,15 +1,11 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { createClient } from "@/utils/supabase/client";
-import signOut from "../actions/signOut";
-import LogoIcon from "@/components/logo-svg";
 import { Separator } from "@/components/ui/separator";
 import Image from "next/image";
 import HamburgerIcon from "@/components/hamburger-icon";
 import { useState } from "react";
 import NavLinks from "./nav-links";
-import UserInfoAndSignOut from "./user-info-and-signout";
 import XIcon from "@/components/x-icon";
 
 export default function NavHeaderMobile({

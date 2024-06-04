@@ -1,7 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { createClient } from "@/utils/supabase/server";
-import signOut from "../actions/signOut";
-import LogoIcon from "@/components/logo-svg";
+import signOut from "../../actions/signOut";
 import { Separator } from "@/components/ui/separator";
 import Image from "next/image";
 import { redirect } from "next/navigation";

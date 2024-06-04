@@ -34,7 +34,7 @@ export default function UpdateProfileForm() {
   return (
     <form
       ref={ref}
-      className="min-w-2x p-5 rounded flex flex-col items-left gap-2 max-w-2xl"
+      className="rounded flex flex-col items-left gap-2"
       action={async (formData) => {
         action(formData);
       }}
@@ -49,7 +49,7 @@ export default function UpdateProfileForm() {
       {formState.errors.last_name && (
         <p className="text-red-600">{formState.errors.last_name.join(" ,")}</p>
       )}
-      <Button className="bg-gray-950 text-gray-300" type="submit">
+      <Button className="bg-zinc-300 text-black mt-5 w-1/4 p-5" type="submit">
         Save Changes
       </Button>
       {formState.errors._form && (
