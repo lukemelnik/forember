@@ -57,7 +57,7 @@ export default async function RecallPercentageCard({
       <CardContent>
         {/* currently showing all time recall average but needs to be updated with a more useful metric */}
         <div className="flex gap-2 items-center">
-          <h2 className="font-black text-4xl">{lastSevenRecallAverage}</h2>
+          <h2 className="font-black text-4xl">{lastSevenRecallAverage}%</h2>
         </div>
       </CardContent>
       <CardFooter>

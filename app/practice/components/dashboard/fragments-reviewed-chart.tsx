@@ -26,7 +26,7 @@ export default function FragmentsReviewedChart({
 
   return (
     <div className="w-full lg:w-1/2">
-      <h2 className="text-xl ml-16 mb-3">Fragments Per Day</h2>
+      <h2 className="text-xl ml-12 mb-3">Fragments Per Day</h2>
       <ResponsiveContainer width="100%" height={250}>
         <AreaChart width={500} height={250} data={userData} className="-ml-4">
           <Area

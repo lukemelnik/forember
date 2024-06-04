@@ -23,12 +23,14 @@ export default async function LearnLayout({
 
   return (
     <>
+      {/* mobile nav */}
       <nav className="p-5 fixed top-0 left-0 right-0 border-b-[1px] border-zinc-700 bg-black z-[50] sm:block xl:hidden ">
         <NavHeaderMobile>
           <UserInfoAndSignOut />
         </NavHeaderMobile>
       </nav>
-      <div className="grid sm:grid-cols-1 xl:grid-cols-4 w-full mt-20 xl:mt-0">
+      {/* desktop nav */}
+      <div className="grid sm:grid-cols-1 xl:grid-cols-4 w-full mt-20 xl:mt-0 min-h-svh">
         <nav className="md:col-span-1 p-10 text-gray-300 border-r-[1px] border-zinc-700 hidden xl:block">
           <NavHeader />
           <NavLinks />

@@ -52,7 +52,7 @@ export default async function StreakCard({
   const streak = getStreak(data);
 
   return (
-    <Card className="">
+    <Card className="flex-col justify-center ">
       <CardHeader>
         <CardTitle>Current Streak 🔥</CardTitle>
       </CardHeader>
@@ -60,7 +60,7 @@ export default async function StreakCard({
         <p className="font-black text-4xl">{streak}</p>
       </CardContent>
       <CardFooter>
-        <p>Days</p>
+        <p>{streak === 1 ? "Day" : "Days"}</p>
       </CardFooter>
     </Card>
   );
