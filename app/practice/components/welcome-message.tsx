@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
-import resetTestAccount from "../actions/resetTestAccount";
+import resetTestAccount from "../actions/reset-test-account";
 import { Button } from "@/components/ui/button";
 import { useFormState } from "react-dom";
 import { toast } from "sonner";

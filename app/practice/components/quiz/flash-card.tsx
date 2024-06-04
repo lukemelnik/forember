@@ -5,7 +5,7 @@ import DeleteFragmentInQuiz from "./delete-fragment-in-quiz";
 import FlashCardWrapper from "./flashcard-wrapper";
 import FragmentQuestion from "./fragment-question";
 import FragmentAnswer from "./fragment-answer";
-import QuizActions from "./quiz-actions";
+import QuizActions from "./quiz-buttons";
 
 export default function FlashCard({
   fragment,
@@ -24,7 +24,11 @@ export default function FlashCard({
 
   return (
     <FlashCardWrapper setIsFlipped={setIsFlipped} isFlipped={isFlipped}>
-      <DeleteFragmentInQuiz fragment={fragment} />
+      <DeleteFragmentInQuiz
+        fragment={fragment}
+        handleDelete={handleDelete}
+        setIsFlipped={setIsFlipped}
+      />
       {!isFlipped ? (
         <FragmentQuestion fragment={fragment} />
       ) : (

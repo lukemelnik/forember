@@ -28,7 +28,7 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { revalidatePath } from "next/cache";
-import revalidatePracticePage from "../actions/revalidatePracticePage";
+import revalidatePracticePage from "../actions/revalidate-practice-page";
 
 // generated fragments are given a simple temporary id for displaying to the user that will be replaced when its saved in the db
 export type TemporaryFragment = {

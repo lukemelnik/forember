@@ -1,13 +1,13 @@
 "use client";
 
 import { useFormState } from "react-dom";
-import { createFragment } from "../actions/createFragment";
+import { createFragment } from "../actions/create-fragment";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
-import { updateProfile } from "../actions/updateProfile";
+import { updateProfile } from "../actions/update-profile";
 import { set } from "zod";
 
 export default function UpdateProfileForm() {

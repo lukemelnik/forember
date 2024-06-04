@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import React from "react";
-import signOut from "../actions/signOut";
+import signOut from "../actions/sign-out";
 import { createClient } from "@/utils/supabase/server";
 
 export default async function UserInfoAndSignOut() {

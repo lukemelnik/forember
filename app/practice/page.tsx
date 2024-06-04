@@ -4,7 +4,7 @@ import PracticeDialog from "./components/quiz/quiz-dialog";
 import LearningDashboard from "./components/dashboard/dashboard";
 import { revalidatePath } from "next/cache";
 import { Button } from "@/components/ui/button";
-import resetTestAccount from "./actions/resetTestAccount";
+import resetTestAccount from "./actions/reset-test-account";
 import WelcomeMessage from "./components/welcome-message";
 
 export default async function PracticePage() {

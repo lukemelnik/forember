@@ -16,13 +16,13 @@ import TrashIcon from "@/components/trash-icon";
 
 export default function DeleteFragmentInQuiz({
   fragment,
+  handleDelete,
+  setIsFlipped,
 }: {
   fragment: Fragment;
+  handleDelete: (id: string) => void;
+  setIsFlipped: (value: boolean) => void;
 }) {
-  function handleDelete(id: string) {
-    throw new Error("Function not implemented.");
-  }
-
   return (
     <div className="absolute top-5 right-3">
       <AlertDialog>
@@ -48,6 +48,7 @@ export default function DeleteFragmentInQuiz({
                 deleteFragment(fragment);
                 // deletes the fragment in the client state
                 handleDelete(fragment.id);
+                setIsFlipped(false);
               }}
             >
               Delete Fragment
