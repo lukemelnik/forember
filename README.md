@@ -151,7 +151,7 @@ const filteredFragments = fragments.filter((fragment) => {
 
 ```js
 <Link
-  className="relative after:absolute hover:after:bg-zinc-100 content-none after:left-0 after:w-[0%] hover:after:w-[100%] hover:after:top-7 hover:after:h-[3px] hover:text-zinc-100 after:duration-300 transition-all"
+  className="relative transition-all content-none after:absolute after:left-0 after:w-[0%] after:duration-300 hover:text-zinc-100 hover:after:top-7 hover:after:h-[3px] hover:after:w-[100%] hover:after:bg-zinc-100"
   href="/learn"
 >
   Learn
@@ -196,7 +196,7 @@ if (!notes) {
     { error: "Please enter notes before generating." },
     {
       status: 400,
-    }
+    },
   );
 }
 ```
@@ -221,4 +221,4 @@ if (!notes) {
 
 24. An empty array is truthy!
 
-25. Server Components and Time: Once deployed on Vercel my dashboard was showing the wrong time in the welcome message - it's because it was server generated and when the date function ran it used the time at the location of the server. Fixed by moving it to the client.
+25. Server Components and Time: Once deployed on Vercel my dashboard was showing the wrong time in the welcome message - it's because it was server generated and when the date function ran it used the time at the location of the server. Fixed by moving it to the client. Same issue with the db when using it's default created_at dates. Better to add the date from the client.

@@ -11,9 +11,6 @@ import {
 } from "@/components/ui/dialog";
 import React, { useEffect, useState } from "react";
 import Quiz from "./quiz";
-import { createClient } from "@/utils/supabase/client";
-import revalidatePracticePage from "../../actions/revalidate-practice-page";
-import { logSession } from "../../actions/add-session";
 import { usePracticeDialog } from "@/app/custom-hooks/usePracticeDialog";
 
 export default function PracticeDialog() {

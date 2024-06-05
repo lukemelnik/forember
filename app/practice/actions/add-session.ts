@@ -1,10 +1,11 @@
 "use server";
 
 import { createClient } from "@/utils/supabase/server";
+import { format } from "date-fns";
 
 export async function logSession(
   startTime: Date,
-  testScore: { right: number; wrong: number }
+  testScore: { right: number; wrong: number },
 ) {
   const endTime = new Date();
 
@@ -13,7 +14,7 @@ export async function logSession(
     return;
   }
   const session_score = Math.round(
-    (testScore.right / (testScore.right + testScore.wrong)) * 100
+    (testScore.right / (testScore.right + testScore.wrong)) * 100,
   );
 
   const session_duration = endTime.getTime() - startTime.getTime();
@@ -37,6 +38,7 @@ export async function logSession(
         session_score,
         right_answers: testScore.right,
         total_questions,
+        created_at: format(new Date(), "yyyy-MM-dd"),
       },
     ]);
   } catch (error) {
