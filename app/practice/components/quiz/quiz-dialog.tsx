@@ -9,14 +9,15 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import React, { useContext, useEffect, useState } from "react";
 import Quiz from "./quiz";
-import { usePracticeDialog } from "@/app/custom-hooks/usePracticeDialog";
-import QuizContextProvider, { QuizContext } from "@/app/contexts/QuizContext";
+import QuizContextProvider, {
+  QuizContext,
+  useQuizContext,
+} from "@/app/contexts/QuizContext";
 
 export default function QuizDialog() {
   const { open, setOpen, testScore, addRightAnswer, addWrongAnswer } =
-    useContext(QuizContext);
+    useQuizContext();
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>

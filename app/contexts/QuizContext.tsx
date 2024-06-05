@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext } from "react";
+import { createContext, useContext } from "react";
 import { usePracticeDialog } from "../custom-hooks/usePracticeDialog";
 
 export const QuizContext = createContext(null);
@@ -19,4 +19,12 @@ export default function QuizContextProvider({
       {children}
     </QuizContext.Provider>
   );
+}
+
+export function useQuizContext() {
+  const context = useContext(QuizContext);
+  if (context === undefined) {
+    throw new Error("useQuizContext must be used within a QuizContextProvider");
+  }
+  return context;
 }
