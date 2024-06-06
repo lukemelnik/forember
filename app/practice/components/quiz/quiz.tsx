@@ -2,7 +2,6 @@
 import FlashCard from "./flash-card";
 import { Progress } from "@/components/ui/progress";
 import QuizFinished from "./quiz-finished";
-import { useFragmentsQuizState } from "@/app/custom-hooks/useFragmentsQuizState";
 import QuizContainer from "./quiz-container";
 import { useQuizContext } from "@/app/contexts/QuizContext";
 

@@ -1,6 +1,5 @@
 "use client";
 import MagicWandIcon from "@/components/magic-wand-icon";
-import RocketIcon from "@/components/rocket-icon";
 import { Button } from "@/components/ui/button";
 import {
   Carousel,
@@ -13,11 +12,11 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import React, { useState } from "react";
 import EditableFragment from "../components/editable-fragment";
-import ArrowRightIcon from "@/components/arrow-right-icon";
-import { Skeleton } from "@/components/ui/skeleton";
 import { toast } from "sonner";
-
 import revalidatePracticePage from "../actions/revalidate-practice-page";
+import GenerateInstructionsButton from "../components/create/generate-instructions-button";
+import GenerateLoadingSkeleton from "../components/create/generate-loading-skeleton";
+import CarouselContainer from "../components/create/carousel-container";
 
 // generated fragments are given a simple temporary id for displaying to the user that will be replaced when its saved in the db
 export type TemporaryFragment = {
@@ -30,8 +29,9 @@ export default function AIPage() {
   const [fragments, setFragments] = useState<TemporaryFragment[]>([]);
   const [loading, setLoading] = useState(false);
   const [fetchError, setFetchError] = useState<string | null>(null);
-  const [instructionShow, setInstructionShow] = useState(false);
   const [notes, setNotes] = useState<string>("");
+
+  let fragmentCount = fragments.length;
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -60,7 +60,7 @@ export default function AIPage() {
         const errorData = await response.json();
         const error = errorData.error;
         throw new Error(
-          error || "Failed to generate fragments. Please try again."
+          error || "Failed to generate fragments. Please try again.",
         );
       }
       const data = await response.json();
@@ -83,7 +83,7 @@ export default function AIPage() {
     if (updatedFragments.length === 0) {
       toast(
         "You're all done, head over to the practice page to start learning!",
-        { duration: 2000 }
+        { duration: 2000 },
       );
     }
     revalidatePracticePage();
@@ -91,75 +91,19 @@ export default function AIPage() {
 
   function saveFragment(fragment: TemporaryFragment) {
     const newFragments = fragments.map((f) =>
-      f.id === fragment.id ? fragment : f
+      f.id === fragment.id ? fragment : f,
     );
     setFragments(newFragments);
   }
 
   return (
-    <div className="max-w-2xl md:mt-16 md:ml-20">
+    <div className="max-w-2xl md:ml-20 md:mt-16">
       <h1 className="mb-3">Generate Fragments with AI</h1>
-      <Button
-        variant="outline"
-        className="border-2 border-zinc-300 text-zinc-300 bg-black mb-5 group"
-        onClick={() => setInstructionShow(!instructionShow)}
-      >
-        {instructionShow ? "Hide Instructions" : "Show Instructions"}{" "}
-        <span className={instructionShow ? "rotate-90" : ""}>
-          <ArrowRightIcon />
-        </span>
-      </Button>
-      {instructionShow && (
-        <ul className=" space-y-3 mb-4">
-          <li>
-            <p>Step 1: Enter your notes</p>
-            <p className="italic">
-              * Hot Tip * Include a title that references the source e.g. a book
-              title & author, podcast host etc. to give each fragment more
-              context.
-            </p>
-          </li>
-          <li>Step 2: Generate fragments</li>
-          <li>
-            Step 3: Review the fragments, adding them to your library or editing
-            them first. Delete any you don't want to keep.
-          </li>
-          <li>Step 4: Practice!</li>
-        </ul>
-      )}
-
-      {loading && (
-        <div className="relative">
-          <h2 className="text-2xl font-bold animate-pulse text-zinc-300">
-            Creating your fragments...
-          </h2>
-          <Skeleton className="rounded-full w-8 h-8 absolute -left-12 top-28"></Skeleton>
-          <Skeleton className="rounded-full w-8 h-8 absolute -right-12 top-28"></Skeleton>
-          <Skeleton className="mt-4 border-2 border-zinc-800 rounded-xl p-5 w-[350px] md:w-full bg-black">
-            <Skeleton className="h-20"></Skeleton>
-            <div className="flex justify-between mt-4">
-              <Skeleton className="h-10 w-32"></Skeleton>
-              <div className="flex gap-3">
-                <Skeleton className="h-10 w-20"></Skeleton>
-                <Skeleton className="h-10 w-20"></Skeleton>
-              </div>
-            </div>
-          </Skeleton>
-        </div>
-      )}
-
+      <GenerateInstructionsButton />
+      {loading && <GenerateLoadingSkeleton />}
       {fragments && fragments.length > 0 && (
-        <div className=" text-zinc-300">
-          <div className="flex items-center gap-5">
-            <h2 className="text-2xl font-bold">
-              {fragments.length} fragments created
-            </h2>
-            {/* I've realized it's going to be way more complex to validate all of them at once while doing useful error handling & displaying for the user. Will have to suss this out after. */}
-            {/* <Button variant="outline" className="bg-zinc-300 text-black">
-              ADD ALL
-            </Button> */}
-          </div>
-          <Carousel className="mt-4 border-2 border-zinc-300 rounded-xl p-5 w-[350px] md:w-full">
+        <CarouselContainer fragmentCount={fragmentCount}>
+          <Carousel className="mt-4 w-[350px] rounded-xl border-2 border-zinc-300 p-5 md:w-full">
             <CarouselContent>
               {fragments.map((fragment) => (
                 <CarouselItem key={fragment.question}>
@@ -174,49 +118,49 @@ export default function AIPage() {
             <CarouselPrevious className="text-black" />
             <CarouselNext className="text-black" />
           </Carousel>
-        </div>
+        </CarouselContainer>
       )}
       <form
         onSubmit={handleSubmit}
         className={
-          "min-w-2xl rounded flex flex-col items-left gap-2 max-w-2xl text-zinc-950 my-10"
+          "min-w-2xl items-left my-10 flex max-w-2xl flex-col gap-2 rounded text-zinc-950"
         }
       >
         {/* made this label for screen readers only */}
         <Label
-          className="text-2xl font-bold text-zinc-300 sr-only"
+          className="sr-only text-2xl font-bold text-zinc-300"
           htmlFor="notes"
         >
           Enter Your Notes
         </Label>
 
-        <div className="relative z-0 group mt-1">
+        <div className="group relative z-0 mt-1">
           <Button
             disabled={loading || notes?.length > 15000}
             className={
-              `bg-zinc-300 hover:bg-zinc-100 py-6 w-full text-md` +
-              (loading && " animate-pulse")
+              `text-md w-full bg-zinc-300 py-6 hover:bg-zinc-100` +
+              (loading && "animate-pulse")
             }
             type="submit"
           >
             {loading ? "Generating..." : "Generate Fragments"}{" "}
-            <span className="ml-2 group-hover:scale-105 group-hover:rotate-3 group-hover:translate-x-1 duration-300">
+            <span className="ml-2 duration-300 group-hover:translate-x-1 group-hover:rotate-3 group-hover:scale-105">
               <MagicWandIcon />
             </span>
           </Button>
 
           {fetchError && (
-            <h2 className="bg-red-500 p-3 mt-4 rounded-xl">{fetchError}</h2>
+            <h2 className="mt-4 rounded-xl bg-red-500 p-3">{fetchError}</h2>
           )}
         </div>
         {/* check that the number of tokens doesn't exceed 4000 for sending to the ai model. ~4 characters is a token so the number of characters can't exceed 16000, subtract 1000 for a safety factor */}
         {notes && notes.length <= 15000 && (
-          <p className="text-zinc-300 mt-4">
+          <p className="mt-4 text-zinc-300">
             <strong>{notes?.length}/15000</strong> Characters
           </p>
         )}
         {notes && notes.length > 15000 && (
-          <p className="text-red-500 mt-4">
+          <p className="mt-4 text-red-500">
             <strong>{notes?.length}/15000</strong> Character length exceeded.
             Please split the note up into smaller pieces so they can be
             processed by the model.
@@ -224,7 +168,7 @@ export default function AIPage() {
         )}
         <Textarea
           disabled={loading}
-          className="bg-black text-zinc-300 min-h-[800px] mt-5 text-md p-5"
+          className="text-md mt-5 min-h-[800px] bg-black p-5 text-zinc-300"
           id="notes"
           name="notes"
           placeholder="Enter your notes here and our AI will turn them into knowledge fragments."
