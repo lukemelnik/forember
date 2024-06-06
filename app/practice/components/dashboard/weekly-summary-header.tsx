@@ -59,9 +59,11 @@ export default async function WeeklySummaryHeader() {
         <CurrentDate />
         {fragments?.length === 0 && sessions?.length === 0 ? (
           <div className="group relative z-0 max-w-[300px]">
-            <Button className="z-0 w-full bg-zinc-100 p-6 text-lg text-black transition-all duration-300 group-hover:scale-105">
-              <Link href="/practice/ai">Add Fragments</Link>
-            </Button>
+            <Link href="/practice/create">
+              <Button className="z-0 w-full bg-zinc-100 p-6 text-lg text-black transition-all duration-300 group-hover:scale-105">
+                Add Fragments
+              </Button>
+            </Link>
             <div className="absolute inset-0 -z-10 scale-105 bg-pink-500/70 blur-lg duration-300 group-hover:scale-110 group-hover:bg-pink-500 group-hover:blur-xl"></div>
           </div>
         ) : (

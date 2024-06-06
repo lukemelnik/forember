@@ -42,7 +42,9 @@ export default function WeeklySummaryGreeting({
         // for first time visitors
         <p className="pt-2 font-thin">
           No fragments to review yet -{" "}
-          <Link href="/practice/ai">time to start adding some knowledge!</Link>{" "}
+          <Link href="/practice/create">
+            time to start adding some knowledge!
+          </Link>{" "}
         </p>
       )}
     </div>
