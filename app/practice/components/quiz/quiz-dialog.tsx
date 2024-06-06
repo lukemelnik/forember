@@ -13,12 +13,23 @@ import Quiz from "./quiz";
 import QuizContextProvider, {
   useQuizContext,
 } from "@/app/contexts/QuizContext";
+import { getFragmentsClient } from "@/lib/get-fragments-client";
+import { useEffect } from "react";
 
 export default function QuizDialog() {
   const {
-    state: { open, startTime, testScore },
+    state: { open, loading },
     dispatch,
   } = useQuizContext();
+
+  // load data here because triggering a page revalidation doesn't cause client components to re-render. Refetch fragments on every dialog status change.
+  useEffect(() => {
+    async function getFragmnents() {
+      let fragments = await getFragmentsClient();
+      dispatch({ type: "data loaded", payload: fragments });
+    }
+    getFragmnents();
+  }, [open]);
 
   return (
     <Dialog
@@ -43,7 +54,7 @@ export default function QuizDialog() {
         <DialogHeader>
           <DialogTitle className="text-zinc-300">Daily Quiz</DialogTitle>
         </DialogHeader>
-        <Quiz />
+        {!loading && <Quiz />}
         <DialogFooter className="sm:justify-start">
           <DialogClose asChild>
             <Button type="button" variant="outline" className="bg-zinc-300">

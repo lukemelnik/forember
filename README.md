@@ -222,3 +222,5 @@ if (!notes) {
 24. An empty array is truthy!
 
 25. Server Components and Time: Once deployed on Vercel my dashboard was showing the wrong time in the welcome message - it's because it was server generated and when the date function ran it used the time at the location of the server. Fixed by moving it to the client. Same issue with the db when using it's default created_at dates. Better to add the date from the client.
+
+26. Cache, Revalidation - revalidating a page doesn't mean that all client components will re-render. I was feeding data to a context provider for the quiz from a parent server component, then expecting the data in context provider to update when the page revalidates. It was actually holding on to stale data because it hadn't rerendered. Solution to sync it all up was to fetch specifically in the context provider.

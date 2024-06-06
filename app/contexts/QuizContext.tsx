@@ -1,9 +1,10 @@
 "use client";
 
-import { createContext, useContext, useReducer } from "react";
+import { createContext, useContext, useEffect, useReducer } from "react";
 import { Fragment } from "../practice/components/quiz/quiz";
 import { logSession } from "../practice/actions/add-session";
 import revalidatePracticePage from "../practice/actions/revalidate-practice-page";
+import { getFragmentsClient } from "@/lib/get-fragments-client";
 
 // function for logging the session and revalidating the practice page
 async function practiceDialogChange(startTime: Date, testScore: TestScore) {
@@ -18,6 +19,7 @@ type TestScore = {
 
 type QuizState = {
   open: boolean;
+  loading: boolean;
   testScore: TestScore;
   fragments: Fragment[];
   startTime: Date | null;
@@ -32,6 +34,7 @@ type ReducerAction = {
 
 const initialState: QuizState = {
   open: false,
+  loading: true,
   testScore: { right: 0, wrong: 0 },
   fragments: [],
   startTime: null,
@@ -40,8 +43,19 @@ const initialState: QuizState = {
 };
 const reducer = (state: QuizState, action: ReducerAction): QuizState => {
   switch (action.type) {
+    case "data loaded":
+      return {
+        ...state,
+        fragments: action.payload,
+        loading: false,
+      };
     case "open dialog":
-      return { ...state, open: true, startTime: new Date() };
+      // starts data fetch via useEffect. Will trigger 'data loaded' when finished and allow the quiz to render
+      return {
+        ...state,
+        open: true,
+        startTime: new Date(),
+      };
     case "close dialog":
       if (state.startTime) {
         practiceDialogChange(state.startTime, state.testScore);
@@ -115,13 +129,11 @@ export const QuizContext = createContext<{
 
 export default function QuizContextProvider({
   children,
-  fragments,
 }: {
   children: React.ReactNode;
-  fragments: Fragment[];
 }) {
-  // I fetched the fragments in the parent component and we're adding them to the reducer here
-  const [state, dispatch] = useReducer(reducer, { ...initialState, fragments });
+  const [state, dispatch] = useReducer(reducer, { ...initialState });
+
   return (
     <QuizContext.Provider value={{ state, dispatch }}>
       {children}

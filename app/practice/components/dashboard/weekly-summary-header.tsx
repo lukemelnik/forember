@@ -7,6 +7,7 @@ import CurrentDate from "./current-date";
 import QuizDialog from "../quiz/quiz-dialog";
 import QuizContextProvider from "@/app/contexts/QuizContext";
 import WeeklySummaryGreeting from "./weekly-summary-greeting";
+import { getFragmentsServer } from "@/lib/get-fragments-server";
 
 export default async function WeeklySummaryHeader() {
   const supabase = createClient();
@@ -15,36 +16,7 @@ export default async function WeeklySummaryHeader() {
     .from("practice_session")
     .select("*");
 
-  async function getFragments() {
-    console.log("FETCHING FRAGMENTS");
-    const { data: fragments, error } = await supabase
-      .from("fragment")
-      .select("*")
-      .eq("is_complete", false);
-    if (error) {
-      console.log(error);
-    }
-    if (!fragments) return;
-
-    // conditions for showing the fragment:
-    // 1. if the fragment has never been shown
-    // 2. if the fragment has been shown and the next show date is today
-    // 3. if the fragment has been shown and the next show date is in the past (i.e. user missed a day)
-    // this should actually be moved to the db query, but I'm doing it here for now
-    const filteredFragments = fragments.filter((fragment) => {
-      const fragmentNextShowDay = startOfDay(new Date(fragment.next_show_date));
-      const today = startOfDay(new Date());
-      return (
-        fragmentNextShowDay.getTime() === today.getTime() ||
-        fragment.last_shown_at === null ||
-        isPast(fragmentNextShowDay)
-      );
-    });
-
-    // Don't forget to set this to 'filteredFragments' after doing development testing
-    return filteredFragments;
-  }
-  let fragments = await getFragments();
+  let fragments = await getFragmentsServer();
   if (!fragments) {
     fragments = [];
   }
@@ -68,7 +40,7 @@ export default async function WeeklySummaryHeader() {
             <div className="absolute inset-0 -z-10 scale-105 bg-pink-500/70 blur-lg duration-300 group-hover:scale-110 group-hover:bg-pink-500 group-hover:blur-xl"></div>
           </div>
         ) : (
-          <QuizContextProvider fragments={fragments}>
+          <QuizContextProvider>
             {" "}
             <QuizDialog />
           </QuizContextProvider>
