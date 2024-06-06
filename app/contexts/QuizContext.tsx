@@ -48,8 +48,6 @@ const reducer = (state: QuizState, action: ReducerAction): QuizState => {
       }
       return {
         ...state,
-        // remove the fragments that have been reviewed, otherwise they'll show up again. They're fetched in the parent server component, meaning they persist untill the page is refreshed.
-        fragments: state.fragments.slice(state.questionNumber),
         open: false,
         testScore: { right: 0, wrong: 0 },
         quizOver: false,
