@@ -48,6 +48,8 @@ const reducer = (state: QuizState, action: ReducerAction): QuizState => {
       }
       return {
         ...state,
+        // remove the fragments that have been reviewed, otherwise they'll show up again. They're fetched in the parent server component, meaning they persist untill the page is refreshed.
+        fragments: state.fragments.slice(state.questionNumber),
         open: false,
         testScore: { right: 0, wrong: 0 },
         quizOver: false,
@@ -58,7 +60,7 @@ const reducer = (state: QuizState, action: ReducerAction): QuizState => {
         return {
           ...state,
           fragments: state.fragments.filter(
-            (fragment: Fragment) => fragment.id !== action.payload,
+            (fragment) => fragment.id !== action.payload,
           ),
           quizOver: true,
         };
@@ -66,7 +68,7 @@ const reducer = (state: QuizState, action: ReducerAction): QuizState => {
       return {
         ...state,
         fragments: state.fragments.filter(
-          (fragment: Fragment) => fragment.id !== action.payload,
+          (fragment) => fragment.id !== action.payload,
         ),
       };
     case "right answer":
@@ -74,6 +76,9 @@ const reducer = (state: QuizState, action: ReducerAction): QuizState => {
       if (state.questionNumber === state.fragments.length - 1) {
         return {
           ...state,
+          fragments: state.fragments.filter(
+            (fragment) => fragment.id !== action.payload,
+          ),
           quizOver: true,
           testScore: { ...state.testScore, right: state.testScore.right + 1 },
         };
@@ -88,6 +93,9 @@ const reducer = (state: QuizState, action: ReducerAction): QuizState => {
       if (state.questionNumber === state.fragments.length - 1) {
         return {
           ...state,
+          fragments: state.fragments.filter(
+            (fragment) => fragment.id !== action.payload,
+          ),
           quizOver: true,
           testScore: { ...state.testScore, wrong: state.testScore.wrong + 1 },
         };

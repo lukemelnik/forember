@@ -19,7 +19,7 @@ export default function QuizButtons({
       <Button
         onClick={() => {
           increaseInterval(fragment);
-          dispatch({ type: "right answer" });
+          dispatch({ type: "right answer", payload: fragment.id });
           handleFlip();
         }}
         className="group bg-green-500 shadow-md transition-all duration-300 hover:scale-105 hover:bg-green-400"
@@ -32,7 +32,7 @@ export default function QuizButtons({
       <Button
         onClick={() => {
           resetInterval(fragment.id);
-          dispatch({ type: "wrong answer" });
+          dispatch({ type: "wrong answer", payload: fragment.id });
           handleFlip();
         }}
         className="group bg-red-500 shadow-md transition-all duration-300 hover:scale-105 hover:bg-red-400"
