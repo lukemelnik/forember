@@ -1,10 +1,6 @@
 import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
-import PracticeDialog from "./components/quiz/quiz-dialog";
 import LearningDashboard from "./components/dashboard/dashboard";
-import { revalidatePath } from "next/cache";
-import { Button } from "@/components/ui/button";
-import resetTestAccount from "./actions/reset-test-account";
 import WelcomeMessage from "./components/welcome-message";
 
 export default async function PracticePage() {
@@ -19,7 +15,7 @@ export default async function PracticePage() {
 
   return (
     <>
-      <div className="p-1 md:pt-10 md:px-16 space-y-10">
+      <div className="space-y-10 p-1 md:px-16 md:pt-10">
         {user.email === "test@test.com" && <WelcomeMessage />}
         <LearningDashboard />
       </div>
