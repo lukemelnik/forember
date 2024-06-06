@@ -8,11 +8,11 @@ import { format, isThisWeek, isYesterday, startOfDay } from "date-fns";
 export function getRecallAverage(sessions: DailySession[]) {
   const totalRight = sessions.reduce(
     (acc, session) => acc + session.total_right_answers,
-    0
+    0,
   );
   const totalQuestions = sessions.reduce(
     (acc, session) => acc + session.total_questions,
-    0
+    0,
   );
   if (totalQuestions === 0) return "";
   return Math.round((totalRight / totalQuestions) * 100);
@@ -29,7 +29,7 @@ export function getWeeklyRecallAverage(sessions: DailySession[]) {
 
 export function getPracticeTotal(sessions: Session[]) {
   const totalInMs = Math.round(
-    sessions.reduce((acc, session) => acc + session.session_duration, 0)
+    sessions.reduce((acc, session) => acc + session.session_duration, 0),
   );
   // convert to minutes
   return Math.round(totalInMs / (1000 * 60));
@@ -38,7 +38,7 @@ export function getPracticeTotal(sessions: Session[]) {
 export function getAverageFragmentsReviewed(dailySessions: Session[]) {
   const totalFragmentsReviewed = dailySessions.reduce(
     (acc, session) => acc + session.total_questions,
-    0
+    0,
   );
   if (totalFragmentsReviewed === 0) return 0;
   return Math.round(totalFragmentsReviewed / dailySessions.length);
@@ -58,7 +58,6 @@ export function getStreak(sessionDates: { session_date: string }[]) {
   // MUST CONVERT FROM AN OBJECT TO A STRING or they won't be equivalent
   if (mostRecentSession.getTime() === todayWithTime.getTime()) {
     streak = 1;
-    console.log("did a session today, streak is 1");
   }
 
   for (let i = 0; i < sessionDates.length - 1; i++) {
@@ -69,16 +68,16 @@ export function getStreak(sessionDates: { session_date: string }[]) {
     if (dateDifference === MILLISECONDS_PER_DAY) {
       streak++;
     } else {
-      console.log("Date difference: ", dateDifference, "Streak: ", streak);
       return streak;
     }
   }
+  return streak;
 }
 
 export function calculateUserData(sessions: DailySession[], timeframe: number) {
   const userData = sessions.slice(-timeframe).map((session) => {
     const recallPerecentage = Math.round(
-      (session.total_right_answers / session.total_questions) * 100
+      (session.total_right_answers / session.total_questions) * 100,
     );
     return {
       ...session,

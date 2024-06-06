@@ -5,8 +5,6 @@ import { Fragment } from "../practice/components/quiz/quiz";
 import { logSession } from "../practice/actions/add-session";
 import revalidatePracticePage from "../practice/actions/revalidate-practice-page";
 
-export const QuizContext = createContext(null);
-
 // function for logging the session and revalidating the practice page
 async function practiceDialogChange(startTime: Date, testScore: TestScore) {
   await logSession(startTime, testScore);
@@ -40,7 +38,7 @@ const initialState: QuizState = {
   questionNumber: 0,
   quizOver: false,
 };
-const reducer = (state: QuizState, action: ReducerAction) => {
+const reducer = (state: QuizState, action: ReducerAction): QuizState => {
   switch (action.type) {
     case "open dialog":
       return { ...state, open: true, startTime: new Date() };
@@ -88,10 +86,17 @@ const reducer = (state: QuizState, action: ReducerAction) => {
       return {
         ...state,
         questionNumber: state.questionNumber + 1,
-        testScore: { ...state.testScore, wront: state.testScore.wrong + 1 },
+        testScore: { ...state.testScore, wrong: state.testScore.wrong + 1 },
       };
+    default:
+      throw new Error("Invalid action type");
   }
 };
+
+export const QuizContext = createContext<{
+  state: QuizState;
+  dispatch: React.Dispatch<ReducerAction>;
+}>({ state: initialState, dispatch: () => undefined });
 
 export default function QuizContextProvider({
   children,

@@ -38,8 +38,6 @@ export default async function StreakCard({
     .select("session_date")
     .eq("user_id", user.id);
 
-  console.log("DATES", data);
-
   if (error) {
     console.log(error);
   }
@@ -48,16 +46,15 @@ export default async function StreakCard({
     return "Loading...";
   }
 
-  // this is probably something that should be added to the user's profile so that it can be displayed publicly and not just in the dashboard
   const streak = getStreak(data);
 
   return (
-    <Card className="flex-col justify-center  ">
+    <Card className="flex-col justify-center">
       <CardHeader>
         <CardTitle>Current Streak 🔥</CardTitle>
       </CardHeader>
       <CardContent>
-        <p className="font-black text-4xl">{streak}</p>
+        <p className="text-4xl font-black">{streak}</p>
       </CardContent>
       <CardFooter>
         <p>{streak === 1 ? "Day" : "Days"}</p>
