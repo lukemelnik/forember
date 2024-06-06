@@ -54,6 +54,15 @@ const reducer = (state: QuizState, action: ReducerAction): QuizState => {
         questionNumber: 0,
       };
     case "delete fragment":
+      if (state.questionNumber === state.fragments.length - 1) {
+        return {
+          ...state,
+          fragments: state.fragments.filter(
+            (fragment: Fragment) => fragment.id !== action.payload,
+          ),
+          quizOver: true,
+        };
+      }
       return {
         ...state,
         fragments: state.fragments.filter(

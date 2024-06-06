@@ -16,6 +16,7 @@ export default async function WeeklySummaryHeader() {
     .select("*");
 
   async function getFragments() {
+    console.log("FETCHING FRAGMENTS");
     const { data: fragments, error } = await supabase
       .from("fragment")
       .select("*")

@@ -21,10 +21,12 @@ export default function Quiz() {
 
   // calculate progress for progress bar
   const progress = Math.round((questionNumber / fragments.length) * 100);
+  // calculate total questions so that confetti doesn't show if no questions have been completed.
+  const totalQuestions = testScore.right + testScore.wrong;
 
   return (
     <>
-      {quizOver ? (
+      {quizOver && totalQuestions > 0 ? (
         <QuizFinished />
       ) : (
         <QuizContainer>
