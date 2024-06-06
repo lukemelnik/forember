@@ -3,6 +3,7 @@
 import { createClient } from "@/utils/supabase/server";
 import { addDays } from "date-fns";
 import { Fragment } from "../components/quiz/quiz";
+import { toast } from "sonner";
 
 export async function increaseInterval(fragment: Fragment) {
   const increasedInterval = fragment.interval + 1;
@@ -47,13 +48,13 @@ export async function resetInterval(id: string) {
 
 export async function deleteFragment(fragment: Fragment) {
   const supabase = createClient();
-  const { error } = await supabase
-    .from("fragment")
-    .delete()
-    .eq("id", fragment.id);
-  // add toast
-
-  if (error) {
+  try {
+    const { error } = await supabase
+      .from("fragment")
+      .delete()
+      .eq("id", fragment.id);
+    toast("Fragment deleted 🗑️", { duration: 2000 });
+  } catch (error) {
     console.log(error);
   }
 }

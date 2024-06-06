@@ -47,7 +47,7 @@ export default function FragmentDeleteDialog({
                 // deletes the fragment in the database
                 deleteFragment(fragment);
                 // deletes the fragment in the client state
-                dispatch({ type: "delete fragment" });
+                dispatch({ type: "delete fragment", payload: fragment.id });
                 setIsFlipped(false);
               }}
             >

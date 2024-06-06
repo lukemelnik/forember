@@ -4,13 +4,15 @@ import DeleteFragmentInQuiz from "./fragment-delete-dialog";
 import FragmentQuestion from "./fragment-question";
 import FragmentAnswer from "./fragment-answer";
 import { useQuizContext } from "@/app/contexts/QuizContext";
-import QuizButtons from "./quiz-buttons";
+import QuizButtons from "./flashcard-buttons";
 import FlashCardContainer from "./flashcard-container";
 import FragmentDeleteDialog from "./fragment-delete-dialog";
 
-export default function FlashCard({ children }: { children: React.ReactNode }) {
+export default function FlashCard() {
   const [isFlipped, setIsFlipped] = useState(false);
-  const { fragments, questionNumber } = useQuizContext();
+  const {
+    state: { fragments, questionNumber },
+  } = useQuizContext();
 
   function handleFlip() {
     setIsFlipped(!isFlipped);

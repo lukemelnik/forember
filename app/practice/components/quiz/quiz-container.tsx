@@ -7,7 +7,9 @@ export default function QuizContainer({
 }: {
   children: React.ReactNode;
 }) {
-  const { fragments, questionNumber } = useQuizContext();
+  const {
+    state: { fragments, questionNumber },
+  } = useQuizContext();
   return (
     <div className="text-zinc-300">
       {fragments.length === 0 ? (

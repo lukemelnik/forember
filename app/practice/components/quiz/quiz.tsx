@@ -18,12 +18,14 @@ export default function Quiz() {
   const {
     state: { fragments, questionNumber, quizOver, testScore },
   } = useQuizContext();
+
+  // calculate progress for progress bar
   const progress = Math.round((questionNumber / fragments.length) * 100);
 
   return (
     <>
       {quizOver ? (
-        <QuizFinished testScore={testScore} />
+        <QuizFinished />
       ) : (
         <QuizContainer>
           <Progress value={progress} className="mb-5 bg-zinc-300" />

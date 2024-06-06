@@ -11,30 +11,15 @@ import {
 } from "@/components/ui/dialog";
 import Quiz from "./quiz";
 import QuizContextProvider, {
-  QuizContext,
   useQuizContext,
 } from "@/app/contexts/QuizContext";
-import { useEffect } from "react";
 
 export default function QuizDialog() {
-  useEffect(() => {
-    async function practiceDialogChange() {
-      if (open) {
-        setStartTime(new Date());
-      } else {
-        if (!startTime) return;
-        await logSession(startTime, testScore);
-        setTestScore({ right: 0, wrong: 0 });
-        setStartTime(null);
-        revalidatePracticePage();
-      }
-    }
-    practiceDialogChange();
-  }, [open]);
   const {
-    state: { open, startTime },
+    state: { open, startTime, testScore },
     dispatch,
   } = useQuizContext();
+
   return (
     <Dialog
       open={open}

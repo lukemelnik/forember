@@ -13,21 +13,10 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import React, { useState } from "react";
 import EditableFragment from "../components/editable-fragment";
-import { set } from "date-fns";
 import ArrowRightIcon from "@/components/arrow-right-icon";
 import { Skeleton } from "@/components/ui/skeleton";
 import { toast } from "sonner";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
-import { revalidatePath } from "next/cache";
+
 import revalidatePracticePage from "../actions/revalidate-practice-page";
 
 // generated fragments are given a simple temporary id for displaying to the user that will be replaced when its saved in the db

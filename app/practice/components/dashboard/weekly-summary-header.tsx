@@ -67,7 +67,7 @@ export default async function WeeklySummaryHeader() {
         ) : (
           <QuizContextProvider fragments={fragments}>
             {" "}
-            {/* <QuizDialog /> */}
+            <QuizDialog />
           </QuizContextProvider>
         )}
       </div>
