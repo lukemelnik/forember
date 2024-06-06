@@ -18,7 +18,7 @@ export default function QuizButtons({
         onClick={() => {
           increaseInterval(fragment);
           handleRightAnswer();
-          handleClick();
+          handleFlip();
         }}
         className="group bg-green-500 shadow-md transition-all duration-300 hover:scale-105 hover:bg-green-400"
       >

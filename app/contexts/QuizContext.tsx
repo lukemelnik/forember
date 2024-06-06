@@ -22,6 +22,10 @@ const reducer (state, action) => {
       return { ...state, open: false, testScore: {right: 0, wrong: 0} };
      case 'delete fragment': 
       return { ...state, fragments: state.fragments.filter((fragment: Fragment) => fragment.id !== action.payload.id) };
+    case 'right answer':
+      return { ...state, questionNumber: state.questionNumber + 1, testScore: { ...state.testScore, right: state.testScore.right + 1 } };
+    case 'wrong answer':
+      return {...state, questionNumber: state.questionNumber + 1, testScore: {...state.testScore, wront: state.testScore.wrong + 1}}
   }
 
 }
