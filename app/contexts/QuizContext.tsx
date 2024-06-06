@@ -23,8 +23,16 @@ const reducer (state, action) => {
      case 'delete fragment': 
       return { ...state, fragments: state.fragments.filter((fragment: Fragment) => fragment.id !== action.payload.id) };
     case 'right answer':
+      // first check if you're at the end of the quiz
+      if(state.questionNumber === state.fragments.length - 1) {
+        return { ...state, quizOver: true, testScore: { ...state.testScore, right: state.testScore.right + 1 } };
+      }
       return { ...state, questionNumber: state.questionNumber + 1, testScore: { ...state.testScore, right: state.testScore.right + 1 } };
     case 'wrong answer':
+      // first check if you're at the end of the quiz
+      if (state.questionNumber === state.fragments.length - 1) {
+        return { ...state, quizOver: true, testScore: {...state.testScore, wrong: state.testScore.wrong + 1}}
+      }
       return {...state, questionNumber: state.questionNumber + 1, testScore: {...state.testScore, wront: state.testScore.wrong + 1}}
   }
 

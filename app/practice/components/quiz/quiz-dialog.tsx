@@ -14,14 +14,38 @@ import QuizContextProvider, {
   QuizContext,
   useQuizContext,
 } from "@/app/contexts/QuizContext";
+import { useEffect } from "react";
 
 export default function QuizDialog() {
+  useEffect(() => {
+    async function practiceDialogChange() {
+      if (open) {
+        setStartTime(new Date());
+      } else {
+        if (!startTime) return;
+        await logSession(startTime, testScore);
+        setTestScore({ right: 0, wrong: 0 });
+        setStartTime(null);
+        revalidatePracticePage();
+      }
+    }
+    practiceDialogChange();
+  }, [open]);
+  const {
+    state: { open, startTime },
+    dispatch,
+  } = useQuizContext();
   return (
-    <Dialog open={open} onOpenChange={(open) => {
-      if (!open) {
-        dispatch({ type: "close dialog" });
-      
-    })}>
+    <Dialog
+      open={open}
+      onOpenChange={(open) => {
+        if (!open) {
+          dispatch({ type: "close dialog" });
+        } else {
+          dispatch({ type: "open dialog" });
+        }
+      }}
+    >
       <DialogTrigger asChild>
         <div className="group relative z-0 max-w-[300px]">
           <Button className="z-0 w-full bg-zinc-100 p-6 text-lg text-black transition-all duration-300 group-hover:scale-105">

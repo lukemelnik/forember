@@ -13,16 +13,16 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import TrashIcon from "@/components/trash-icon";
+import { useQuizContext } from "@/app/contexts/QuizContext";
 
 export default function FragmentDeleteDialog({
   fragment,
-  handleDelete,
   setIsFlipped,
 }: {
   fragment: Fragment;
-  handleDelete: (id: string) => void;
   setIsFlipped: (value: boolean) => void;
 }) {
+  const { dispatch } = useQuizContext();
   return (
     <div className="absolute right-3 top-5">
       <AlertDialog>
@@ -43,11 +43,11 @@ export default function FragmentDeleteDialog({
             <AlertDialogAction
               className="bg-red-400"
               onClick={(event) => {
-                // deletes the fragment in the database
                 event.stopPropagation();
+                // deletes the fragment in the database
                 deleteFragment(fragment);
                 // deletes the fragment in the client state
-                handleDelete(fragment.id);
+                dispatch({ type: "delete fragment" });
                 setIsFlipped(false);
               }}
             >

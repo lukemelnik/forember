@@ -4,6 +4,7 @@ import {
   increaseInterval,
   resetInterval,
 } from "../../actions/flashcard-actions";
+import { useQuizContext } from "@/app/contexts/QuizContext";
 
 export default function QuizButtons({
   fragment,
@@ -12,12 +13,13 @@ export default function QuizButtons({
   fragment: any;
   handleFlip: () => void;
 }) {
+  const { dispatch } = useQuizContext();
   return (
     <div className="absolute bottom-5 flex gap-5 text-black">
       <Button
         onClick={() => {
           increaseInterval(fragment);
-          handleRightAnswer();
+          dispatch({ type: "right answer" });
           handleFlip();
         }}
         className="group bg-green-500 shadow-md transition-all duration-300 hover:scale-105 hover:bg-green-400"
@@ -30,8 +32,8 @@ export default function QuizButtons({
       <Button
         onClick={() => {
           resetInterval(fragment.id);
-          handleWrongAnswer();
-          handleClick();
+          dispatch({ type: "wrong answer" });
+          handleFlip();
         }}
         className="group bg-red-500 shadow-md transition-all duration-300 hover:scale-105 hover:bg-red-400"
       >

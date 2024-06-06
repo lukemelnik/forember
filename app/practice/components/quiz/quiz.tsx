@@ -4,6 +4,7 @@ import { Progress } from "@/components/ui/progress";
 import QuizFinished from "./quiz-finished";
 import { useFragmentsQuizState } from "@/app/custom-hooks/useFragmentsQuizState";
 import QuizContainer from "./quiz-container";
+import { useQuizContext } from "@/app/contexts/QuizContext";
 
 export type Fragment = {
   id: string;
@@ -14,8 +15,9 @@ export type Fragment = {
 
 export default function Quiz() {
   // calulate progress for progress bar
-  const { fragments, questionNumber, quizOver, testScore } =
-    useFragmentsQuizState();
+  const {
+    state: { fragments, questionNumber, quizOver, testScore },
+  } = useQuizContext();
   const progress = Math.round((questionNumber / fragments.length) * 100);
 
   return (

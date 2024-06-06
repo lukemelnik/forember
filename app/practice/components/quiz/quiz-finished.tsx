@@ -2,8 +2,12 @@ import React from "react";
 import ReactDOM from "react-dom";
 import Confetti from "./confetti";
 import { TestScore } from "@/app/custom-hooks/usePracticeDialog";
+import { useQuizContext } from "@/app/contexts/QuizContext";
 
-export default function QuizFinished({ testScore }: { testScore: TestScore }) {
+export default function QuizFinished() {
+  const {
+    state: { testScore },
+  } = useQuizContext();
   return (
     <>
       {ReactDOM.createPortal(
