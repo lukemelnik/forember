@@ -39,7 +39,7 @@ export function useFragmentsQuizState() {
       // this should actually be moved to the db query, but I'm doing it here for now
       const filteredFragments = fragments.filter((fragment) => {
         const fragmentNextShowDay = startOfDay(
-          new Date(fragment.next_show_date)
+          new Date(fragment.next_show_date),
         );
         const today = startOfDay(new Date());
         return (
@@ -69,11 +69,13 @@ export function useFragmentsQuizState() {
   }
 
   return {
-    fragments,
-    loading,
-    deleteFromQuiz,
-    quizOver,
-    questionNumber,
-    nextQuestion,
+    quizState: {
+      fragments,
+      loading,
+      deleteFromQuiz,
+      quizOver,
+      questionNumber,
+      nextQuestion,
+    },
   };
 }

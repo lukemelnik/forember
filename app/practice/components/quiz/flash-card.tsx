@@ -1,30 +1,25 @@
 "use client";
 import { useState } from "react";
-import { Fragment } from "./quiz";
-import DeleteFragmentInQuiz from "./delete-fragment-in-quiz";
-import FlashCardWrapper from "./flashcard-wrapper";
+import DeleteFragmentInQuiz from "./fragment-delete-dialog";
 import FragmentQuestion from "./fragment-question";
 import FragmentAnswer from "./fragment-answer";
-import QuizActions from "./quiz-buttons";
+import { useQuizContext } from "@/app/contexts/QuizContext";
+import QuizButtons from "./quiz-buttons";
+import FlashCardContainer from "./flashcard-container";
+import FragmentDeleteDialog from "./fragment-delete-dialog";
 
-export default function FlashCard({
-  fragment,
-  handleClick,
-  handleDelete,
-  handleRightAnswer,
-  handleWrongAnswer,
-}: {
-  fragment: Fragment;
-  handleClick: () => void;
-  handleDelete: (id: string) => void;
-  handleRightAnswer: () => void;
-  handleWrongAnswer: () => void;
-}) {
+export default function FlashCard({ children }: { children: React.ReactNode }) {
   const [isFlipped, setIsFlipped] = useState(false);
+  const { fragments } = useQuizContext();
+  const fragment = fragments[questionNumber];
+
+  function handleFlip() {
+    setIsFlipped(!isFlipped);
+  }
 
   return (
-    <FlashCardWrapper setIsFlipped={setIsFlipped} isFlipped={isFlipped}>
-      <DeleteFragmentInQuiz
+    <FlashCardContainer setIsFlipped={setIsFlipped} isFlipped={isFlipped}>
+      <FragmentDeleteDialog
         fragment={fragment}
         handleDelete={handleDelete}
         setIsFlipped={setIsFlipped}
@@ -34,14 +29,14 @@ export default function FlashCard({
       ) : (
         <>
           <FragmentAnswer fragment={fragment} />
-          <QuizActions
-            handleClick={handleClick}
+          <QuizButtons
+            handleFlip={handleFlip}
             handleRightAnswer={handleRightAnswer}
             handleWrongAnswer={handleWrongAnswer}
             fragment={fragment}
           />
         </>
       )}
-    </FlashCardWrapper>
+    </FlashCardContainer>
   );
 }

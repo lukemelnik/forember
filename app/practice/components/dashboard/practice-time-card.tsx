@@ -45,7 +45,7 @@ export default async function PracticeWeeklyTotal({
         <CardTitle>Weekly Practice 🏋️</CardTitle>
       </CardHeader>
       <CardContent>
-        <p className="font-black text-4xl">{practiceTime}</p>
+        <p className="text-4xl font-black">{practiceTime}</p>
       </CardContent>
       <CardFooter>
         <p>Minutes</p>

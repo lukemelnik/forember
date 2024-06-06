@@ -5,16 +5,12 @@ import {
   resetInterval,
 } from "../../actions/flashcard-actions";
 
-export default function QuizActions({
+export default function QuizButtons({
   fragment,
-  handleClick,
-  handleRightAnswer,
-  handleWrongAnswer,
+  handleFlip,
 }: {
   fragment: any;
-  handleClick: () => void;
-  handleRightAnswer: () => void;
-  handleWrongAnswer: () => void;
+  handleFlip: () => void;
 }) {
   return (
     <div className="absolute bottom-5 flex gap-5 text-black">
@@ -24,10 +20,10 @@ export default function QuizActions({
           handleRightAnswer();
           handleClick();
         }}
-        className="bg-green-500 hover:bg-green-400 group shadow-md hover:scale-105 duration-300 transition-all"
+        className="group bg-green-500 shadow-md transition-all duration-300 hover:scale-105 hover:bg-green-400"
       >
         I got it{" "}
-        <span className="ml-2 text-lg group-hover:rotate-12 duration-300">
+        <span className="ml-2 text-lg duration-300 group-hover:rotate-12">
           😁
         </span>
       </Button>
@@ -37,10 +33,10 @@ export default function QuizActions({
           handleWrongAnswer();
           handleClick();
         }}
-        className="bg-red-500 hover:bg-red-400 group shadow-md hover:scale-105 duration-300 transition-all"
+        className="group bg-red-500 shadow-md transition-all duration-300 hover:scale-105 hover:bg-red-400"
       >
         I forgot{" "}
-        <span className="ml-2 text-lg group-hover:rotate-12 duration-300">
+        <span className="ml-2 text-lg duration-300 group-hover:rotate-12">
           😭
         </span>
       </Button>

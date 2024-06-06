@@ -3,8 +3,7 @@ import FlashCard from "./flash-card";
 import { Progress } from "@/components/ui/progress";
 import QuizFinished from "./quiz-finished";
 import { useFragmentsQuizState } from "@/app/custom-hooks/useFragmentsQuizState";
-import { TestScore } from "@/app/custom-hooks/usePracticeDialog";
-import QuizWrapper from "./quiz-wrapper";
+import QuizContainer from "./quiz-container";
 
 export type Fragment = {
   id: string;
@@ -13,44 +12,22 @@ export type Fragment = {
   interval: number;
 };
 
-export default function Quiz({
-  testScore,
-  handleRightAnswer,
-  handleWrongAnswer,
-}: {
-  testScore: TestScore;
-  handleRightAnswer: () => void;
-  handleWrongAnswer: () => void;
-}) {
-  // custom hook that fetchs fragments & manages quiz state
-  const {
-    fragments,
-    loading,
-    deleteFromQuiz,
-    quizOver,
-    questionNumber,
-    nextQuestion,
-  } = useFragmentsQuizState();
-
+export default function Quiz() {
   // calulate progress for progress bar
+  const { fragments, questionNumber, quizOver, testScore } =
+    useFragmentsQuizState();
   const progress = Math.round((questionNumber / fragments.length) * 100);
 
-  if (quizOver) return <QuizFinished testScore={testScore} />;
-
   return (
-    <QuizWrapper
-      loading={loading}
-      questionNumber={questionNumber}
-      fragments={fragments}
-    >
-      <Progress value={progress} className="mb-5 bg-zinc-300" />
-      <FlashCard
-        fragment={fragments[questionNumber]}
-        handleClick={nextQuestion}
-        handleDelete={deleteFromQuiz}
-        handleRightAnswer={handleRightAnswer}
-        handleWrongAnswer={handleWrongAnswer}
-      />
-    </QuizWrapper>
+    <>
+      {quizOver ? (
+        <QuizFinished testScore={testScore} />
+      ) : (
+        <QuizContainer>
+          <Progress value={progress} className="mb-5 bg-zinc-300" />
+          <FlashCard />
+        </QuizContainer>
+      )}
+    </>
   );
 }

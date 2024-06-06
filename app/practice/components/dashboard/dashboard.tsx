@@ -1,5 +1,5 @@
 import React from "react";
-import PracticeTimeCard from "./practice-weekly-total-card";
+import PracticeTimeCard from "./practice-time-card";
 import { createClient } from "@/utils/supabase/server";
 
 import RecallPercentageCard from "./recall-percentage-card";
@@ -69,7 +69,7 @@ export default async function LearningDashboard() {
 
   return (
     <>
-      <section className="grid md:grid-cols-3 gap-4">
+      <section className="grid gap-4 md:grid-cols-3">
         <WeeklySummaryCard
           sessions={sessions}
           profile={profile}

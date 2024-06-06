@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function FlashCardWrapper({
+export default function FlashCardContainer({
   isFlipped,
   setIsFlipped,
   children,
@@ -11,7 +11,7 @@ export default function FlashCardWrapper({
 }) {
   return (
     <div
-      className={`w-full h-72  rounded-xl  relative flex justify-center items-center shadow-lg   p-10 text-lg mx-auto from-zinc-100 to-zinc-300 ${isFlipped ? " bg-gradient-to-l" : "bg-gradient-to-r"}`}
+      className={`relative mx-auto flex h-72 w-full items-center justify-center rounded-xl from-zinc-100 to-zinc-300 p-10 text-lg shadow-lg ${isFlipped ? "bg-gradient-to-l" : "bg-gradient-to-r"}`}
       onClick={() => setIsFlipped(!isFlipped)}
     >
       {children}

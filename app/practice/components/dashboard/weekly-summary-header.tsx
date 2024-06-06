@@ -1,5 +1,4 @@
 import React from "react";
-import DashboardGreeting from "./dashboard-greeting";
 import { createClient } from "@/utils/supabase/server";
 import { isPast, startOfDay } from "date-fns";
 import { Button } from "@/components/ui/button";
@@ -7,8 +6,9 @@ import Link from "next/link";
 import CurrentDate from "./current-date";
 import QuizDialog from "../quiz/quiz-dialog";
 import QuizContextProvider from "@/app/contexts/QuizContext";
+import WeeklySummaryGreeting from "./weekly-summary-greeting";
 
-export default async function DashboardHeader() {
+export default async function WeeklySummaryHeader() {
   const supabase = createClient();
   const { data: profile, error } = await supabase.from("profile").select("*");
   const { data: sessions, error: sessionError } = await supabase
@@ -49,7 +49,7 @@ export default async function DashboardHeader() {
   }
   return (
     <div className="items-center justify-between sm:flex">
-      <DashboardGreeting
+      <WeeklySummaryGreeting
         username={profile && profile.length > 0 ? profile[0].first_name : null}
         fragmentCount={fragments.length}
         sessionCheck={sessions && sessions.length > 0 ? true : false}
@@ -65,9 +65,9 @@ export default async function DashboardHeader() {
             <div className="absolute inset-0 -z-10 scale-105 bg-pink-500/70 blur-lg duration-300 group-hover:scale-110 group-hover:bg-pink-500 group-hover:blur-xl"></div>
           </div>
         ) : (
-          <QuizContextProvider>
+          <QuizContextProvider fragments={fragments}>
             {" "}
-            <QuizDialog />
+            {/* <QuizDialog /> */}
           </QuizContextProvider>
         )}
       </div>

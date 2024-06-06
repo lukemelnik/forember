@@ -14,7 +14,7 @@ import {
 } from "@/components/ui/alert-dialog";
 import TrashIcon from "@/components/trash-icon";
 
-export default function DeleteFragmentInQuiz({
+export default function FragmentDeleteDialog({
   fragment,
   handleDelete,
   setIsFlipped,
@@ -24,7 +24,7 @@ export default function DeleteFragmentInQuiz({
   setIsFlipped: (value: boolean) => void;
 }) {
   return (
-    <div className="absolute top-5 right-3">
+    <div className="absolute right-3 top-5">
       <AlertDialog>
         <AlertDialogTrigger>
           <div className="text-red-600">

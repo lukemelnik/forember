@@ -4,7 +4,7 @@ import { getCurrentTime } from "@/lib/date-calculations";
 import Link from "next/link";
 import React from "react";
 
-export default function DashboardGreeting({
+export default function WeeklySummaryGreeting({
   username,
   fragmentCount,
   sessionCheck,
@@ -15,7 +15,7 @@ export default function DashboardGreeting({
 }) {
   let timeOfDay = getCurrentTime();
   return (
-    <div className="flex flex-col mb-5 sm:mb-0">
+    <div className="mb-5 flex flex-col sm:mb-0">
       {timeOfDay && username && (
         <h1>
           Good {timeOfDay} {username}

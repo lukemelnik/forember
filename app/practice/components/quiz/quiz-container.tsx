@@ -1,24 +1,18 @@
 import React from "react";
 import { Fragment } from "./quiz";
+import { useQuizContext } from "@/app/contexts/QuizContext";
 
-export default function QuizWrapper({
+export default function QuizContainer({
   children,
-  loading,
-  fragments,
-  questionNumber,
 }: {
   children: React.ReactNode;
-  loading: boolean;
-  fragments: Fragment[];
-  questionNumber: number;
 }) {
+  const { fragments, questionNumber } = useQuizContext();
   return (
     <div className="text-zinc-300">
-      {loading && <p>Loading...</p>}
-      {fragments.length === 0 && !loading && (
+      {fragments.length === 0 ? (
         <p>You're all done for the day!</p>
-      )}
-      {fragments.length > 0 && (
+      ) : (
         <>
           <p className="mb-1 text-zinc-300">
             {questionNumber} of {fragments.length}

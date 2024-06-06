@@ -16,11 +16,12 @@ import QuizContextProvider, {
 } from "@/app/contexts/QuizContext";
 
 export default function QuizDialog() {
-  const { open, setOpen, testScore, addRightAnswer, addWrongAnswer } =
-    useQuizContext();
-
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
+    <Dialog open={open} onOpenChange={(open) => {
+      if (!open) {
+        dispatch({ type: "close dialog" });
+      
+    })}>
       <DialogTrigger asChild>
         <div className="group relative z-0 max-w-[300px]">
           <Button className="z-0 w-full bg-zinc-100 p-6 text-lg text-black transition-all duration-300 group-hover:scale-105">
@@ -33,11 +34,7 @@ export default function QuizDialog() {
         <DialogHeader>
           <DialogTitle className="text-zinc-300">Daily Quiz</DialogTitle>
         </DialogHeader>
-        <Quiz
-          testScore={testScore}
-          handleRightAnswer={addRightAnswer}
-          handleWrongAnswer={addWrongAnswer}
-        />
+        <Quiz />
         <DialogFooter className="sm:justify-start">
           <DialogClose asChild>
             <Button type="button" variant="outline" className="bg-zinc-300">

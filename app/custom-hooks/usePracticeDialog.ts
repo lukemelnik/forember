@@ -37,5 +37,13 @@ export function usePracticeDialog() {
     setTestScore({ ...testScore, wrong: testScore.wrong + 1 });
   }
 
-  return { testScore, addRightAnswer, addWrongAnswer, open, setOpen };
+  return {
+    quizDialogState: {
+      testScore,
+      addRightAnswer,
+      addWrongAnswer,
+      open,
+      setOpen,
+    },
+  };
 }
