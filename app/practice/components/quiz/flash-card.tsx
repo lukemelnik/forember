@@ -14,6 +14,7 @@ export default function FlashCard() {
     state: { fragments, questionNumber },
   } = useQuizContext();
 
+  // handling flip state here to avoid every single component having to re-render
   function handleFlip() {
     setIsFlipped(!isFlipped);
   }

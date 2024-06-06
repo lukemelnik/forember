@@ -14,6 +14,7 @@ import {
 } from "@/components/ui/alert-dialog";
 import TrashIcon from "@/components/trash-icon";
 import { useQuizContext } from "@/app/contexts/QuizContext";
+import { toast } from "sonner";
 
 export default function FragmentDeleteDialog({
   fragment,

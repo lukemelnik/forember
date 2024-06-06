@@ -53,7 +53,6 @@ export async function deleteFragment(fragment: Fragment) {
       .from("fragment")
       .delete()
       .eq("id", fragment.id);
-    toast("Fragment deleted 🗑️", { duration: 2000 });
   } catch (error) {
     console.log(error);
   }

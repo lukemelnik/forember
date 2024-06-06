@@ -48,7 +48,13 @@ const reducer = (state: QuizState, action: ReducerAction) => {
       if (state.startTime) {
         practiceDialogChange(state.startTime, state.testScore);
       }
-      return { ...state, open: false, testScore: { right: 0, wrong: 0 } };
+      return {
+        ...state,
+        open: false,
+        testScore: { right: 0, wrong: 0 },
+        quizOver: false,
+        questionNumber: 0,
+      };
     case "delete fragment":
       return {
         ...state,
