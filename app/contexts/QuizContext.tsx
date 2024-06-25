@@ -4,7 +4,6 @@ import { createContext, useContext, useEffect, useReducer } from "react";
 import { Fragment } from "../practice/components/quiz/quiz";
 import { logSession } from "../practice/actions/add-session";
 import revalidatePracticePage from "../practice/actions/revalidate-practice-page";
-import { getFragmentsClient } from "@/lib/get-fragments-client";
 
 // function for logging the session and revalidating the practice page
 async function practiceDialogChange(startTime: Date, testScore: TestScore) {
@@ -41,6 +40,7 @@ const initialState: QuizState = {
   questionNumber: 0,
   quizOver: false,
 };
+
 const reducer = (state: QuizState, action: ReducerAction): QuizState => {
   switch (action.type) {
     case "data loaded":
