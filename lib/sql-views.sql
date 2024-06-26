@@ -1,8 +1,10 @@
 -- these aren't easy to keep track of in Supabase so I'm logging them here for version control
 
 -- create view that aggregates sessions so that there's only one per day
-create view
-  daily_user_sessions as
+create view 
+  daily_user_sessions 
+  with (security_invoker=on)
+  as
 select
   user_id,
   DATE(created_at) as session_date,
@@ -21,7 +23,9 @@ order by
 
   -- data for the last seven days 
 
-CREATE VIEW daily_user_sessions_last_seven_days AS
+CREATE VIEW daily_user_sessions_last_seven_days 
+with (security_invoker=on)
+AS
 SELECT
   user_id,
   DATE(created_at) AS session_date,
