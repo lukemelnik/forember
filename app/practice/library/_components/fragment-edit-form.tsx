@@ -22,6 +22,7 @@ import { toast } from "sonner";
 import { useQuizContext } from "@/app/contexts/QuizContext";
 import { cn } from "@/lib/utils";
 import { useRouter } from "next/navigation";
+import { clear } from "console";
 
 const createFragmentSchema = z.object({
   question: z
@@ -47,7 +48,7 @@ export default function FragmentEditForm({
   fragment: Fragment;
   handleEdit: () => void;
   variant: "library" | "quiz";
-  clearSearchData: () => void;
+  clearSearchData?: () => void;
 }) {
   const { dispatch } = useQuizContext();
   const router = useRouter();
@@ -77,7 +78,10 @@ export default function FragmentEditForm({
       handleEdit();
     }
     dispatch({ type: "set isEditing", payload: false });
-    clearSearchData();
+    // for the library page, clear the search data to trigger a refetch of the data
+    if (clearSearchData) {
+      clearSearchData();
+    }
   }
 
   return (
