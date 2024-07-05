@@ -36,9 +36,11 @@ const createFragmentSchema = z.object({
 export default function FragmentEditForm({
   fragment,
   handleEdit,
+  variant,
 }: {
   fragment: Fragment;
-  handleEdit?: () => void;
+  handleEdit: () => void;
+  variant: "library" | "quiz";
 }) {
   const form = useForm<z.infer<typeof createFragmentSchema>>({
     resolver: zodResolver(createFragmentSchema),
@@ -74,12 +76,16 @@ export default function FragmentEditForm({
           name="question"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Question</FormLabel>
+              <FormLabel
+                className={variant === "quiz" ? "text-black" : "text-zinc-300"}
+              >
+                Question
+              </FormLabel>
               <FormControl>
                 <Textarea
                   placeholder="Enter your question here..."
                   {...field}
-                  className="text-black"
+                  className="text-md border-2 border-black text-black"
                 />
               </FormControl>
               <FormMessage />
@@ -91,21 +97,43 @@ export default function FragmentEditForm({
           name="answer"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Answer</FormLabel>
+              <FormLabel
+                className={variant === "quiz" ? "text-black" : "text-zinc-300"}
+              >
+                Answer
+              </FormLabel>
               <FormControl>
                 <Textarea
                   placeholder="Enter your answer here..."
                   {...field}
-                  className="text-black"
+                  className="text-md min-h-min border-2 border-black text-black"
                 />
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
-        <Button type="submit" className="bg-zinc-300 text-black">
-          Save
-        </Button>
+        {variant === "quiz" ? (
+          <div className="flex justify-between">
+            <Button
+              type="submit"
+              className="bg-black text-zinc-300 hover:bg-zinc-800"
+            >
+              Save
+            </Button>
+            <Button
+              type="button"
+              onClick={() => handleEdit()}
+              className="bg-black text-zinc-300 hover:bg-zinc-800"
+            >
+              Undo
+            </Button>
+          </div>
+        ) : (
+          <Button type="submit" className="bg-zinc-300 text-black">
+            Save
+          </Button>
+        )}
       </form>
     </Form>
   );

@@ -32,7 +32,11 @@ export default function FragmentCard({ fragment }: { fragment: Fragment }) {
           </div>
         </div>
       ) : (
-        <FragmentEditForm fragment={fragment} handleEdit={handleEdit} />
+        <FragmentEditForm
+          variant="library"
+          fragment={fragment}
+          handleEdit={handleEdit}
+        />
       )}
     </div>
   );

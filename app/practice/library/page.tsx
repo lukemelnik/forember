@@ -7,18 +7,20 @@ import { set } from "date-fns";
 import { Fragment } from "../components/quiz/quiz";
 
 export default function LibraryPage() {
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState<string | null>(null);
   const [data, setData] = useState<Fragment[] | null>(null);
   const [searchError, setSearchError] = useState<string | null>(null);
   const [searching, setIsSearching] = useState(false);
 
   // useEffect to debounce the search and only send a db query after the user stops typing
   useEffect(() => {
+    if (!search) return;
+
     setIsSearching(true);
     const supabase = createClient();
     async function searchDB() {
       try {
-        const searchTerms = search.split(" ").join(" & ");
+        const searchTerms = search?.split(" ").join(" & ");
         const { data, error } = await supabase
           .from("fragment")
           .select()
@@ -54,14 +56,14 @@ export default function LibraryPage() {
       <form>
         <Input
           type="text"
-          value={search}
+          value={search ? search : ""}
           onChange={async (event) => handleSearchChange(event)}
           className="mb-5 text-black"
           placeholder="Search..."
         />
       </form>
       {searchError && <p>{searchError}</p>}
-      {searching && <p className="animate-pulse''">Searching...</p>}
+      {searching && <p className="animate-pulse">Searching...</p>}
       {data &&
         data.map((fragment) => (
           <FragmentCard fragment={fragment} key={fragment.id} />

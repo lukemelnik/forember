@@ -23,7 +23,7 @@ export default function DeleteButtonDialog({
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button className="bg-red-900">Delete</Button>
+        <Button className="bg-red-600">Delete</Button>
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>

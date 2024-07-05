@@ -66,7 +66,7 @@ export default function CreateFragmentsForm({
       )}
       <Textarea
         disabled={loading}
-        className="text-md mt-5 min-h-[800px] bg-black p-5 text-zinc-300"
+        className="text-md mt-5 bg-black p-5 text-zinc-300"
         id="notes"
         name="notes"
         placeholder="Enter your notes here and our AI will turn them into knowledge fragments."

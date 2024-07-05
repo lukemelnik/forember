@@ -58,8 +58,12 @@ export default function FlashCard() {
           </Button>
         </div>
       ) : (
-        <div className="rounded-lg border-2 border-zinc-300 p-4">
-          <FragmentEditForm fragment={fragment} handleEdit={handleEdit} />
+        <div className="rounded-xl bg-zinc-300 p-4">
+          <FragmentEditForm
+            variant="quiz"
+            fragment={fragment}
+            handleEdit={handleEdit}
+          />
         </div>
       )}
     </>
