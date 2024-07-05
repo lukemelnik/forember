@@ -8,12 +8,8 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
 import React, { useState } from "react";
 import EditableFragment from "../components/editable-fragment";
-import { toast } from "sonner";
-import revalidatePracticePage from "../actions/revalidate-practice-page";
 import GenerateInstructionsButton from "../components/create/generate-instructions-button";
 import GenerateLoadingSkeleton from "../components/create/generate-loading-skeleton";
 import CarouselContainer from "../components/create/carousel-container";
@@ -31,10 +27,7 @@ export default function AIPage() {
   // custom hook for fetching fragments from the ai model
   const {
     fragments,
-    setFragments,
-    setLoading,
     loading,
-    setFetchError,
     fetchError,
     fetchFragments,
     removeFragment,

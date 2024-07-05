@@ -1,7 +1,8 @@
 import { createClient } from "@/utils/supabase/server";
 import React from "react";
+import FragmentCard from "../components/library/fragment-card";
 
-export default async function DashboardPage() {
+export default async function LibraryPage() {
   const supabase = createClient();
   const { data, error } = await supabase.from("fragment").select("*");
   if (error) {
@@ -13,13 +14,10 @@ export default async function DashboardPage() {
     return <div>Loading...</div>;
   }
   return (
-    <div className="text-white md:p-20 max-w-3xl">
+    <div className="max-w-3xl text-white md:p-20">
       <h1 className="mb-4">Your Knowledge Library:</h1>
       {data.map((fragment) => (
-        <div key={fragment.id} className="mb-4">
-          <p className="font-bold">Q: {fragment.question}</p>
-          <p>A: {fragment.answer}</p>
-        </div>
+        <FragmentCard fragment={fragment} />
       ))}
     </div>
   );

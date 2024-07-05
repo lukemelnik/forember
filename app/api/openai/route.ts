@@ -3,7 +3,6 @@ import { redirect } from "next/navigation";
 import { NextRequest } from "next/server";
 import OpenAI from "openai";
 import { z } from "zod";
-import crypto from "crypto";
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
@@ -135,7 +134,7 @@ export async function POST(req: NextRequest) {
       status: 200,
     });
   } catch (error) {
-    if (error instanceof Error) {
+    if (error instanceof Error) { 
       console.log(error);
       return Response.json(
         { error: "Oh dang, something went wrong. Please generate again." },
