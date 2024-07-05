@@ -11,8 +11,8 @@ import {
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 import React from "react";
-import { Fragment } from "../quiz/quiz";
-import { deleteFragment } from "../../library/_actions/actions";
+import { Fragment } from "../../components/quiz/quiz";
+import { deleteFragment } from "../_actions/actions";
 
 export default function DeleteButtonDialog({
   fragment,

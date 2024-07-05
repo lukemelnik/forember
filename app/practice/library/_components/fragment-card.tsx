@@ -2,9 +2,10 @@
 
 import { Button } from "@/components/ui/button";
 import React from "react";
-import { Fragment } from "../quiz/quiz";
+import { Fragment } from "../../components/quiz/quiz";
 import { Divide } from "lucide-react";
 import DeleteButtonDialog from "./delete-button-dialog";
+import FragmentEditForm from "./fragment-edit-form";
 
 export default function FragmentCard({ fragment }: { fragment: Fragment }) {
   const [isEditing, setIsEditing] = React.useState(false);
@@ -24,7 +25,7 @@ export default function FragmentCard({ fragment }: { fragment: Fragment }) {
           <p className="italic">A: {fragment.answer}</p>
         </div>
       ) : (
-        <div>editing</div>
+        <FragmentEditForm fragment={fragment} />
       )}
 
       <div className="mt-3 flex justify-between">

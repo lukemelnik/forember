@@ -1,6 +1,6 @@
 import { createClient } from "@/utils/supabase/server";
 import React from "react";
-import FragmentCard from "../components/library/fragment-card";
+import FragmentCard from "./_components/fragment-card";
 
 export default async function LibraryPage() {
   const supabase = createClient();
