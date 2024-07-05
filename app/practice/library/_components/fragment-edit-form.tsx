@@ -29,6 +29,7 @@ const createFragmentSchema = z.object({
     .trim()
     .min(3, { message: "Answer must be at least 3 characters long" })
     .max(500, { message: "Answer must be at most 250 characters long" }),
+  id: z.string({ message: "ID must be a string" }),
 });
 
 export default function FragmentEditForm({
@@ -47,10 +48,15 @@ export default function FragmentEditForm({
   });
 
   function onSubmit(values: z.infer<typeof createFragmentSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    console.log(values);
-    handleEdit();
+    updateFragment(values, id);
+
+    // only close the edit dialog if there are no errors
+    const {
+      formState: { errors },
+    } = form;
+    if (Object.keys(errors).length === 0) {
+      handleEdit();
+    }
   }
 
   return (
