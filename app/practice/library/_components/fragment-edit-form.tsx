@@ -40,7 +40,6 @@ export default function FragmentEditForm({
   fragment: Fragment;
   handleEdit: () => void;
 }) {
-  // const [serverError, setServerError] = React.useState<string | null>(null);
   const form = useForm<z.infer<typeof createFragmentSchema>>({
     resolver: zodResolver(createFragmentSchema),
     defaultValues: {
@@ -49,28 +48,25 @@ export default function FragmentEditForm({
     },
   });
 
-  function onSubmit(values: z.infer<typeof createFragmentSchema>) {
-    console.log("SUBMITTING");
-    // const formData = new FormData();
-    // formData.append("question", values.question);
-    // formData.append("answer", values.answer);
-    // formData.append("id", fragment.id);
-    // // const result = await updateFragment(formData);
-    // // if (!result.success) {
-    // //   setServerError(result.message);
-    // // }
-    // handleEdit();
-    // // only close the edit dialog if there are no errors
-    // if (result.success) {
-    //   toast(result.message, { duration: 2000 });
-    //   handleEdit();
-    // }
+  async function onSubmit(values: z.infer<typeof createFragmentSchema>) {
+    const formData = new FormData();
+    formData.append("question", values.question);
+    formData.append("answer", values.answer);
+    formData.append("id", fragment.id);
+    const result = await updateFragment(formData);
+    if (!result.success) {
+      toast(result.message, { duration: 2000 });
+    }
+    // only close the edit dialog if there are no errors
+    if (result.success) {
+      toast(result.message, { duration: 2000 });
+      handleEdit();
+    }
   }
 
   return (
     <Form {...form}>
-      {/* {serverError && <p>{serverError}</p>} */}
-      <form onSubmit={form.handleSubmit(console.log)} className="space-y-6">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
         <FormField
           control={form.control}
           name="question"
@@ -105,7 +101,7 @@ export default function FragmentEditForm({
             </FormItem>
           )}
         />
-        <Button type="submit" className="bg-zinc-300 text-black">
+        <Button type="submit" className="animate-pulse bg-zinc-300 text-black">
           Save
         </Button>
       </form>

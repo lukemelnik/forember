@@ -13,6 +13,7 @@ import { Button } from "@/components/ui/button";
 import React from "react";
 import { Fragment } from "../../components/quiz/quiz";
 import { deleteFragment } from "../_actions/actions";
+import { toast } from "sonner";
 
 export default function DeleteButtonDialog({
   fragment,
@@ -34,11 +35,17 @@ export default function DeleteButtonDialog({
         <AlertDialogFooter>
           <AlertDialogCancel>Cancel</AlertDialogCancel>
           <AlertDialogAction
-            className="bg-red-400"
-            onClick={(event) => {
+            className="bg-red-600"
+            onClick={async (event) => {
               event.stopPropagation();
               // deletes the fragment in the database
-              deleteFragment(fragment);
+              const result = await deleteFragment(fragment);
+              if (!result.success) {
+                toast(result.message, { duration: 2000 });
+                return;
+              } else {
+                toast(result.message, { duration: 2000 });
+              }
             }}
           >
             Delete Fragment
