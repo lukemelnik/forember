@@ -20,8 +20,8 @@ export default function FragmentCard({ fragment }: { fragment: Fragment }) {
     >
       {!isEditing ? (
         <div>
-          <p className="font-bold">Q: {fragment.question}</p>
-          <p>A: {fragment.answer}</p>
+          <p className="mb-2 font-bold">Q: {fragment.question}</p>
+          <p className="italic">A: {fragment.answer}</p>
         </div>
       ) : (
         <div>editing</div>
