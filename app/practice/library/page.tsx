@@ -17,7 +17,7 @@ export default async function LibraryPage() {
     <div className="max-w-3xl text-white md:p-20">
       <h1 className="mb-4">Your Knowledge Library:</h1>
       {data.map((fragment) => (
-        <FragmentCard fragment={fragment} />
+        <FragmentCard fragment={fragment} key={fragment.id} />
       ))}
     </div>
   );

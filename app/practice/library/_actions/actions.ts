@@ -20,6 +20,7 @@ export async function deleteFragment(fragment: Fragment) {
 }
 
 export async function updateFragment(data: FormData) {
+  console.log("UPDATING FRAGMENT")
 
   const values = {
     id: data.get("id"),
@@ -30,7 +31,7 @@ export async function updateFragment(data: FormData) {
   const parsed = createFragmentSchema.safeParse(values); 
 
   if (!parsed.success) {
-    return { message: "Invalid form data, please try again." };
+    return { success: false, message: "Invalid form data, please try again." };
   }
 
   const supabase = createClient();
@@ -40,8 +41,8 @@ export async function updateFragment(data: FormData) {
       .update({question: parsed.data.question, answer: parsed.data.answer})
       .eq("id", values.id);
       revalidatePath('/library')
-      return { message: "Fragment updated successfully." };
+      return { success: true, message: "Fragment updated successfully." };
   } catch (error) {
-    console.log(error);
+    return { success: false, message: "An error occurred, please try again." };
   }
 }

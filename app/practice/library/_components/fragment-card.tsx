@@ -15,10 +15,7 @@ export default function FragmentCard({ fragment }: { fragment: Fragment }) {
   }
 
   return (
-    <div
-      key={fragment.id}
-      className="lg mb-4 rounded-lg border-2 border-zinc-300 p-4"
-    >
+    <div className="lg mb-4 rounded-lg border-2 border-zinc-300 p-4">
       {!isEditing ? (
         <div>
           <p className="mb-2 font-bold">Q: {fragment.question}</p>
