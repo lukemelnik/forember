@@ -37,7 +37,13 @@ export default function LibraryPage() {
     const supabase = createClient();
     async function searchDB() {
       try {
-        const searchTerms = search?.split(" ").join(" & ");
+        // had to remove empty space, and empty strings because split() will still include a " " in the array, its just looking for single spaces
+        const searchTerms = search
+          ?.split(" ")
+          .map((term) => term.trim())
+          .filter((term) => term !== "")
+          .join(" & ");
+        console.log(searchTerms);
         const { data, error } = await supabase
           .from("fragment")
           .select()
@@ -88,8 +94,8 @@ export default function LibraryPage() {
         placeholder="Search..."
       />
 
-      {searchError && <p>{searchError}</p>}
-      {searching && <p className="animate-pulse">Searching...</p>}
+      {searchError && search && <p>{searchError}</p>}
+      {searching && search && <p className="animate-pulse">Searching...</p>}
       {data &&
         data.map((fragment) => (
           <FragmentCard
