@@ -17,6 +17,7 @@ type TestScore = {
 };
 
 type QuizState = {
+  isEditing: boolean;
   edited: boolean;
   open: boolean;
   loading: boolean;
@@ -33,6 +34,7 @@ type ReducerAction = {
 };
 
 const initialState: QuizState = {
+  isEditing: false,
   edited: false,
   open: false,
   loading: true,
@@ -124,6 +126,12 @@ const reducer = (state: QuizState, action: ReducerAction): QuizState => {
       return {
         ...state,
         edited: !state.edited,
+      };
+    // to remove the quiz quit button when editing a fragment
+    case "set isEditing":
+      return {
+        ...state,
+        isEditing: action.payload,
       };
     default:
       throw new Error("Invalid action type");

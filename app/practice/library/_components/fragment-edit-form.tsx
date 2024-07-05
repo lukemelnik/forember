@@ -17,6 +17,7 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { updateFragment } from "../_actions/actions";
 import { toast } from "sonner";
+import { useQuizContext } from "@/app/contexts/QuizContext";
 
 const createFragmentSchema = z.object({
   question: z
@@ -42,6 +43,8 @@ export default function FragmentEditForm({
   handleEdit: () => void;
   variant: "library" | "quiz";
 }) {
+  const { dispatch } = useQuizContext();
+
   const form = useForm<z.infer<typeof createFragmentSchema>>({
     resolver: zodResolver(createFragmentSchema),
     defaultValues: {
@@ -66,6 +69,7 @@ export default function FragmentEditForm({
       toast(result.message, { duration: 2000 });
       handleEdit();
     }
+    dispatch({ type: "set isEditing", payload: false });
   }
 
   return (
@@ -123,7 +127,11 @@ export default function FragmentEditForm({
             </Button>
             <Button
               type="button"
-              onClick={() => handleEdit()}
+              // also sets the isEditing stat to false to make the quiz quit button reappear
+              onClick={() => {
+                handleEdit();
+                dispatch({ type: "set isEditing", payload: false });
+              }}
               className="bg-black text-zinc-300 hover:bg-zinc-800"
             >
               Undo

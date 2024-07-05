@@ -18,7 +18,7 @@ import { useEffect } from "react";
 
 export default function QuizDialog() {
   const {
-    state: { open, loading, edited },
+    state: { open, loading, edited, isEditing },
     dispatch,
   } = useQuizContext();
 
@@ -57,9 +57,11 @@ export default function QuizDialog() {
         {!loading && <Quiz />}
         <DialogFooter className="sm:justify-start">
           <DialogClose asChild>
-            <Button type="button" variant="outline" className="bg-zinc-300">
-              Quit
-            </Button>
+            {!isEditing && (
+              <Button type="button" variant="outline" className="bg-zinc-300">
+                Quit
+              </Button>
+            )}
           </DialogClose>
         </DialogFooter>
       </DialogContent>

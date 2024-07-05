@@ -52,7 +52,10 @@ export default function FlashCard() {
           />
           <Button
             className="absolute left-3 top-5 z-50 mx-0 my-0 h-min px-0 py-0 text-black"
-            onClick={() => setIsEditing(true)}
+            onClick={() => {
+              setIsEditing(true);
+              dispatch({ type: "set isEditing", payload: true });
+            }}
           >
             <Pencil />
           </Button>
