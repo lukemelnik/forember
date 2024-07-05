@@ -38,7 +38,7 @@ export default function FragmentEditForm({
   handleEdit,
 }: {
   fragment: Fragment;
-  handleEdit: () => void;
+  handleEdit?: () => void;
 }) {
   const form = useForm<z.infer<typeof createFragmentSchema>>({
     resolver: zodResolver(createFragmentSchema),
@@ -58,7 +58,8 @@ export default function FragmentEditForm({
       toast(result.message, { duration: 2000 });
     }
     // only close the edit dialog if there are no errors
-    if (result.success) {
+    //checking if handleEdit exists because the edit form is used elsewhere where handleEdit isn't required
+    if (result.success && handleEdit) {
       toast(result.message, { duration: 2000 });
       handleEdit();
     }

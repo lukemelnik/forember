@@ -15,6 +15,7 @@ import {
 import TrashIcon from "@/components/trash-icon";
 import { useQuizContext } from "@/app/contexts/QuizContext";
 import { toast } from "sonner";
+import { Trash2 } from "lucide-react";
 
 export default function FragmentDeleteDialog({
   fragment,
@@ -29,7 +30,7 @@ export default function FragmentDeleteDialog({
       <AlertDialog>
         <AlertDialogTrigger>
           <div className="text-red-600">
-            <TrashIcon width="25" height="25" />
+            <Trash2 />
           </div>
         </AlertDialogTrigger>
         <AlertDialogContent>
