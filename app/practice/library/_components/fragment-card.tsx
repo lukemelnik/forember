@@ -23,21 +23,20 @@ export default function FragmentCard({ fragment }: { fragment: Fragment }) {
         <div>
           <p className="mb-2 font-bold">Q: {fragment.question}</p>
           <p className="italic">A: {fragment.answer}</p>
+          <div className="mt-3 flex justify-between">
+            <Button
+              variant="default"
+              className={`bg-zinc-300 text-black ${isEditing && "animate-pulse"}`}
+              onClick={handleEdit}
+            >
+              Edit
+            </Button>
+            <DeleteButtonDialog fragment={fragment} />
+          </div>
         </div>
       ) : (
-        <FragmentEditForm fragment={fragment} />
+        <FragmentEditForm fragment={fragment} handleEdit={handleEdit} />
       )}
-
-      <div className="mt-3 flex justify-between">
-        <Button
-          variant="default"
-          className={`bg-zinc-300 text-black ${isEditing && "animate-pulse"}`}
-          onClick={handleEdit}
-        >
-          {!isEditing ? "Edit" : "Save"}
-        </Button>
-        <DeleteButtonDialog fragment={fragment} />
-      </div>
     </div>
   );
 }

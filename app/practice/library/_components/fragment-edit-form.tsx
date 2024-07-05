@@ -19,17 +19,25 @@ import { Textarea } from "@/components/ui/textarea";
 const createFragmentSchema = z.object({
   question: z
     .string()
+    .trim()
     .min(5, { message: "Question must be at least 5 characters long" })
     .max(500, {
       message: "Question must be at most 250 characters long",
     }),
   answer: z
     .string()
+    .trim()
     .min(3, { message: "Answer must be at least 3 characters long" })
     .max(500, { message: "Answer must be at most 250 characters long" }),
 });
 
-export default function FragmentEditForm({ fragment }: { fragment: Fragment }) {
+export default function FragmentEditForm({
+  fragment,
+  handleEdit,
+}: {
+  fragment: Fragment;
+  handleEdit: () => void;
+}) {
   const form = useForm<z.infer<typeof createFragmentSchema>>({
     resolver: zodResolver(createFragmentSchema),
     defaultValues: {
@@ -42,11 +50,12 @@ export default function FragmentEditForm({ fragment }: { fragment: Fragment }) {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
     console.log(values);
+    handleEdit();
   }
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
         <FormField
           control={form.control}
           name="question"
@@ -55,7 +64,7 @@ export default function FragmentEditForm({ fragment }: { fragment: Fragment }) {
               <FormLabel>Question</FormLabel>
               <FormControl>
                 <Textarea
-                  placeholder="shadcn"
+                  placeholder="Enter your question here..."
                   {...field}
                   className="text-black"
                 />
@@ -72,7 +81,7 @@ export default function FragmentEditForm({ fragment }: { fragment: Fragment }) {
               <FormLabel>Answer</FormLabel>
               <FormControl>
                 <Textarea
-                  placeholder="shadcn"
+                  placeholder="Enter your answer here..."
                   {...field}
                   className="text-black"
                 />
@@ -81,7 +90,9 @@ export default function FragmentEditForm({ fragment }: { fragment: Fragment }) {
             </FormItem>
           )}
         />
-        <Button type="submit">Submit</Button>
+        <Button type="submit" className="bg-zinc-300 text-black">
+          Save
+        </Button>
       </form>
     </Form>
   );
