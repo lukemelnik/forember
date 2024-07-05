@@ -6,8 +6,15 @@ import { Fragment } from "../../components/quiz/quiz";
 import { Divide } from "lucide-react";
 import DeleteButtonDialog from "./delete-button-dialog";
 import FragmentEditForm from "./fragment-edit-form";
+import { useQuizContext } from "@/app/contexts/QuizContext";
 
-export default function FragmentCard({ fragment }: { fragment: Fragment }) {
+export default function FragmentCard({
+  fragment,
+  clearSearchData,
+}: {
+  fragment: Fragment;
+  clearSearchData: () => void;
+}) {
   const [isEditing, setIsEditing] = React.useState(false);
 
   function handleEdit() {
@@ -24,7 +31,9 @@ export default function FragmentCard({ fragment }: { fragment: Fragment }) {
             <Button
               variant="default"
               className={`bg-zinc-300 text-black ${isEditing && "animate-pulse"}`}
-              onClick={handleEdit}
+              onClick={() => {
+                handleEdit();
+              }}
             >
               Edit
             </Button>
@@ -36,6 +45,7 @@ export default function FragmentCard({ fragment }: { fragment: Fragment }) {
           variant="library"
           fragment={fragment}
           handleEdit={handleEdit}
+          clearSearchData={clearSearchData}
         />
       )}
     </div>

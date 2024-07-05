@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import { Fragment } from "../../components/quiz/quiz";
 import { z } from "zod";
@@ -18,6 +20,8 @@ import { Textarea } from "@/components/ui/textarea";
 import { updateFragment } from "../_actions/actions";
 import { toast } from "sonner";
 import { useQuizContext } from "@/app/contexts/QuizContext";
+import { cn } from "@/lib/utils";
+import { useRouter } from "next/navigation";
 
 const createFragmentSchema = z.object({
   question: z
@@ -38,12 +42,15 @@ export default function FragmentEditForm({
   fragment,
   handleEdit,
   variant,
+  clearSearchData,
 }: {
   fragment: Fragment;
   handleEdit: () => void;
   variant: "library" | "quiz";
+  clearSearchData: () => void;
 }) {
   const { dispatch } = useQuizContext();
+  const router = useRouter();
 
   const form = useForm<z.infer<typeof createFragmentSchema>>({
     resolver: zodResolver(createFragmentSchema),
@@ -70,6 +77,7 @@ export default function FragmentEditForm({
       handleEdit();
     }
     dispatch({ type: "set isEditing", payload: false });
+    clearSearchData();
   }
 
   return (
@@ -117,31 +125,39 @@ export default function FragmentEditForm({
             </FormItem>
           )}
         />
-        {variant === "quiz" ? (
-          <div className="flex justify-between">
+        <div className="flex justify-between">
+          {variant === "quiz" ? (
             <Button
               type="submit"
               className="bg-black text-zinc-300 hover:bg-zinc-800"
             >
               Save
             </Button>
+          ) : (
             <Button
-              type="button"
-              // also sets the isEditing stat to false to make the quiz quit button reappear
-              onClick={() => {
-                handleEdit();
-                dispatch({ type: "set isEditing", payload: false });
-              }}
-              className="bg-black text-zinc-300 hover:bg-zinc-800"
+              type="submit"
+              className="bg-zinc-300 text-black hover:bg-zinc-400"
             >
-              Undo
+              Save
             </Button>
-          </div>
-        ) : (
-          <Button type="submit" className="bg-zinc-300 text-black">
-            Save
+          )}
+          <Button
+            type="button"
+            variant="outline"
+            // also sets the isEditing stat to false to make the quiz quit button reappear
+            onClick={() => {
+              handleEdit();
+              dispatch({ type: "set isEditing", payload: false });
+            }}
+            className={cn(
+              "border-2 border-black bg-zinc-300 text-black hover:bg-zinc-400",
+              variant === "library" &&
+                "border-zinc-300 bg-black text-zinc-300 hover:bg-zinc-800",
+            )}
+          >
+            Undo
           </Button>
-        )}
+        </div>
       </form>
     </Form>
   );
