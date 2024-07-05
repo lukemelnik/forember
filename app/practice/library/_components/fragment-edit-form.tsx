@@ -49,6 +49,7 @@ export default function FragmentEditForm({
   });
 
   async function onSubmit(values: z.infer<typeof createFragmentSchema>) {
+    // convert the values from RHF -> server actions expect formData
     const formData = new FormData();
     formData.append("question", values.question);
     formData.append("answer", values.answer);
@@ -102,7 +103,7 @@ export default function FragmentEditForm({
             </FormItem>
           )}
         />
-        <Button type="submit" className="animate-pulse bg-zinc-300 text-black">
+        <Button type="submit" className="bg-zinc-300 text-black">
           Save
         </Button>
       </form>
