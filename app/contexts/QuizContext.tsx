@@ -17,6 +17,7 @@ type TestScore = {
 };
 
 type QuizState = {
+  edited: boolean;
   open: boolean;
   loading: boolean;
   testScore: TestScore;
@@ -32,6 +33,7 @@ type ReducerAction = {
 };
 
 const initialState: QuizState = {
+  edited: false,
   open: false,
   loading: true,
   testScore: { right: 0, wrong: 0 },
@@ -116,6 +118,12 @@ const reducer = (state: QuizState, action: ReducerAction): QuizState => {
         ...state,
         questionNumber: state.questionNumber + 1,
         testScore: { ...state.testScore, wrong: state.testScore.wrong + 1 },
+      };
+    // if a fragment is edited, flip the edited state and it will trigger a refetch of the data in the quiz-dialog component
+    case "edit fragment":
+      return {
+        ...state,
+        edited: !state.edited,
       };
     default:
       throw new Error("Invalid action type");

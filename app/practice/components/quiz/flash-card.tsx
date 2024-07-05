@@ -16,6 +16,7 @@ export default function FlashCard() {
   const [isEditing, setIsEditing] = useState(false);
   const {
     state: { fragments, questionNumber },
+    dispatch,
   } = useQuizContext();
 
   // handling flip state here to avoid every single component having to re-render
@@ -24,6 +25,8 @@ export default function FlashCard() {
   }
   function handleEdit() {
     setIsEditing(!isEditing);
+    // flip the state.edited boolean to trigger a refetch in the quiz-dialog component. edited is a dependency for the useEffect doing the fetching.
+    dispatch({ type: "edit fragment" });
   }
 
   // grab the current question:

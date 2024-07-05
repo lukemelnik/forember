@@ -18,7 +18,7 @@ import { useEffect } from "react";
 
 export default function QuizDialog() {
   const {
-    state: { open, loading },
+    state: { open, loading, edited },
     dispatch,
   } = useQuizContext();
 
@@ -29,7 +29,7 @@ export default function QuizDialog() {
       dispatch({ type: "data loaded", payload: fragments });
     }
     getFragmnents();
-  }, [open]);
+  }, [open, edited]);
 
   return (
     <Dialog
