@@ -1,50 +1,50 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Input } from "@/components/ui/input";
 import FragmentCard from "./_components/fragment-card";
 import { createClient } from "@/utils/supabase/client";
+import { set } from "date-fns";
+import { Fragment } from "../components/quiz/quiz";
 
 export default function LibraryPage() {
   const [search, setSearch] = useState("");
-  const [data, setData] = useState([]);
-  const [searchError, setSearchError] = useState(null);
+  const [data, setData] = useState<Fragment[] | null>(null);
+  const [searchError, setSearchError] = useState<string | null>(null);
+  const [searching, setIsSearching] = useState(false);
 
-  function debounce(callback: () => void, delay: number) {
-    let timeoutId;
-
-    return function () {
-      clearTimeout(timeoutId);
-      timeoutId = setTimeout(callback, delay);
-    };
-  }
-  async function handleSearchChange(
-    event: React.ChangeEvent<HTMLInputElement>,
-  ) {
-    setSearchError(null);
-    setData([]);
-    console.log(event.target.value);
+  // useEffect to debounce the search and only send a db query after the user stops typing
+  useEffect(() => {
+    setIsSearching(true);
     const supabase = createClient();
-
-    setSearch(event.target.value);
-
     async function searchDB() {
       try {
-        const searchTerms = event.target.value.split(" ").join(" & ");
+        const searchTerms = search.split(" ").join(" & ");
         const { data, error } = await supabase
           .from("fragment")
           .select()
           .textSearch("question", `${searchTerms}`);
-        if (data.length === 0) {
-          throw new Error("No results found");
+        // notify user if no results are found so they know it's working
+        if (!data || data.length === 0) {
+          setSearchError("No results found");
+        }
+        // remove the error message if the user clears the search
+        if (search === "") {
+          setSearchError(null);
         }
         setData(data);
+        setIsSearching(false);
       } catch (error) {
         console.log(error);
-        setSearchError(error);
       }
     }
-    const debouncedSearch = debounce(searchDB, 1000);
-    debouncedSearch();
+    const dbSearchTimeout = setTimeout(searchDB, 500);
+    return () => clearTimeout(dbSearchTimeout);
+  }, [search]);
+
+  function handleSearchChange(event: React.ChangeEvent<HTMLInputElement>) {
+    setData([]);
+    setSearchError(null);
+    setSearch(event.target.value);
   }
 
   return (
@@ -60,7 +60,8 @@ export default function LibraryPage() {
           placeholder="Search..."
         />
       </form>
-      {searchError && <p>{searchError.message}</p>}
+      {searchError && <p>{searchError}</p>}
+      {searching && <p className="animate-pulse''">Searching...</p>}
       {data &&
         data.map((fragment) => (
           <FragmentCard fragment={fragment} key={fragment.id} />
