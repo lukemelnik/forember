@@ -37,7 +37,10 @@ export default function FragmentCard({
             >
               Edit
             </Button>
-            <DeleteButtonDialog fragment={fragment} />
+            <DeleteButtonDialog
+              fragment={fragment}
+              clearSearchData={clearSearchData}
+            />
           </div>
         </div>
       ) : (

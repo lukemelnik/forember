@@ -17,8 +17,10 @@ import { toast } from "sonner";
 
 export default function DeleteButtonDialog({
   fragment,
+  clearSearchData,
 }: {
   fragment: Fragment;
+  clearSearchData?: () => void;
 }) {
   return (
     <AlertDialog>
@@ -38,6 +40,7 @@ export default function DeleteButtonDialog({
             className="bg-red-600"
             onClick={async (event) => {
               event.stopPropagation();
+
               // deletes the fragment in the database
               const result = await deleteFragment(fragment);
               if (!result.success) {
@@ -45,6 +48,10 @@ export default function DeleteButtonDialog({
                 return;
               } else {
                 toast(result.message, { duration: 2000 });
+                // force the library page to refectch the data so the deleted fragment doesn't persist
+                if (clearSearchData) {
+                  clearSearchData();
+                }
               }
             }}
           >

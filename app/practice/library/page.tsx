@@ -23,7 +23,6 @@ export default function LibraryPage() {
 
   // when the use finishes editing a fragment, we want to refetch the data to update the UI, but also keep the search query, so I'm storing it in the URL and using router.push() to update the URL
   useEffect(() => {
-    console.log("params useEffect ran!");
     if (searchParams.has("search")) {
       setSearch(searchParams.get("search"));
     }
@@ -43,7 +42,6 @@ export default function LibraryPage() {
           .map((term) => term.trim())
           .filter((term) => term !== "")
           .join(" & ");
-        console.log(searchTerms);
         const { data, error } = await supabase
           .from("fragment")
           .select()
