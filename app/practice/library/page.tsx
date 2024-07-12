@@ -5,10 +5,7 @@ import FragmentCard from "./_components/fragment-card";
 import { createClient } from "@/utils/supabase/client";
 import { set } from "date-fns";
 import { Fragment } from "../components/quiz/quiz";
-import { useQuizContext } from "@/app/contexts/QuizContext";
-import { useSearchParam } from "react-use";
 import { useRouter, useSearchParams } from "next/navigation";
-import { Button } from "@/components/ui/button";
 
 export default function LibraryPage() {
   // this could likely be refactored to remove the search state
@@ -42,10 +39,23 @@ export default function LibraryPage() {
           .map((term) => term.trim())
           .filter((term) => term !== "")
           .join(" & ");
-        const { data, error } = await supabase
+        const { data, error: questionError } = await supabase
           .from("fragment")
           .select()
           .textSearch("question", `${searchTerms}`);
+
+        // this extra code was to initiate a second search on the 'answer' column, but combining them caused a typescript error. Not sure why the type is fine with a single query but not two...
+
+        // const { data: answers, error: answerError } = await supabase
+        //   .from("fragment")
+        //   .select()
+        //   .textSearch("answer", `${searchTerms}`);
+        // // combine the results from the two column queries
+        // let data : Fragment[];
+        // if (questions && answers) {
+        //   data = [...questions, ...answers];
+        // }
+
         // notify user if no results are found so they know it's working
         if (!data || data.length === 0) {
           setSearchError("No results found");
