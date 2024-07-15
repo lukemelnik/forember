@@ -56,7 +56,7 @@ export default function WelcomeMessage() {
             <li>
               Clicking reset below will reinitialize the account data and
               pre-load a few javascript questions so you can try out the spaced
-              repetition feature.
+              repetition feature
             </li>
             <li>
               Visit the{" "}
@@ -66,7 +66,7 @@ export default function WelcomeMessage() {
               >
                 Create Fragments
               </Link>{" "}
-              page to add your own.
+              page to add your own
             </li>
             <li>
               Check out the{" "}
@@ -76,7 +76,7 @@ export default function WelcomeMessage() {
               >
                 Library
               </Link>{" "}
-              page to search the knowledge base using full text search
+              page to search the knowledge base using full-text search
             </li>
           </ul>
           <form
