@@ -5,6 +5,7 @@ import resetTestAccount from "../actions/reset-test-account";
 import { Button } from "@/components/ui/button";
 import { useFormState } from "react-dom";
 import { toast } from "sonner";
+import Link from "next/link";
 
 export default function WelcomeMessage() {
   const [hideMessage, setHideMessage] = useState(false);
@@ -43,29 +44,48 @@ export default function WelcomeMessage() {
       {hideMessage && (
         <Button
           onClick={() => setHideMessage(false)}
-          className="bg-black border-2 border-zinc-300 text-zinc-300 shadow-md mt-3 hover:bg-zinc-800 text-lg p-6"
+          className="mt-3 border-2 border-zinc-300 bg-black p-6 text-lg text-zinc-300 shadow-md hover:bg-zinc-800"
         >
           Show Reset Dialogue
         </Button>
       )}
       {!hideMessage && (
-        <div className="text-black bg-zinc-100  max-w-3xl p-5 rounded-lg relative">
+        <div className="relative max-w-3xl rounded-lg bg-zinc-100 p-5 text-black">
           <h1>Welcome! You're signed in with the test account.</h1>
-          <p className="mt-3">
-            Clicking reset below will reinitialize the account data and pre-load
-            a few javascript questions so you can try out the spaced repetition
-            dialog below.
-          </p>
-          <p className="mt-3">
-            You can also visit the 'Create With AI' page to add your own.
-          </p>
+          <ul className="list-disc p-5">
+            <li>
+              Clicking reset below will reinitialize the account data and
+              pre-load a few javascript questions so you can try out the spaced
+              repetition feature.
+            </li>
+            <li>
+              Visit the{" "}
+              <Link
+                className="font-bold hover:underline"
+                href="/practice/create"
+              >
+                Create Fragments
+              </Link>{" "}
+              page to add your own.
+            </li>
+            <li>
+              Check out the{" "}
+              <Link
+                className="font-bold hover:underline"
+                href="/practice/library"
+              >
+                Library
+              </Link>{" "}
+              page to search the knowledge base using full text search
+            </li>
+          </ul>
           <form
             action={async () => {
               action();
             }}
           >
             <Button
-              className="bg-black text-zinc-300 shadow-md mt-3 hover:bg-zinc-800"
+              className="mt-3 bg-black text-zinc-300 shadow-md hover:bg-zinc-800"
               disabled={resetting}
               onClick={handleResetClick}
             >
@@ -74,7 +94,7 @@ export default function WelcomeMessage() {
           </form>
           <Button
             onClick={() => setHideMessage(true)}
-            className="border-2 border-black shadow-md mt-3 hover:bg-zinc-300 absolute bottom-5 right-5"
+            className="absolute bottom-5 right-5 mt-3 border-2 border-black shadow-md hover:bg-zinc-300"
           >
             Hide Message
           </Button>
