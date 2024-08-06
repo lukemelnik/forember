@@ -31,7 +31,7 @@ SELECT
   DATE(created_at) AS session_date,
   TO_CHAR(DATE(created_at), 'Month DD') AS month_and_day,
   COUNT(session_id) AS session_count,
-  ROUND(SUM(session_duration) / 60) AS total_session_duration_minutes,
+  ROUND(SUM(session_duration) /(60*1000)) AS total_session_duration_minutes,
   SUM(total_questions) AS total_questions,
   SUM(right_answers) AS total_right_answers
 FROM
