@@ -97,7 +97,7 @@ create or replace view "public"."daily_user_sessions_last_seven_days" as  SELECT
     practice_session.created_at AS session_date,
     to_char((practice_session.created_at)::timestamp with time zone, 'Month DD'::text) AS month_and_day,
     count(practice_session.session_id) AS session_count,
-    round(((sum(practice_session.session_duration) / 60))::double precision) AS total_session_duration_minutes,
+    round(((sum(practice_session.session_duration) / (60*1000)))::double precision) AS total_session_duration_minutes,
     sum(practice_session.total_questions) AS total_questions,
     sum(practice_session.right_answers) AS total_right_answers
    FROM practice_session
