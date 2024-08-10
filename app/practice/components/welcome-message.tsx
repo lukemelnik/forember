@@ -46,7 +46,7 @@ export default function WelcomeMessage() {
           onClick={() => setHideMessage(false)}
           className="mt-3 border-2 border-zinc-300 bg-black p-6 text-lg text-zinc-300 shadow-md hover:bg-zinc-800"
         >
-          Show Reset Dialogue
+          Show Test Account Info
         </Button>
       )}
       {!hideMessage && (
