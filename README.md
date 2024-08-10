@@ -1,10 +1,6 @@
 # Forember - An AI-powered Spaced Repetition App
 
----
-
 ![A picture of the Forember dashboard](./forember-dashboard.png)
-
----
 
 ## What I Learned
 
