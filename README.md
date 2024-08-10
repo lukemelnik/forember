@@ -6,7 +6,7 @@
 
 ---
 
-I learned so much with this project.
+## What I Learned
 
 - Nextjs
   - server components
