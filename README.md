@@ -1,6 +1,8 @@
 # Forember - An AI-powered Spaced Repetition App
 
-![A picture of the Forember dashboard](./forember-dashboard.png)
+[![A picture of the Forember dashboard](./forember-dashboard.png)](https://forember-9vyt.vercel.app/)
+
+## [Try It Live Here ->](https://forember-9vyt.vercel.app/)
 
 ## What I Learned
 
