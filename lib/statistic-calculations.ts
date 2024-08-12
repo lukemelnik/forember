@@ -75,6 +75,7 @@ export function getStreak(sessionDates: { session_date: string }[]) {
 }
 
 export function calculateUserData(sessions: DailySession[], timeframe: number) {
+  // -timeframe selects sessions from the most recent backwards
   const userData = sessions.slice(-timeframe).map((session) => {
     const recallPerecentage = Math.round(
       (session.total_right_answers / session.total_questions) * 100,
