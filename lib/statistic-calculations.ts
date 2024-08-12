@@ -3,7 +3,7 @@ import {
   Session,
 } from "@/app/practice/components/dashboard/dashboard";
 import { uniqueSession } from "@/app/practice/components/dashboard/streak-card";
-import { format, isThisWeek, isYesterday, startOfDay } from "date-fns";
+import { format, isThisWeek, isYesterday, startOfDay, differenceInDays } from "date-fns";
 
 export function getRecallAverage(sessions: DailySession[]) {
   const totalRight = sessions.reduce(
@@ -45,37 +45,33 @@ export function getAverageFragmentsReviewed(dailySessions: Session[]) {
 }
 
 export function getStreak(sessionDates: { session_date: string }[]) {
-  let streak = 0;
-  // calculate number of milliseconds in a day
-  const MILLISECONDS_PER_DAY = 86400000;
-  // if there are no sessions the streak is 0
-  if (sessionDates.length === 0) return streak;
-  // get today's date with no timezone & time
-  const today = format(new Date(), "yyyy-MM-dd");
-  let todayWithTime = new Date(today);
-  const mostRecentSession = new Date(sessionDates[0].session_date);
-  // if the user did a session today their streak is 1
-  // MUST CONVERT FROM AN OBJECT TO A STRING or they won't be equivalent
-  if (mostRecentSession.getTime() === todayWithTime.getTime()) {
-    streak = 1;
-  }
+  if (sessionDates.length === 0) return 0;
+  const DAY_IN_MS = 24 * 60 * 60 * 1000;
 
-  for (let i = 0; i < sessionDates.length - 1; i++) {
-    if (!sessionDates[i + 1]) return streak;
-    let currentDate = new Date(sessionDates[i].session_date);
-    let datePlusOne = new Date(sessionDates[i + 1].session_date);
-    const dateDifference = currentDate.getTime() - datePlusOne.getTime();
-    if (dateDifference === MILLISECONDS_PER_DAY) {
+  const today = startOfDay(new Date());
+  let streak = 0;
+  let previousDate = today;
+
+  for (const { session_date } of sessionDates) {
+    const currentDate = startOfDay(new Date(session_date));
+    const dayDifference = previousDate.getTime() - currentDate.getTime();
+    console.log(dayDifference);
+
+    // if latest session is today, dayDifference will be 0, otherwise = DAY_IN_MS
+    if (dayDifference <= DAY_IN_MS) {
       streak++;
+      previousDate = currentDate;
     } else {
-      return streak;
+      break;
     }
   }
+
   return streak;
 }
 
-export function calculateUserData(sessions: DailySession[], timeframe: number) {
+export function addRecallPercentage(sessions: DailySession[], timeframe: number) {
   // -timeframe selects sessions from the most recent backwards
+  // this function just calculates the recall percentage for each session and passes back an array to be displayed in the dashboard. 
   const userData = sessions.slice(-timeframe).map((session) => {
     const recallPerecentage = Math.round(
       (session.total_right_answers / session.total_questions) * 100,

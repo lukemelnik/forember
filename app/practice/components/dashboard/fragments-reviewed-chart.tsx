@@ -13,7 +13,7 @@ import {
   YAxis,
 } from "recharts";
 import { DailySession } from "./dashboard";
-import { calculateUserData } from "@/lib/statistic-calculations";
+import { addRecallPercentage } from "@/lib/statistic-calculations";
 
 export default function FragmentsReviewedChart({
   sessions,
@@ -22,11 +22,11 @@ export default function FragmentsReviewedChart({
   sessions: DailySession[];
   timeframe: number;
 }) {
-  const userData = calculateUserData(sessions, timeframe);
+  const userData = addRecallPercentage(sessions, timeframe);
 
   return (
     <div className="w-full lg:w-1/2">
-      <h2 className="text-xl ml-12 mb-3">Fragments Per Day</h2>
+      <h2 className="mb-3 ml-12 text-xl">Fragments Per Day</h2>
       <ResponsiveContainer width="100%" height={250}>
         <AreaChart width={500} height={250} data={userData} className="-ml-4">
           <Area
